@@ -63,7 +63,11 @@ sudo service docker reload
 
 ### 初始化集群
 #### master节点
-1. sudo kubeadm init --pod-network-cidr=192.168.0.0/16（还有其他参数可以加。。。）
+1. sudo kubeadm init 
+	--pod-network-cidr=192.168.0.0/16    //pod网络可以使用的地址段
+	--kubernetes-version=1.15.0  //kubernetes版本
+	--apiserver-advertise-address=public_address //API Server将要广播的监听地址。如指定为 `0.0.0.0` 将使用缺省的网卡地址， 可以指定公网ip
+	--ignore-preflight-errors //忽略错误
 2. 已经init完，可以通过`kubeadm token create --print-join-command`获取token
 
 #### node节点
@@ -73,7 +77,8 @@ sudo kubeadm join 172.20.245.50:6443 --token hsf26a.7la0qux76fnm0wko     --disco
 原因：　无法拉取包
 解决办法： 
 1. fq(百度，github)
-2. 本地先拉去下来，然后替换（https://blog.csdn.net/jinguangliu/article/details/82792617)
+2. 本地先拉去下来，然后替换（ https://blog.csdn.net/jinguangliu/article/details/82792617 )
+3. 通过shell批量啦去删除（ https://ystyle.top/2018/07/02/pre-download-kubernetes-image ）
 
 #### node not ready排查
 master节点上：　`kubectl describe nodes node-name` 查看node的详细信息
