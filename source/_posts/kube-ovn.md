@@ -36,8 +36,8 @@ Kube-OVN 在安装时会配置两个内置子网：
 - http://www.sohu.com/a/129910066_515888 //cni结构图
 - https://blog.csdn.net/fy_long/article/details/86498976 //关于k8s网络
 - https://segmentfault.com/a/1190000017182169 //关于CNI的内容
-- http://maoqide.live/post/cloud/sample-controller //自定义资源(有图有真相)
-- https://blog.csdn.net/boling_cavalry/article/details/88934063 //也是自定义资源的
-- https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/ //英文　自定义资源
-- https://jimmysong.io/kubernetes-handbook/concepts/crd.html
 - https://juejin.im/post/5daf8a8d6fb9a04e366a49a8
+- https://blog.csdn.net/Ay_Ly/article/details/89393281
+- https://blog.csdn.net/rocson001/article/details/73163041
+- https://www.sdnlab.com/19765.html
+- https://neuvector.com/network-security/advanced-kubernetes-networking/
