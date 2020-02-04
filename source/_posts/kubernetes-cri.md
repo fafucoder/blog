@@ -5,6 +5,8 @@ tags:
 - kubernetes
 - cri
 - containerd
+categories:
+- kubernetes
 ---
 
 ### k8s工作原理
@@ -132,3 +134,4 @@ CRI shim 中对 Streaming API 的实现,依赖于一套独立的 Streaming Serve
 - https://feisky.gitbooks.io/kubernetes/plugins/CRI.html  //容器运行时文档(推荐阅读）
 - https://www.cnblogs.com/zll-0405/p/10786541.html  //[Kubernetes] CRI 的设计与工作原理
 - https://www.cnblogs.com/justinli/p/11578951.html   //kubernetes CRI 前世今生
+- https://cloud.tencent.com/developer/article/1579900   //Extend Kubernetes - CRI（深度好文）

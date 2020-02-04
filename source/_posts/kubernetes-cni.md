@@ -4,6 +4,8 @@ date: 2020-02-02 19:08:23
 tags:
 - kubernetes
 - cni
+categories:
+- kubernetes
 ---
 
 ### CNI配置
@@ -173,7 +175,7 @@ main是实现了某种特定网络功能的插件; meta本身并不会提供具�
 [kubelet调用CNI结构图](https://ask.qcloudimg.com/http-save/1319879/v7z4zcvwc1.png)
 [kubelet调用CNI模型](http://upload-images.jianshu.io/upload_images/3611024-8026258c0424f952.png)
 
-在容器运行时，会调用CNI插件为sanbox容器配置网络
+在容器运行时(CRI)，会调用CNI插件为sanbox容器配置网络
 
 [kubelet调用CNI流程图](http://upload-images.jianshu.io/upload_images/3611024-c344ae56935dc1b5.png)
 
@@ -182,3 +184,5 @@ main是实现了某种特定网络功能的插件; meta本身并不会提供具�
 - https://wiki.opskumu.com/kubernetes/wang-luo-fang-an/src-kubelet-cni //Kubelet CNI 源码解析
 - https://zhuanlan.zhihu.com/p/34085344  //kubernetes源码阅读 kubelet对cni的实现
 - https://www.jianshu.com/p/1919fb8a48ea  //Kubelet 对CNI的实现
+- https://yucs.github.io/2017/12/06/2017-12-6-CNI/  //Kubernetes网络插件CNI调研整理
+- https://blog.csdn.net/waltonwang/article/details/72669826  //从源码看kubernetes与CNI Plugin的集成

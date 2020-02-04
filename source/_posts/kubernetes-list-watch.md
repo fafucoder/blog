@@ -4,6 +4,8 @@ date: 2020-01-31 14:45:38
 tags:
 - kubernetes
 - list-watch
+categories:
+- kubernetes
 ---
 
 ### kubernetes的运行流程

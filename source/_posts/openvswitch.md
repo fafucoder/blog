@@ -5,6 +5,9 @@ tags:
 - kube-ovn
 - kubernetes
 - openvswitch
+categories:
+- kubernetes
+- kube-ovn
 ---
 
 ### 参考文档

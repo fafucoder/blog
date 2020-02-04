@@ -4,6 +4,8 @@ date: 2020-01-31 13:08:29
 tags:
 - kubernetes
 - crd
+categories:
+- kubernetes
 ---
 
 ### CRD简介

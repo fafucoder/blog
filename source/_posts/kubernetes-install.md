@@ -2,7 +2,10 @@
 title: kubeadm搭建kubernetes环境(ubuntu)
 date: 2020-01-10 11:39:01
 tags:
-- kubebernetes
+- kubernetes
+- 环境搭建
+categories:
+- kubernetes
 - 环境搭建
 ---
 

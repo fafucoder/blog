@@ -5,6 +5,8 @@ tags:
 - kubernetes
 - client-go
 - crd
+categories:
+- kubernetes
 ---
 
 ### 参考文档
