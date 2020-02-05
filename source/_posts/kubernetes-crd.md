@@ -266,3 +266,4 @@ func (c *Controller) syncHandler(key string) error {
 - http://maoqide.live/post/cloud/sample-controller/  //CRD的实现原理， 以及简要代码
 - https://jimmysong.io/kubernetes-handbook/concepts/crd.html   //CRD的文档
 - https://www.jianshu.com/p/cc7eea6dd1fb  //如何定义一个crd
+- https://juejin.im/post/5daf8a8d6fb9a04e366a49a8  //编写crd

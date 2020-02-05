@@ -18,6 +18,7 @@ categories:
 (ovs命令)
 - https://juejin.im/post/5ca1a4e5518825440b3b0641   （kube-ovn 对于ovs网络的使用）
 - http://www.rendoumi.com/open-vswitchde-ovs-vsctlming-ling-xiang-jie/
+- https://blog.csdn.net/rocson001/article/details/73163041
 
 (如何创建ovs网络)
 - https://www.sdnlab.com/sdn-guide/14747.html (如何创建一个ovs网络，可以跟着敲)
