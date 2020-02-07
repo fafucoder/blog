@@ -22,6 +22,9 @@ categories:
 
 (如何创建ovs网络)
 - https://www.sdnlab.com/sdn-guide/14747.html (如何创建一个ovs网络，可以跟着敲)
-- https://www.sdnlab.com/19157.html (如何传见ovn, ovs, 可以跟着敲)
+- https://www.sdnlab.com/19157.html (如何创建ovn, ovs, 可以跟着敲)
 - https://segmentfault.com/a/1190000020231875?utm_source=tag-newest
 - https://segmentfault.com/a/1190000019612525?utm_source=tag-newest
+
+(创建ovn网络)
+- https://www.li-rui.top/2018/12/14/network/ovn%E4%BD%BF%E7%94%A8/
