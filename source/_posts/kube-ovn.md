@@ -44,3 +44,4 @@ Kube-OVN 采用了一个 Namespace 一个子网的模型，子网是可以跨节
 - http://weekly.dockerone.com/article/9076  //关于kube-ovn的网络架构和工作原理
 - https://github.com/alauda/kube-ovn/wiki   //kube-ovn如何使用
 - https://neuvector.com/network-security/advanced-kubernetes-networking/  //其他网络插件流程
+- https://www.jianshu.com/p/a58514b34f54 //从cni到ovn网络
