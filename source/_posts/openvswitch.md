@@ -28,3 +28,6 @@ categories:
 
 (创建ovn网络)
 - https://www.li-rui.top/2018/12/14/network/ovn%E4%BD%BF%E7%94%A8/
+
+(ovs端口类型)
+- https://www.fuuyun.org/?p=620
