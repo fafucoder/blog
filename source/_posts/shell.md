@@ -3,7 +3,8 @@ title: Linux shell编程
 date: 2020-04-03 09:29:31
 tags:
 - linux
-- shell
+categories:
+- linux
 ---
 
 ### 常见特殊符号

@@ -2,7 +2,9 @@
 title: vim常用命令
 date: 2020-03-28 23:18:59
 tags:
-- vim
+- linux
+categories:
+- linux
 ---
 
 1. 上下行切换(光标在上行，其与下行交换)
