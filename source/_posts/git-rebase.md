@@ -3,7 +3,8 @@ title: git-rebase使用
 date: 2020-03-28 23:35:18
 tags:
 - git
-- rebase
+categories:
+- git
 ---
 
 ### git rebase注意事项

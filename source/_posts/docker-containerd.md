@@ -3,7 +3,8 @@ title: docker容器运行时containerd
 date: 2020-01-31 15:51:26
 tags:
 - docker
-- containerd
+categories:
+- docker
 ---
 
 ### container概念

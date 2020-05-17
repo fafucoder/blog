@@ -3,10 +3,8 @@ title: linux nsenter命令
 date: 2020-05-09 22:24:35
 tags:
 - linux
-- kubernetes
 categories:
 - linux
-- kubernetes
 ---
 
 ### 问题概述
