@@ -7,8 +7,6 @@ categories:
 - linux
 ---
 
-### 
-
 ### 参考文档
 - https://medium.com/@teddyking/linux-namespaces-850489d3ccf   //namespace 概念
 - https://github.com/teddyking/ns-process  //namespace 源代码

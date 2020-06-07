@@ -70,3 +70,4 @@ iptables --line-numbers -t 表名 -n(不解析ip) -v(详细信息) -L 链名
 ### 参考文档
 - http://www.zsythink.net/archives/1199 // iptables概念
 - http://www.zsythink.net/archives/1493 // iptables查询
+- https://blog.csdn.net/guochunyang/article/details/49867707 // iptables规则
