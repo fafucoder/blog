@@ -2,6 +2,9 @@
 title: helm
 date: 2020-04-13 12:41:47
 tags:
+- kubernetes
+categories:
+- kubernetes
 ---
 
 ### 参考网址

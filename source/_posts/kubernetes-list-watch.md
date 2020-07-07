@@ -3,7 +3,6 @@ title: kubernetes中list-watch机制
 date: 2020-01-31 14:45:38
 tags:
 - kubernetes
-- list-watch
 categories:
 - kubernetes
 ---

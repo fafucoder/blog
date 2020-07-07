@@ -3,7 +3,6 @@ title: kubernetes-kubevirt
 date: 2020-02-03 16:17:56
 tags:
 - kubernetes
-- kubevirt
 categories:
 - kubernetes
 ---
