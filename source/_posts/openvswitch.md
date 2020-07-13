@@ -3,10 +3,7 @@ title: openvswitch
 date: 2020-01-31 12:58:09
 tags:
 - kube-ovn
-- kubernetes
-- openvswitch
 categories:
-- kubernetes
 - kube-ovn
 ---
 

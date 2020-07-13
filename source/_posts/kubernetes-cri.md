@@ -3,8 +3,6 @@ title: kubernetes容器运行时containerd
 date: 2020-01-31 15:46:25
 tags:
 - kubernetes
-- cri
-- containerd
 categories:
 - kubernetes
 ---

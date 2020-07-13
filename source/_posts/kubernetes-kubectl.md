@@ -7,7 +7,6 @@ categories:
 - kubernetes
 ---
 
-
 ### 参考文档
 - https://www.cnblogs.com/weifeng1463/p/10359581.html //drain
 - https://blog.csdn.net/miss1181248983/article/details/88181434

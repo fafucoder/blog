@@ -3,7 +3,6 @@ title: kubernetes api server接口交互
 date: 2020-02-04 16:53:12
 tags:
 - kubernetes
-- api-server
 categories:
 - kubernetes
 ---

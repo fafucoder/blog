@@ -2,7 +2,9 @@
 title: xvlan
 date: 2020-04-05 16:00:42
 tags:
-- xvlan
+- linux
+categoies:
+- linux
 ---
 
 ### 参考文档

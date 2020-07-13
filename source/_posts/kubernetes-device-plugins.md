@@ -3,8 +3,8 @@ title: kubernetes中device-plugins原理解析
 date: 2020-03-04 12:43:04
 tags:
 - kubernetes
-- kubelet
-- device-plugins
+categories:
+- kubernetes
 ---
 
 ### 参考文档

@@ -3,7 +3,6 @@ title: kubernetes网络接口插件cni
 date: 2020-02-02 19:08:23
 tags:
 - kubernetes
-- cni
 categories:
 - kubernetes
 ---

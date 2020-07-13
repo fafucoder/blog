@@ -2,9 +2,9 @@
 title: Ginkgo-golang BDD代码测试框架
 date: 2020-02-05 11:53:26
 tags:
-- e2e
-- ginkgo
-- 代码测试
+- kubernetes
+categories:
+- kubernetes
 ---
 
 ### Ginkgo简介

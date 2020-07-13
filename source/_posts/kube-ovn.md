@@ -2,7 +2,8 @@
 title: kube-ovn学习指南
 date: 2020-01-09 22:31:08
 tags: 
-- kubernetes
+- kube-ovn
+categories:
 - kube-ovn
 ---
 
