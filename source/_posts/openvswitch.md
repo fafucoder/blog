@@ -28,3 +28,7 @@ categories:
 
 (ovs端口类型)
 - https://www.fuuyun.org/?p=620
+
+（ovs深度解析)
+- https://tonydeng.github.io/sdn-handbook/ovs/internal.html
+- https://www.cnblogs.com/popsuper1982/p/8948016.html

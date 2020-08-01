@@ -40,8 +40,14 @@ iptables的工作流程如下图所示，
 - REJECT: 拦阻该数据包，并传送数据包通知对方
 - DROP: 丢弃包不予处理，进行完此处理动作后，将不再比对其它规则，直接中断过滤程序
 - REDIRECT: 将包重新导向到另一个端口（PNAT），进行完此处理动作后，将会继续比对其它规则。(iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080)
-- SNAT: 改写封包来源 IP 为某特定 IP 或 IP 范围，可以指定 port 对应的范围，进行完此处理动作后，将直接跳往下一个规则。(iptables -t nat -A POSTROUTING -p tcp-o eth0 -j SNAT --to-source 194.236.50.155-194.236.50.160:1024-32000)
-- DNAT: 改写封包目的地 IP 为某特定 IP 或 IP 范围，可以指定 port 对应的范围，进行完此处理动作后，将会直接跳往下一个规炼。(iptables -t nat -A PREROUTING -p tcp -d 15.45.23.67 --dport 80 -j DNAT --to-destination 192.168.1.1-192.168.1.10:80-100)
+- SNAT: 改写封包来源 IP 为某特定 IP 或 IP 范围，可以指定 port 对应的范围，进行完此处理动作后，将直接跳往下一个规则链。通过`--to-source`指定SNAT转换后的地址(iptables -t nat -A POSTROUTING -p tcp-o eth0 -j SNAT --to-source 194.236.50.155-194.236.50.160:1024-32000)
+- DNAT: 改写封包目的地 IP 为某特定 IP 或 IP 范围，可以指定 port 对应的范围，进行完此处理动作后，将会直接跳往下一个规则链。通过`--to-destination`指定DNAT转换后的地址(iptables -t nat -A PREROUTING -p tcp -d 15.45.23.67 --dport 80 -j DNAT --to-destination 192.168.1.1-192.168.1.10:80-100)
+- MASQUERADE： 改写封包来源 IP 为防火墙 NIC IP，可以指定 port 对应的范围，进行完此处理动作后，直接跳往下一个规则链。这个功能与 SNAT 略有不同，当进行IP伪装时，不需指定要伪装成哪个IP，IP 会从网卡直接读取，当使用拨接连线时，IP 通常是由ISP公司的 DHCP 服务器指派的，这个时候 MASQUERADE 特别有用
+- MARK: 将封包标上某个代号，以便提供作为后续过滤的条件判断依据，进行完此处理动作后，将会继续比对其它规则
+- RETURN: 结束在目前规则链中的过滤程序，返回主规则链继续过滤
+- QUEUE: 封包放入队列，交给其它程序处理
+- MIRROR: 镜射封包，也就是将来源IP与目的地IP对调后，将封包送回，进行完此处理动作后，将会中断过滤程序
+- LOG: 将封包相关讯息记录在`/var/log`中
 
 #### 注意点
 1. 表的优先级从高到低是：raw、mangle、nat、filter、security。
@@ -60,6 +66,61 @@ iptables的工作流程如下图所示，
 
 ### iptables功能操作
 
+#### 命令格式
+iptables command chain chain_name options
+
+#### iptables 参数
+```
+Usage: iptables -[ACD] chain rule-specification [options]
+       iptables -I chain [rulenum] rule-specification [options]
+       iptables -R chain rulenum rule-specification [options]
+       iptables -D chain rulenum [options]
+       iptables -[LS] [chain [rulenum]] [options]
+       iptables -[FZ] [chain] [options]
+       iptables -[NX] chain
+       iptables -E old-chain-name new-chain-name
+       iptables -P chain target [options]
+       iptables -h (print this help information)
+
+Commands:
+  --append  -A chain            			  Append to chain
+  --check   -C chain            			  Check for the existence of a rule
+  --delete  -D chain            			  Delete matching rule from chain
+  --delete  -D chain rulenum    			  Delete rule rulenum (1 = first) from chain
+  --insert  -I chain [rulenum]  			  Insert in chain as rulenum (default 1=first)
+  --replace -R chain rulenum    			  Replace rule rulenum (1 = first) in chain
+  --list    -L [chain [rulenum]] 			  List the rules in a chain or all chains
+  --list-rules -S [chain [rulenum]] 		Print the rules in a chain or all chains
+  --flush   -F [chain]          			  Delete all rules in  chain or all chains
+  --zero    -Z [chain [rulenum]] 		 	  List Zero counters in chain or all chains
+  --new     -N chain            			  Create a new user-defined chain
+  --delete-chain -X [chain]         		Delete a user-defined chain
+  --policy       -P chain target			 	Change policy on chain to target
+  --rename-chain -E old-chain new-chain Change chain name, (moving any references)
+
+Options:
+    --ipv4          -4              				        Nothing (line is ignored by ip6tables-restore)
+    --ipv6          -6              			 	        Error (line is ignored by iptables-restore)
+[!] --protocol      -p proto        		            protocol: by number or name, eg. `tcp'
+[!] --source        -s address[/mask][...]	        source specification
+[!] --destination   -d address[/mask][...]	        destination specification
+[!] --in-interface  -i input name[+]                network interface name ([+] for wildcard)
+ 	  --jump 	        -j target                       target for rule (may load target extension)
+  	--goto          -g chain                        jump to chain with no return
+    --match         -m match                        extended match (may load extension)
+    --numeric       -n                              numeric output of addresses and ports
+[!] --out-interface -o output name[+]               network interface name ([+] for wildcard)
+    --table         -t table                        table to manipulate (default: `filter')
+    --verbose       -v                              verbose mode
+    --wait          -w [seconds]                    maximum wait to acquire xtables lock before give up
+    --wait-interval -W [usecs]                      wait time to try to acquire xtables lock, default is 1 second
+    --line-numbers                                  print line numbers when listing
+    --exact         -x                              expand numbers (display exact values)
+[!] --fragment      -f                              match second or further fragments only
+    --modprobe=<command>                            try to insert modules using this command
+    --set-counters PKTS BYTES                       set the counter during insert/append
+[!] --version       -V                              print package version.
+```
 #### 查询
 iptables --line-numbers -t 表名 -n(不解析ip) -v(详细信息) -L 链名
 
@@ -67,7 +128,16 @@ iptables --line-numbers -t 表名 -n(不解析ip) -v(详细信息) -L 链名
 1. 先查看路由规则，iptables --line-numbers -nvL INPUT
 2. 清除路由规则, iptables  -t tablename -D 链名 line-number (例如3)
 
+### iptables-save
+
+iptables-save命令可以将内核中的当前iptables配置导出到标准输出中，可以通过IO重定向功能输出到文件，例如`iptables-save > hello.txt` 通过使用iptables-save能更直观的看懂iptables路由规则
+
+#### 参数
+-t(--table): 指定iptables中的表
+-c(--counters): 当前的数据包计数器和字节计数器信息
+
 ### 参考文档
 - http://www.zsythink.net/archives/1199 // iptables概念
 - http://www.zsythink.net/archives/1493 // iptables查询
 - https://blog.csdn.net/guochunyang/article/details/49867707 // iptables规则
+- https://blog.csdn.net/u011537073/article/details/82685586

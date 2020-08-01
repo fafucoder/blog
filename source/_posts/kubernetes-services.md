@@ -10,3 +10,4 @@ categories:
 ### 参考手册
 - https://segmentfault.com/a/1190000019376912?utm_source=tag-newest
 - https://draveness.me/kubernetes-service/
+- https://kubernetes.io/zh/docs/tutorials/services/source-ip/

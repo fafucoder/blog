@@ -18,3 +18,8 @@ categories:
 - https://blog.ihypo.net/15763910382218.html
 - https://book.kubebuilder.io/quick-start.html
 - https://github.com/kubernetes-sigs/controller-runtime
+
+### client-go leader election
+- http://blog.fatedier.com/2019/04/17/k8s-custom-controller-high-available/
+- https://www.jianshu.com/p/6e6f1d97d635
+- https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/104386126
