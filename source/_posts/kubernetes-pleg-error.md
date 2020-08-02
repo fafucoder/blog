@@ -2,6 +2,9 @@
 title: kubernetes PLEG不健康的问题
 date: 2020-07-22 14:16:28
 tags:
+- kubernetes
+categories:
+- kubernetes
 ---
 
 ### 参考文档

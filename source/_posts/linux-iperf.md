@@ -2,6 +2,9 @@
 title: iperf
 date: 2020-04-12 14:23:08
 tags:
+- linux
+categories:
+- linux
 ---
 
 ### 参考文档
