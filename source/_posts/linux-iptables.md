@@ -61,6 +61,10 @@ iptables的工作流程如下图所示，
 
 5. 查询iptables时，默认是filter表
 
+#### drop 跟reject区别
+1. reject 动作会返回一个拒绝(终止)数据包(TCP FIN或UDP-ICMP-PORT-UNREACHABLE)，明确的拒绝对方的连接动作。 连接马上断开，Client会认为访问的主机不存在。
+2. DROP动作只是简单的直接丢弃数据，并不反馈任何回应。需要Client等待超时。
+
 #### 数据经过的流程图
 ![iptables数据经过流程图](https://img30.360buyimg.com/ebookadmin/jfs/t1/90870/2/8881/182617/5e09a906E88527f1b/7a0a4cdc079421e3.jpg)
 
