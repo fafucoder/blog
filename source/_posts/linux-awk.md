@@ -1,5 +1,5 @@
 ---
-title: linux 三剑客 awk, grep, sed
+title: linux awk, grep, sed命令
 date: 2020-09-20 21:40:22
 tags:
 - linux
