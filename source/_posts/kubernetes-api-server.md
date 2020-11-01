@@ -74,3 +74,4 @@ api/v1/nodes/{name}/proxy/spec    #列出指定节点的概要信息
 - https://k8smeetup.github.io/docs/tasks/administer-cluster/access-cluster-api/  //通过 Kubernetes API 访问集群
 - https://juejin.im/post/5c934e5a5188252d7c216981  //Kubernetes源码分析之kube-apiserver
 - https://feisky.gitbooks.io/kubernetes/components/apiserver.html   //非常详细，推荐阅读
+- https://kubernetes.io/zh/docs/tasks/administer-cluster/access-cluster-services/
