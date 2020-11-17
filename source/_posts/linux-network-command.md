@@ -29,7 +29,7 @@ ip 跟 ifconfig命令对照表如下:
 | 移除网卡ipv4地址 | ip addr del 10.0.0.1/24 dev eth1                  | ifconfig eth1 0                                | ip 命令可以添加多个地址，所以删除需要对应的地址                                                                                                         |
 | 配置网卡ipv6地址 | ip -6 addr add 2002:0db5:0:f102::1/64 dev eth1    | ifconfig eth1 inet6 add 2002:0db5:0:f102::1/64 |                                                                                                                                                                               |
 | 修改网卡ipv4地址 | ip -6 addr change 2002:0db5:0:f102::2/64 dev eth1 | ifconfig eth1 inet6 add 2002:0db5:0:f102::2/64 |                                                                                                                                                                               |
-| 移除网卡ipv6地址 | ip -6 addr del 2002:0db5:0:f102::1/64 dev eth1    | ifconfig eth1 inet6 del 2002:0db5:0:f102::1/64 | 
+| 移除网卡ipv6地址 | ip -6 addr del 2002:0db5:0:f102::1/64 dev eth1    | ifconfig eth1 inet6 del 2002:0db5:0:f102::1/64 |
 
 对比以上表格命令可以得出，要修改网卡地址使用的是ip addr, 要设置网卡的配置信息使用的是ip link
 
@@ -216,7 +216,7 @@ lspci 常见参数如下表:
 | -mm     | 以机器可读的方式转储设备信息，以便脚本解析           | lspci -mm            |                                             |
 |     -t  | 以树形结构显示pci设备的层次关系，包含所有总线、桥梁、设备和它们之间的连接 | lspci -t             |                                             |
 | -v      | 显示所有设备的详细信息                                         | lscpi -v             |                                             |
-|     -vv | 以更加详细的方式显示设备信息                                | lspci -vv            |   
+|     -vv | 以更加详细的方式显示设备信息                                | lspci -vv            |
 
 
 ### 连通测试
@@ -236,7 +236,32 @@ traceroute 192.168.56.100
 
 #### tcpdump
 
-tcpdump 用于监听网卡收包情况
+tcpdump 用于监听网卡收包情况, tcpdump 常见命令如下表：
+
+| 参数 | 描述                                                      | 说明                                          |
+| ---- | ----------------------------------------------------------- | ----------------------------------------------- |
+| -i   | 指定监听网络接口                                    | tcpdump -i eth0 (抓取eth0包)                 |
+| -p   | 不将网络接口设置成混杂模式                     |                                                 |
+| -c   | 指定监听数据包数量，当收到指定的包的数目后，tcpdump就会停止 |                                                 |
+| -n   | 不把网络地址转换成名字                           | tcpdump -ni em2 -vv -e  | grep vlan(抓取vlan包) |
+| -e   | 在输出行打印出数据链路层的头部信息         | tcpdump -ni em2 -vv -e  | grep vlan(抓取vlan包) |
+| -d   | 将匹配信息包的代码以人们能够理解的汇编格式给出 |                                                 |
+| -vv  | 输出详细的报文信息                                 | tcpdump -ni em2 -vv -e  | grep vlan(抓取vlan包) |
+
+#### tcpdump expression
+tcpdump expression 用于tcpdump 数据包过滤，如果不过滤的话数据包很多，不好排查，因此需要用expression 进行数据包过滤.
+
+tcpdump利用正则表达式作为过滤报文的条件，如果数据包满足表达式的条件，则会被捕获。如果没有给出任何条件，则网络上所有的数据包将会被截获。表达式中常用关键字如下：
+
+(1) 指定参数类型的关键字，主要包括host，net，port等，如果没有指定类型，缺省的类型是host；例如：#tcpdump host 222.24.20.86 截获ip为222.24.20.86的主机收发的所有数据包
+
+(2) 指定数据报文传输方向的关键字，主要包括src , dst ,dst or src, dst and src，缺省为src or dst；例如：#tcpdump src net 222.24.20.1 截取源网络地址为 222.24.20.1 的所有数据包
+
+(3) 指定协议的关键字，主要包括fddi，ip，arp，rarp，tcp，udp等类型，默认监听所有协议的数据包；例如：#tucpdump arp 截获所有arp协议的数据包
+
+(4) 其他重要的关键字还有，gateway，broadcast，less，greater，三种逻辑运算（取非运算是 'not ','! '； 与运算是 'and ','&& '；或运算 是'or ','|| '）等。这些关键字的巧妙组合，能灵活构造过滤条件，从而满足用户需要。例如：#tcpdump host ubuntu and src port \(80 or 8080\) 截取主机ubuntu上源端口为80或8080的所有数据包。
+
+expression 的整体结构 `expr relop expr` relop表示关系操作符，可以为>, < ,>=,<=, =, !=之一。
 
 ### 参考文档
 - https://blog.csdn.net/u011956172/article/details/54617516  //net-tool跟iproute2对照表
