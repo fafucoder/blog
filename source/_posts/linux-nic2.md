@@ -7,9 +7,10 @@ categories:
 - linux
 ---
 
-### 网卡收发包流程2
+### 网卡收发包流程
 
 ### 参考文档
 
-- https://leeweir.github.io/posts/irq-not-balance/
-- https://leeweir.github.io/posts/linux-packet-loss/
+- https://ylgrgyq.github.io/2017/07/24/linux-receive-packet-2/
+- https://ylgrgyq.github.io/2017/08/01/linux-receive-packet-3/
+
