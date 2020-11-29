@@ -1,5 +1,5 @@
 ---
-title: golang-build
+title: golang build方法详解
 date: 2020-07-07 12:24:32
 tags:
 - golang
