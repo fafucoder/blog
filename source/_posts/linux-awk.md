@@ -29,6 +29,9 @@ grep(全局正则表达式打印)--命令用于查找文件里符合条件的字
 6. -x   --line-regexp         #只显示全列符合的列。 `grep -x "boo" sampler.log`
 7. -s   --no-messages         #不显示错误信息。 `grep -ls license *`
 8. -H   --with-filename       #在显示符合样式的那一行之前，表示该行所属的文件名称。  
+9. -C   --context             #显示匹配行和它前后各n行   `grep -C 5 hello package.json`
+10. -A  --after               #显示匹配行和它后n行   `grep -A 5 hello package.json`
+11. -B  --before              #显示匹配行和它前n行   `grep -B 5 hello package.json`
 
 ### awk
 awk 程序对输入文件的每一行进行操作。它可以有一个可选的 BEGIN{ } 部分在处理文件的任何内容之前执行的命令，然后主{ }部分运行在文件的每一行中，最后还有一个可选的END{ }部分操作将在后面执行文件读取完成:
