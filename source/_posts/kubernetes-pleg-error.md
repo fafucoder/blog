@@ -9,4 +9,6 @@ categories:
 
 ### 参考文档
 - https://segmentfault.com/a/1190000018240634?utm_source=tag-newest
+- https://segmentfault.com/a/1190000022163789
 - https://fuckcloudnative.io/posts/understanding-the-pleg-is-not-healthy/
+
