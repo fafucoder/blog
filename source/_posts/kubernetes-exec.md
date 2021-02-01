@@ -13,3 +13,4 @@ categories:
 - https://juejin.cn/post/6844904168860155911
 - https://blog.fleeto.us/post/how-kubectl-exec-works
 - https://segmentfault.com/a/1190000022163808
+
