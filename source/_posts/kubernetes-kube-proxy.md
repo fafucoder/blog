@@ -149,3 +149,4 @@ iptables 模式下的规则如下所示：
 - https://xuxinkun.github.io/2016/07/22/kubernetes-proxy/
 - https://knarfeh.com/2018/07/28/Kubernetes%20%E6%BA%90%E7%A0%81%E7%AC%94%E8%AE%B0%EF%BC%88kube-proxy%EF%BC%89
 - https://linuxops.dev/post/kubernetes%E7%9A%84kube-proxy%E7%9A%84%E8%BD%AC%E5%8F%91%E8%A7%84%E5%88%99%E5%88%86%E6%9E%90/
+- https://www.cnblogs.com/charlieroro/p/9588019.html
