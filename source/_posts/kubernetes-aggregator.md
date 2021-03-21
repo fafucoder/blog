@@ -61,6 +61,19 @@ spec:
 2. 请求的根路径需要应答请求，否则会报404错误（`kubectl get apiservice v1alpha3.demo.com.cn  -o yaml` 能拷看到状态）
 
    ![404状态](https://tva1.sinaimg.cn/large/008eGmZEly1gn85u1y817j316406atc7.jpg)
+   
+3. 请求的根路径的应答结果需要包含`kind`, `apiVersion`, `groupVersion`, `resources`：
+
+   ```json
+   {
+   "kind": "APIResourceList",
+   "apiVersion": "v1",
+   "groupVersion": "metrics.k8s.io/v1beta1",
+   "resources": []
+   }
+   ```
+
+   
 
 ### 参考文档
 
