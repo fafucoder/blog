@@ -3,7 +3,7 @@ title: linux中stdin, stdout, stderr
 date: 2021-03-07 11:45:51
 tags:
 - linux
-categories
+categories:
 - linux
 ---
 
