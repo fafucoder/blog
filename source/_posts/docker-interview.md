@@ -3,7 +3,7 @@ title: docker 面试高频题
 date: 2021-03-17 23:19:21
 tags:
 - docker
-categories：
+categories:
 - docker
 ---
 
