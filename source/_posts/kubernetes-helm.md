@@ -62,8 +62,6 @@ Helm Release: Release 是运行在 Kubernetes 集群中的 chart 的实例。一
 
 ![helm pull/template](https://tva1.sinaimg.cn/large/008eGmZEly1gpoa7qdls3j31th0u0ncl.jpg)
 
-### 制作Helm 包
-
 ### 参考文档
 
 - https://blog.csdn.net/qq_27234433/article/details/114338623    //helm文档

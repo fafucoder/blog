@@ -1,5 +1,5 @@
 ---
-title: linux ps命令和 pstree 命令
+stitle: linux ps命令和 pstree 命令
 date: 2021-03-25 22:50:07
 tags:
 - linux

@@ -142,7 +142,12 @@ iptables 模式下的规则如下所示：
 -A KUBE-SEP-VR562QDKF524UNPV -p tcp -m tcp -j DNAT --to-destination 192.168.89.11:7000
 ```
 
+### ipvs模式解析
+
+//@todo
+
 ### 参考文档
+
 - https://www.cnblogs.com/fuyuteng/p/11598768.html
 - https://zhuanlan.zhihu.com/p/94418251?from_voters_page=true
 - https://juejin.im/post/6844904098605563912
@@ -150,3 +155,4 @@ iptables 模式下的规则如下所示：
 - https://knarfeh.com/2018/07/28/Kubernetes%20%E6%BA%90%E7%A0%81%E7%AC%94%E8%AE%B0%EF%BC%88kube-proxy%EF%BC%89
 - https://linuxops.dev/post/kubernetes%E7%9A%84kube-proxy%E7%9A%84%E8%BD%AC%E5%8F%91%E8%A7%84%E5%88%99%E5%88%86%E6%9E%90/
 - https://www.cnblogs.com/charlieroro/p/9588019.html
+- https://mp.weixin.qq.com/s/X6EL8GwWoi9_DyvhHL6Mlw //米开朗基杨博客
