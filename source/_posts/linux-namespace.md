@@ -132,6 +132,5 @@ lsns命令列举出当前已经创建的namespace
 - https://github.com/teddyking/ns-process  //namespace 源代码
 - https://coolshell.cn/articles/17010.html //酷壳 DOCKER基础技术
 - https://segmentfault.com/a/1190000006908272 //Namespace概述
-- https://n4mine.github.io/post/understand-container-in-15-minutes/ //unshare命令, strace 命令值得好好看看
 - https://www.junmajinlong.com/virtual/namespace/ns_overview/  //各个namespace详解
 
