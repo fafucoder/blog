@@ -32,7 +32,7 @@ UTS         CLONE_NEWUTS      Hostname and NIS domain name (since Linux 2.6.19)
 注意:
 
 - 由于Cgroup namespace在4.6的内核中才实现，并且和cgroup v2关系密切，现在普及程度还不高，比如docker现在就还没有用它，所以在namespace这个系列中不会介绍Cgroup namespace。
-- 各命名空间的[详细信息](https://man7.org/linux/man-pages/man7)可以搜寻到
+- 各命名空间的详细信息 [参考这里](https://man7.org/linux/man-pages/man7)
 
 ### namespace系统调用接口
 在[namespace man](https://man7.org/linux/man-pages/man7/namespaces.7.html)上提供的系统调用包括clone, setns, unshare, ioctl
@@ -61,13 +61,13 @@ clone和unshare的区别
 ```
 dev@ubuntu:~$ ls -l /proc/$$/ns     
 total 0
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 cgroup -> cgroup:[4026531835] #(since Linux 4.6)
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 ipc -> ipc:[4026531839]       #(since Linux 3.0)
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 mnt -> mnt:[4026531840]       #(since Linux 3.8)
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 net -> net:[4026531957]       #(since Linux 3.0)
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 pid -> pid:[4026531836]       #(since Linux 3.8)
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 user -> user:[4026531837]     #(since Linux 3.8)
-lrwxrwxrwx 1 dev dev 0 7月 7 17:24 uts -> uts:[4026531838]       #(since Linux 3.0)W
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 cgroup -> cgroup:[4026531835]
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 ipc -> ipc:[4026531839]   
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 mnt -> mnt:[4026531840]   
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 net -> net:[4026531957]
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 pid -> pid:[4026531836]
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 user -> user:[4026531837]
+lrwxrwxrwx 1 dev dev 0 7月 7 17:24 uts -> uts:[4026531838]
 ```
 
 ### uts namespace
@@ -103,22 +103,85 @@ hello
 
 ps: 当namespace中的/bin/sh进程退出，如果namespace中没有任何进程，该namespace将自动销毁。注意，在默认情况下，namespace中必须要有至少一个进程，否则将被自动被销毁。但也有一些手段可以让namespace持久化，即使已经没有任何进程在其中运行。(例如创建一个文件)
 
-### PID namespace
+### mount namespace
+
+mount namespace可隔离出一个具有独立挂载点信息的运行环境，内核知道如何去维护每个namespace的挂载点列表。即每个namespace之间的挂载点列表是独立的，各自挂载互不影响。(用户通常使用mount命令来挂载普通文件系统，但实际上mount能挂载的东西非常多，甚至连现在功能完善的Linux系统，其内核的正常运行也都依赖于挂载功能，比如挂载根文件系统/。其实所有的挂载功能和挂载信息都由内核负责提供和维护，mount命令只是发起了mount()系统调用去请求内核。)
+
+内核将每个进程的挂载点信息保存在`/proc/<pid>/{mountinfo,mounts,mountstats}`三个文件中:
+
+```shell
+[root@node1 ~]# ls -l /proc/$$/mount*
+-r--r--r--. 1 root root 0 Aug 16 08:47 /proc/5844/mountinfo
+-r--r--r--. 1 root root 0 Aug 16 08:47 /proc/5844/mounts
+-r--------. 1 root root 0 Aug 16 08:47 /proc/5844/mountstats
+```
+
+具有独立的挂载点信息，意味着每个mnt namespace可具有独立的目录层次，这在容器中起了很大作用：`容器可以挂载只属于自己的文件系统。`
+
+当创建mount namespace时，内核将拷贝一份当前namespace的挂载点信息列表到新的mnt namespace中，此后两个mnt namespace就没有了任何关系.(也不是完全没关系，有个shared subtrees选项可设置挂载共享方式，默认是私有的，也就是没关系)
+
+```shell
+#! /bin/bash
+
+# 创建目录
+mkdir -p iso/iso1/dir1 && mkdir -p iso/iso2/dir2
+
+# 生成iso文件
+cd iso && mkisofs -o 1.iso iso1 && mkisofs -o 2.iso iso2
+
+# 挂载iso1
+mkdir /mnt/{iso1,iso2} && mount 1.iso /mnt/iso1 && mount | grep iso1
+
+# 创建mount+uts namespace
+unshare -m -u /bin/bash
+
+# 在namespace中挂载iso2
+mount 2.iso2 /mnt/iso2/
+
+# 查看挂载信息
+echo "查看挂载信息\n\n"
+mount | grep 'iso[12]'
+
+# 卸载挂载, 此时看到没有iso1的挂载信息
+umount /mnt/iso1/
+
+echo "查看挂载信息\n\n"
+mount | grep 'iso[12]'
+
+# 新起一个terminal, 查看挂载信息没有iso2的挂载信息，但是还是有iso1的挂载信息
+mount | grep 'ios[12]'
+
+```
+
+### pid namespace
 
 PID namespace表示隔离一个具有独立PID的运行环境。在每一个pid namespace中，进程的pid都从1开始，且和其他pid namespace中的PID互不影响。这意味着，不同pid namespace中可以有相同的PID值。
 
 因为PID namespace中的PID是独立的，每一个PID namespace都允许一些特殊的操作：允许pid namespace挂起、迁移以及恢复，就像虚拟机一样。
 
+### user namespace
 
 
+
+### network namespace
+
+network namespace用来隔离网络环境，在network namespace中，网络设备、端口、套接字、网络协议栈、路由表、防火墙规则等都是独立的。
+
+因为network namespace中具有独立的网络协议栈，因此每个network namespace中都有一个lo接口，但lo接口默认未启动，需要手动启动起来。
+
+让某个network namespace和root network namespace或其他network namespace之间保持通信是一个非常常见的需求，这一般通过veth虚拟设备实现。veth类型的虚拟设备由一对虚拟的eth网卡设备组成，像管道一样，一端写入的数据总会从另一端流出，从一端读取的数据一定来自另一端。
+
+用户可以将veth的其中一端放在某个network namespace中，另一端保留在root network namespace中。这样就可以让用户创建的network namespace和宿主机通信。
+
+(实验部分略，之前有相关的实验了)
 
 ### unshare 命令
+
+> 操作namespace的命令有unshare, lsns nsenter
 
 unshare命名就是unshare系统调用的实现，下面将通过unshare命令演示namespace的隔离技术
 
 ![unshare 命令](https://tva1.sinaimg.cn/large/008i3skNgy1gslhd4myd7j31g00o40wh.jpg)
-
-
 
 ### lsns 命令
 

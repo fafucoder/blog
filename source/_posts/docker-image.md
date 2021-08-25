@@ -314,7 +314,7 @@ rootfs就是root文件系统，包含的就是典型的Linux系统中的/dev, /p
 ![rootfs](https://tva1.sinaimg.cn/large/008i3skNly1gsy86pccjbj31fk0260su.jpg)
 
 Docker镜像是由文件系统叠加而成。最低端是bootfs，并使用宿主机的bootfs（docker中操作系统启动几秒钟，原因就是，通过docker镜像启动的操作系统，底层使用的是docker宿主机的bootfs不需要重新加载bootfs), 第二层是root文件系统rootfs 称为base image(基础镜像)。然后可以再往上叠加其它镜像文件，每一层就是一个layer(每一层都是只读的)。 当从一个镜像启动容器时，docker会使用联合文件系统把多个不同位置的目录(layer)联合挂载（union mount）到同一个目录下，然后会在最顶层加载一个读写文件系统作为容器。(联合文件系统下一个章节会说明)
-![加载过程](https://tva1.sinaimg.cn/large/008i3skNly1gsy8espon1j312a0sy0vl.jpg)
+![加载过程](https://tva1.sinaimg.cn/large/008i3skNly1gt2peemzakj312w0u0jv1.jpg)
 
 ### Dockerfile
 

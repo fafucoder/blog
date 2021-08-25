@@ -14,7 +14,7 @@ categories:
 
 4GB 的进程虚拟地址空间被分成两部分：「用户空间」和「内核空间」
 
-![用户空间和内核空间](https://mmbiz.qpic.cn/mmbiz_png/ceNmtYOhbMTz21XD2UcYWtoBBNHjicw02AUiadpEHrPvo2vIfkLKB23pzOPtibYAOhiaWBibpuLQDCQbg0QvtTrtIfA/640)
+![用户空间和内核空间](https://tva1.sinaimg.cn/large/008i3skNly1gtqtj8cll2j60i20hy74q02.jpg)
 
 不管是用户空间还是内核空间，使用的地址都是虚拟地址，当需进程要实际访问内存的时候，会由内核的「请求分页机制」产生「缺页异常」调入物理内存页
 
@@ -24,10 +24,10 @@ Linux 内核会将物理内存分为3个管理区分别是:
 - 普通内存区域, 包含16MB~896MB之间的内存页框，常规页框，直接映射到内核的地址空间。
 - 高端内存区域。包含896MB以上的内存页框，不进行直接映射，可以通过永久映射和临时映射进行这部分内存页框的访问。
 
-![物理内存管理](https://mmbiz.qpic.cn/mmbiz_png/ceNmtYOhbMTz21XD2UcYWtoBBNHjicw02ickOaD8YMWJrrk3sq7hEMapegQIS4QW9gSGkiceAgJibpcQNWISxg21dg/640)
+![物理内存管理](https://tva1.sinaimg.cn/large/008i3skNly1gtqtl0rbi6j60em0ikwew02.jpg)
 
 进程（执行的程序）占用的用户空间按照「 访问属性一致的地址空间存放在一起 」的原则，划分成 5个不同的内存区域，分别是 代码段， 数据段， BSS段, 堆 heap, 栈 stack
-![进程内存区域](https://upload-images.jianshu.io/upload_images/1609713-13ccb31dec0593b4.jpg)
+![进程内存区域](https://tva1.sinaimg.cn/large/008i3skNly1gtqtm3ctp9j60xv0u0wje02.jpg)
 
 因此整个用户空间跟内核空间的映射关系如下:
 ![内核空间用户空间全图](https://mmbiz.qpic.cn/mmbiz_png/ceNmtYOhbMTz21XD2UcYWtoBBNHjicw02OneurDAkhTCvibTiavVF50oE6oiaViamIfBBKQxzwnNULrE976s1PQSiaQA/640)
