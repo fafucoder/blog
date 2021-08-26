@@ -187,6 +187,7 @@ echo $$
 ```
 
 3. **设置cpu quote配额**
+
 ```
 # 设置当前shell 可以使用1core cpu
 echo 1000000 > cpu.cpu.cfs_period_us
@@ -194,6 +195,7 @@ echo 1000000 > cpu.cfs_quota_us
 ```
 
 4. **观察cgroup是否生效**
+
 ```shell
 # 当前shell
 
@@ -216,6 +218,7 @@ top -p pid(刚才的$$的数字)
 创建memory子系统的方式跟cpu子系统的方式差不多，只需要在memory子系统下创建一个目录即可。
 
 1. **在 memory 子系统下创建 cgroup**
+
 ```
 mkdir /sys/fs/cgroup/memory/mydocker
 ```
@@ -261,6 +264,7 @@ total 0
 由上可以看到我们新建的目录下被自动创建了很多文件(这里利用到了继承，子进程会继承父进程的 cgroup), 其中 memory.limit_in_bytes 文件代表内存使用总量，单位为 byte。例如，这里我希望对内存使用限制为 1G(1G = 1024*1024*1024)，则向 memory.limit_in_bytes 文件写入 1073741824即可
 
 2. **创建进程，加入 cgroup**
+
 ```
 cd /sys/fs/cgroup/memory/mydocker
 
@@ -270,12 +274,14 @@ echo $$
 ```
 
 3. **设置memory 配额**
+
 ```
 # 设置当前shell 可以使用1G内存
 echo 1073741824 > memory.limit_in_bytes
 ```
 
 4. **观察cgroup是否生效**
+
 ```
 # 使用stress-ng进行压力测试
 stress-ng --vm 5 --vm-bytes 250M
@@ -290,3 +296,4 @@ stress-ng --vm 5 --vm-bytes 250M
 - [一文彻底搞懂Linux Cgroup如何限制容器资源](https://juejin.cn/post/6844904079076884493) 	 //可以看看
 - [资源限制：如何通过 Cgroups 机制实现资源限制？](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%94%B1%E6%B5%85%E5%85%A5%E6%B7%B1%E5%90%83%E9%80%8F%20Docker-%E5%AE%8C/10%20%20%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%EF%BC%9A%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%20Cgroups%20%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%EF%BC%9F.md)       //推荐动手实验
 - [Cgroup中的CPU资源控制](https://zhuanlan.zhihu.com/p/346050404)       //cgroup各个字段的含义
+

@@ -9,7 +9,7 @@ categories:
 
 ### 概述
 
-Namespace是对全局系统资源的一种封装隔离，使得处于不同namespace的进程拥有独立的全局系统资源，改变一个namespace中的系统资源只会影响当前namespace里的进程，对其他namespace中的进程没有影响。
+​	Namespace是对全局系统资源的一种封装隔离，使得处于不同namespace的进程拥有独立的全局系统资源，改变一个namespace中的系统资源只会影响当前namespace里的进程，对其他namespace中的进程没有影响。
 
 linux内核支持的namespace如下所示：
 ```
@@ -155,13 +155,112 @@ mount | grep 'ios[12]'
 
 ### pid namespace
 
-PID namespace表示隔离一个具有独立PID的运行环境。在每一个pid namespace中，进程的pid都从1开始，且和其他pid namespace中的PID互不影响。这意味着，不同pid namespace中可以有相同的PID值。
+pid namespace表示隔离一个具有独立PID的运行环境。在每一个pid namespace中，进程的pid都从1开始，且和其他pid namespace中的PID互不影响。这意味着，不同pid namespace中可以有相同的PID值。
 
-因为PID namespace中的PID是独立的，每一个PID namespace都允许一些特殊的操作：允许pid namespace挂起、迁移以及恢复，就像虚拟机一样。
+因为pid namespace中的PID是独立的，每一个PID namespace都允许一些特殊的操作：允许pid namespace挂起、迁移以及恢复，就像虚拟机一样。
+
+在介绍pid namespace之前，先创建其他类型的namespace然后查看进程关系:
+
+```shell
+# 在root namespace中查看当前进程的进程ID
+echo $$
+
+# 创建一个uts namespace
+unshare -u /bin/bash
+
+# 在uts namespace中查看当前进程
+pstree -p | grep grep
+```
+
+运行截图如下所示， unshare进程会在创建新的namespace后会被改namespace中的第一个进程给替换掉。
+
+![进程关系](https://tva1.sinaimg.cn/large/008i3skNly1gtu7oa7m1hj613s0500tb02.jpg)
+
+创建新的pid namespace方式：
+
+```shel
+# unshare --pid --fork [--mount-proc] <CMD>
+# 	--pid(-p):    表示创建pid namespace
+# 	--mount-proc: 表示创建pid namespace时重新挂载procfs
+# 	--fork(-f):   表示创建pid namespace时，不是直接替换unshare进程，而是fork unshare进程，并使用CMD替换fork出来的子进程
+```
+
+使用--fork的操作的结果是(如下图): unshare进程被保留，且保留在原来的pid namespace中，而不是加入到新的pid namespace中。
+
+![pid](https://tva1.sinaimg.cn/large/008i3skNly1gtu8axwk5vj61so08iwh202.jpg)
+
+#### pid namespace 嵌套
+
+pid namespace可以存在嵌套关系。所有的子孙pid namespace中的进程信息都会保存在父级以及祖先级namespace中，只不过在不同嵌套层级中，同一个进程对应的PID不同。
+
+```shell
+# ns1 namespace
+[root@node1 ~]# unshare -pmfu --mount-proc /bin/bash
+[root@node1 ~]# hostname ns1
+[root@node1 ~]# exec bash
+
+# ns2 namespace
+[root@ns1 ~]# unshare -pmfu --mount-proc /bin/bash
+[root@ns1 ~]# hostname ns2
+[root@ns1 ~]# exec bash
+[root@ns2 ~]# pstree -p | grep grep
+bash(1)-+-grep(27)
+
+# root namespace 
+[root@node1 ~]# pstree -p 19288
+bash(19288)───unshare(14472)───bash(14473)───unshare(24783)───bash(24786)
+```
+
+#### pid namespace和procfs
+
+/proc目录是内核对外暴露的可供用户查看或修改的内核中所记录的信息，包括内核自身的部分信息以及每个进程的信息。比如对于pid=N的进程来说，它的信息保存在/proc/<N>目录下。在操作系统启动的过程中，会挂载procfs到/proc目录，它存在于root namespace中。
+
+但是，创建新的pid namespace时不会自动重新挂载procfs，而是直接拷贝父级namespace的挂载点信息。这使得在新的pid namespace中仍然保留了父级namespace的/proc目录，也就是在新创建的这个pid namespace中仍然保留了父级的进程信息。
+
+```shell
+# 注意没--mount-proc
+[root@node1 ~]# unshare -pmuf /bin/bash
+[root@node1 ~]# hostname ns1
+[root@node1 ~]# exec bash
+
+# 查看进程树， 发现还是宿主机的
+[root@ns1 ~]# pstree
+systemd─┬─NetworkManager─┬─3*[dhclient]
+        │                └─3*[{NetworkManager}]
+        ├─agetty
+        ├─auditd───{auditd}
+        ├─chronyd
+ ....
+```
+
+之所以有上述问题，其原因是在pid namespace中保留了root namespace中的/proc目录，而不是属于pid namespace自己的/proc。
+
+但用户创建pid namespace时希望的是有完全独立的进程运行环境。这时，需要在pid namespace中重新挂载procfs，或者在创建pid namespace时指定--mount-proc选项。
+
+```shell
+# 注意这儿添加了mount-proc参数
+[root@node1 ~]# unshare -pmuf --mount-proc /bin/bash
+[root@node1 ~]# hostname ns1
+[root@node1 ~]# exec bash
+
+# 进程树中展示了bash 为init进程
+[root@ns1 ~]# pstree -p
+bash(1)───pstree(24)
+```
+
+#### pid namespace 信号量问题
+
+pid=1的进程是每一个pid namespace的核心进程(init进程)，它不仅负责收养其所在pid namespace中的孤儿进程，还影响整个pid namespace。
+
+当pid namespace中pid=1的进程退出或终止，内核默认会发送SIGKILL信号给该pid namespace中的所有进程以便杀掉它们(如果该pid namespace中有子孙namespace，也会直接被杀)。
+
+在创建pid namespace时可以通过--kill-child选项指定pid=1的进程终止后内核要发送给pid namespace中进程的信号，其默认信号便是SIGKILL。
+
+```shell
+unshare -p -f -m -u --mount-proc --kill-child=SIGHUP /bin/bash
+```
 
 ### user namespace
-
-
 
 ### network namespace
 
