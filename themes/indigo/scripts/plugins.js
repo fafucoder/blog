@@ -14,13 +14,9 @@ hexo.extend.helper.register('theme_js', (path, cache) => source(path, cache, '.j
 hexo.extend.helper.register('theme_css', (path, cache) => source(path, cache, '.css'))
 
 function renderImage(src, alt = '', title = '') {
-    return `<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="${src}" alt="${alt}" title="${title}">
-                </div>
-                <div class="image-caption">${title || alt}</div>
-            </figure>`
+    return `<p class="img-lightbox">
+                <img src="${src}" alt="${alt}" title="${title}">
+            </p>`
 }
 
 hexo.extend.tag.register('image', ([src, alt = '', title = '']) => {
