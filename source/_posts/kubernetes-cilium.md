@@ -11,7 +11,7 @@ categories:
 
 #### 默认安装
 ```
-helm install cilium ./cilium \
+helm install cilium cilium/cilium \
    --namespace kube-system \
    --set global.nodeinit.enabled=true \
    --set global.kubeProxyReplacement=partial \
@@ -118,3 +118,7 @@ helm install cilium cilium/cilium --version 1.8.1 \
 
 #### 系列博客
 - https://davidlovezoe.club/wordpress/
+
+### cilium 网卡收发包路径
+
+- https://mp.weixin.qq.com/s/Lus1ghqtYS_LxSHBO6XCCQ   // 深入理解网卡的收发包路径

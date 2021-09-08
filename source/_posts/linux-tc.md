@@ -17,3 +17,4 @@ categories:
 - https://cloud.tencent.com/developer/article/1367795
 - https://man7.org/linux/man-pages/man8/tc-netem.8.html // tc netum
 - https://cizixs.com/2017/10/23/tc-netem-for-terrible-network/  //这位大佬有很多牛皮文章~
+

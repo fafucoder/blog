@@ -127,7 +127,7 @@ CPU子系统有两个目录, cpuset和cpu,cpuacct, 其中cpu,cpuacct用于设置
 
 - `cpu.cfs_period_us`: 表示一个cpu带宽，单位为微秒(默认是10000000)。系统总CPU带宽： cpu核心数 * cfs_period_us。
 
-- `cpu.cfs_quota_us` 文件: 代表在某一个阶段限制的 CPU 时间总量，单位为微秒。cfs_quota_us为-1，表示使用的CPU不受cgroup限制。cfs_quota_us的最小值为1ms(1000)，最大值为1s。 结合cfs_period_us可以限制进程使用的cpu。例如配置cfs_period_us=10000，而cfs_quota_us=2000。那么该进程就可以可以用2个cpu core。
+- `cpu.cfs_quota_us` 文件: 代表在某一个阶段限制的 CPU 时间总量，单位为微秒。cfs_quota_us为-1，表示使用的CPU不受cgroup限制。cfs_quota_us的最小值为1ms(1000)，最大值为1s。 结合cfs_period_us可以限制进程使用的cpu。例如配置cfs_period_us=10000，而cfs_quota_us=20000。那么该进程就可以可以用2个cpu core。
 
 - `cpuacct.stat`: 记录cgroup的所有任务（包括其子孙层级中的所有任务）使用的用户和系统CPU时间.
 
@@ -289,6 +289,10 @@ stress-ng --vm 5 --vm-bytes 250M
 
 通过运行stress-ng压力测试后，能发现终端会直接被卡死(其实无法说明Cgroup是否生效， 使用pidstat也不好查看内存占用情况)
 
+### pids子系统
+
+
+
 
 ### 参考文档
 
@@ -296,4 +300,3 @@ stress-ng --vm 5 --vm-bytes 250M
 - [一文彻底搞懂Linux Cgroup如何限制容器资源](https://juejin.cn/post/6844904079076884493) 	 //可以看看
 - [资源限制：如何通过 Cgroups 机制实现资源限制？](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%94%B1%E6%B5%85%E5%85%A5%E6%B7%B1%E5%90%83%E9%80%8F%20Docker-%E5%AE%8C/10%20%20%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%EF%BC%9A%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%20Cgroups%20%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%EF%BC%9F.md)       //推荐动手实验
 - [Cgroup中的CPU资源控制](https://zhuanlan.zhihu.com/p/346050404)       //cgroup各个字段的含义
-
