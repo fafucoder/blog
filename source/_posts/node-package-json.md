@@ -2,9 +2,9 @@
 title: nodejs中package.json的常见字段
 date: 2021-10-12 23:42:34
 tags:
-- node
+- nodejs
 categories:
-- node
+- nodejs
 ---
 
 ### 参考文档
