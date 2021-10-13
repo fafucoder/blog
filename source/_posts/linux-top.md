@@ -3,10 +3,8 @@ title: linux top命令
 date: 2021-09-18 15:56:48
 tags:
 - linux
-- kubernetes
 categories:
 - linux
-- kubernetes
 ---
 
 ### top命令参数信息
