@@ -10,4 +10,3 @@ categories:
 ### 参考文档
 
 - [使用LVM](https://www.junmajinlong.com/linux/lvm/)   //骏马金龙老师的文章，推荐阅读
-- 

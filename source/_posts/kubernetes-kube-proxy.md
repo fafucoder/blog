@@ -144,7 +144,13 @@ iptables 模式下的规则如下所示：
 
 ### ipvs模式解析
 
-//@todo
+ipvs的实现模式跟iptables的实现模式类似，底层都是基于netfilter, 但是**ipvs使用hash表进行规则查找(时间复杂度为O(1))，而iptables使用链表进行查找(平均时间复杂度O(n/2),最好的情况是O(1),最坏的情况是O(n))**。其次，**由于 IPVS 的 DNAT 钩子挂在 INPUT 链上，因此为了让内核识别 VIP 是本机的 IP，ipvs模式下k8s 会将service cluster ip 绑定到虚拟网卡kube-ipvs0上**
+
+>ipvs跟iptables的主要区别如下：
+>
+>- iptables 使用链表，ipvs 使用哈希表；
+>- iptables 只支持随机、轮询两种负载均衡算法而 ipvs 支持的多达 8 种；
+>- ipvs 还支持 realserver 运行状况检查、连接重试、端口映射、会话保持等功能。
 
 ### 参考文档
 
@@ -155,4 +161,6 @@ iptables 模式下的规则如下所示：
 - https://knarfeh.com/2018/07/28/Kubernetes%20%E6%BA%90%E7%A0%81%E7%AC%94%E8%AE%B0%EF%BC%88kube-proxy%EF%BC%89
 - https://linuxops.dev/post/kubernetes%E7%9A%84kube-proxy%E7%9A%84%E8%BD%AC%E5%8F%91%E8%A7%84%E5%88%99%E5%88%86%E6%9E%90/
 - https://www.cnblogs.com/charlieroro/p/9588019.html
-- https://mp.weixin.qq.com/s/X6EL8GwWoi9_DyvhHL6Mlw //米开朗基杨博客
+- https://www.cnblogs.com/luozhiyun/p/13782077.html   // 深入k8s：kube-proxy ipvs及其源码分析
+- https://blog.csdn.net/u011563903/article/details/87904873  // K8S kube-proxy ipvs 原理分析
+- https://mp.weixin.qq.com/s/X6EL8GwWoi9_DyvhHL6Mlw // 米开朗基杨博客
