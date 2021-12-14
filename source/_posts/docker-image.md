@@ -299,7 +299,7 @@ runtime文件： 规定了state文件包含的内容，以及容器从创建到�
 
 ### 关于Rootfs与Bootfs
 
-一个典型的 Linux 系统要能运行的话，它至少需要两个文件系统, bootfs和bootfs.
+一个典型的 Linux 系统要能运行的话，它至少需要两个文件系统, rootfs和bootfs.
 
 #### Bootfs
 

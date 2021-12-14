@@ -74,8 +74,8 @@ iptables 模式下的规则如下所示：
 ![kube-proxy iptables表](https://docs.cilium.io/en/v1.8/_images/kubernetes_iptables.svg)
 
 #### ClusterIp 模式
-1. 非本机pod访问: `PREROUTING --> KUBE-SERVICE --> KUBE-SVC-XXX --> KUBE-SEP-XXX`
-2. 本机pod访问: `OUTPUT --> KUBE-SERVICE --> KUBE-SVC-XXX --> KUBE-SEP-XXX`
+1. 非本机节点pod访问: `PREROUTING --> KUBE-SERVICE --> KUBE-SVC-XXX --> KUBE-SEP-XXX`
+2. 本机节点访问pod: `OUTPUT --> KUBE-SERVICE --> KUBE-SVC-XXX --> KUBE-SEP-XXX`
 
 访问流程：
 1. 对于进入 PREROUTING 链的都转到 KUBE-SERVICES 链进行处理；

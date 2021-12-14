@@ -38,7 +38,7 @@ OVN部署由以下几个组件组成：
 
 ovn架构如下所示：
 ![ovn架构](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlqyxhjdxj312b0u07nj.jpg)
-- Openstack/CMS plugin 是 CMS 和 OVN 的接口，将CMS 的配置转化成 OVN 的格式写到 Nnorthbound DB 。
+- Openstack/CMS plugin 是 CMS 和 OVN 的接口，将CMS 的配置转化成 OVN 的格式写到 Northbound DB 。
 - Northbound DB 存储逻辑数据，与传统网络设备概念一致，比如 logical switch，logical router，ACL，logical port。
 - ovn-northd 类似于一个集中式控制器，把Northbound DB 里面的数据翻译后写到 Southbound DB 。
 - Southbound DB 保存的数据和 Northbound DB 语义完全不一样，主要包含 3 类数据，一是物理网络数据，比如 HV（hypervisor）的 IP 地址，HV 的 tunnel 封装格式；二是逻辑网络数据，比如报文如何在逻辑网络里面转发；三是物理网络和逻辑网络的绑定关系，比如逻辑端口关联到哪个 HV 上面。

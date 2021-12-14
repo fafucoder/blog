@@ -9,7 +9,7 @@ categories:
 
 ### context 作用
 
-context用来解决goroutine 之间**
+context用来解决goroutine 之间传递上下文信息，包括：取消信号、超时时间、截止时间、k-v 等。
 
 ```go
 

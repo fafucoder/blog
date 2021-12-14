@@ -191,8 +191,6 @@ ip netns del ns2
 ip link del mac3@eth0
 ```
 
-
-
 #### ipvlan
 
 IPVlan 和 macvlan 类似，都是从一个主机接口虚拟出多个虚拟网络接口。一个重要的区别就是**所有的虚拟接口都有相同的 macv 地址，而拥有不同的 ip 地址。**因为所有的虚拟接口要共享 mac 地址，所以有些需要注意的地方：

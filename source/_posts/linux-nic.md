@@ -15,7 +15,7 @@ categories:
 4. 经过 TCP/IP 协议逐层处理。
 5. 应用程序通过 read() 从 socket buffer 读取数据。
 
-![网卡收包流程](http://qehtohz1z.bkt.clouddn.com/fafucoder-blog/hzh6s.png)
+![网卡收包流程](https://tva1.sinaimg.cn/large/008i3skNly1gwi3ashxjrj30ha1523zx.jpg)
 
 ### 网卡收到的数据包转移到主机内存（NIC 与驱动交互）
 
@@ -28,7 +28,7 @@ NIC(网卡)在接收到数据包之后，首先需要将数据同步到内核中
 5. 网卡收到新的数据包；
 6. 网卡将新数据包通过 DMA 直接写到 sk_buffer 中。
 
-![Nic与驱动交互](http://qehtohz1z.bkt.clouddn.com/fafucoder-blog/1dup0.png)
+![Nic与驱动交互](https://tva1.sinaimg.cn/large/008i3skNly1gwi3cy7kw7j31320m0tat.jpg)
 
 当驱动处理速度跟不上网卡收包速度时，驱动来不及分配缓冲区，NIC 接收到的数据包无法及时写到 sk_buffer，就会产生堆积，当 NIC 内部缓冲区写满后，就会丢弃部分数据，引起丢包。这部分丢包为 rx_fifo_errors，在 /proc/net/dev 中体现为 fifo 字段增长，在 ifconfig 中体现为 overruns 指标增长。
 
@@ -40,6 +40,7 @@ NIC(网卡)在接收到数据包之后，首先需要将数据同步到内核中
 
 - 硬中断：由硬件自己生成，具有随机性，硬中断被 CPU 接收后，触发执行中断处理程序。中断处理程序只会处理关键性的、短时间内可以处理完的工作，剩余耗时较长工作，会放到中断之后，由软中断来完成。硬中断也被称为上半部分。
 - 软中断：由硬中断对应的中断处理程序生成，往往是预先在代码里实现好的，不具有随机性。（除此之外，也有应用程序触发的软中断，与本文讨论的网卡收包无关。）也被称为下半部分。
+
 当 NIC 把数据包通过 DMA 复制到内核缓冲区 sk_buffer 后，NIC 立即发起一个硬件中断。CPU 接收后，首先进入上半部分，网卡中断对应的中断处理程序是网卡驱动程序的一部分，之后由它发起软中断，进入下半部分，开始消费 sk_buffer 中的数据，交给内核协议栈处理。
 
 ![系统内核处理](http://qehtohz1z.bkt.clouddn.com/fafucoder-blog/hk0qi.png)
@@ -87,4 +88,6 @@ NAPI 主要是让 NIC 的 driver 能注册一个 poll 函数，之后 NAPI 的 s
 ### 参考文档
 - https://mp.weixin.qq.com/s/0TGH6zZP_psKyZl4JA-3Qw
 - https://ylgrgyq.github.io/2017/07/23/linux-receive-packet-1/
+- https://plantegg.github.io/2019/05/24/%E7%BD%91%E7%BB%9C%E5%8C%85%E7%9A%84%E6%B5%81%E8%BD%AC/
 - https://elixir.bootlin.com/linux/v4.4/source/drivers/net/ethernet/intel/igb/igb_main.c#L6361
+

@@ -12,13 +12,13 @@ categories:
 Linux 虚拟网络的背后都是由一个个的虚拟设备构成的。虚拟化技术没出现之前，计算机网络系统都只包含物理的网卡设备，通过网卡适配器，线缆介质，连接外部网络，构成庞大的 Internet。
 
 veth-pair 是成对出现的一种虚拟网络设备，一端连接着协议栈，一端连接着彼此，数据从一端出，从另一端进。它的这个特性常常用来连接不同的虚拟网络组件，构建大规模的虚拟网络拓扑，比如连接 Linux Bridge、OVS、LXC 容器等。
-![veth-pair](https://ctimbai.github.io/images/net/virtual-devices-all-4.png)
+![veth-pair](https://tva1.sinaimg.cn/large/008i3skNly1gwjmzkaaslj31g80hc40g.jpg)
 
 ### 创建veth-pair
 
 通过iproute2包中的ip link跟ip netns可以创建一个完整的veth-pair
 
-![veth-pair互通](https://ctimbai.github.io/images/virt/linuxswitch-veth.png)
+![veth-pair互通](https://tva1.sinaimg.cn/large/008i3skNly1gwjmympfjkj30ye0iamxx.jpg)
 
 ```
 # 创建veth pair
@@ -48,7 +48,7 @@ sudo ip netns exec ns2 ip link set veth1 up
 
 Linux Bridge 相当于一台交换机，可以中转两个 namespace 的流量
 
-![bridge veth-pair互通](https://ctimbai.github.io/images/virt/linuxswitch-ovs-veth.png)
+![bridge veth-pair互通](https://tva1.sinaimg.cn/large/008i3skNly1gwjn4rstl3j30yg0imabf.jpg)
 
 ```
 # 创建bridge
@@ -88,7 +88,7 @@ sudo ip netns exec ns2 ip link set veth1 up
 
 ### ping原理
 
-![ping原理](https://ctimbai.github.io/images/virt/pingveth.jpeg)
+![ping原理](https://tva1.sinaimg.cn/large/008i3skNly1gwjn5b0u3nj30pe0ka759.jpg)
 
 ### 参考文档
 - https://ctimbai.github.io/tags/veth-pair

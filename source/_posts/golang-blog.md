@@ -8,11 +8,12 @@ categories:
 ---
 
 ### 博客主
-- https://changkun.us/about/ (欧长坤)
+- https://changkun.us/about/   // (欧长坤)
 - https://draveness.me/ //面向信仰编程
 - https://ggaaooppeenngg.github.io/ //高鹏
 - http://cxd2014.github.io/ //linux 源码阅读
 - https://ylgrgyq.github.io/  //ylgrgyq linux源码
+- https://www.luozhiyun.com/   //腾讯某大佬，写得文章那叫一个字牛皮
 
 ### 网址
 - https://changkun.de/golang/zh-cn/preface
