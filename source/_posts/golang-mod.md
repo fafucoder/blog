@@ -173,7 +173,7 @@ go mod的版本信息如下：
 在上述依赖中，模块 A 依赖了模块 B 和模块 C，而模块 B 依赖了模块 D，模块 C 依赖了模块 D 和 F，模块 D 又依赖了模块 E，而且同模块的不同版本还依赖了对应模块的不同版本。那么这个时候 Go modules 怎么选择版本，选择的是哪一个版本呢？
 
 我们根据 proposal 可得知，Go modules 会把每个模块的依赖版本清单都整理出来，最终得到一个构建清单，如下图（来自Russ Cox）：
-![go mod版本信息](https://image.eddycjy.com/2bd0bed89d9300c0aac24c7bc72a6307.jpgg)
+![go mod版本信息](https://image.eddycjy.com/2bd0bed89d9300c0aac24c7bc72a6307.jpg)
 
 我们看到 rough list 和 final list，两者的区别在于重复引用的模块 D（v1.3、v1.4），其最终清单选用了模块 D 的 v1.4 版本，主要原因：
 
