@@ -183,3 +183,4 @@ main是实现了某种特定网络功能的插件; meta本身并不会提供具�
 - https://www.jianshu.com/p/1919fb8a48ea  //Kubelet 对CNI的实现
 - https://yucs.github.io/2017/12/06/2017-12-6-CNI/  //Kubernetes网络插件CNI调研整理
 - https://blog.csdn.net/waltonwang/article/details/72669826  //从源码看kubernetes与CNI Plugin的集成
+- https://www.ziji.work/kubernetes/kubernetes-architecture-from-scratch.html   // 不错
