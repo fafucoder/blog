@@ -32,7 +32,7 @@ CMD python /app/app.py
 
 当运行一个镜像并生成一个容器时，Docker会在底层的顶部添加一个新的*可写层*（“容器层”）。对正在运行的容器所做的所有更改，例如写入新文件、修改现有文件和删除文件，都将写入此可写容器层。有关镜像层（以及 Docker 如何构建和存储镜像）的更多信息，请参阅 [关于存储驱动程序](https://docs.docker.com/storage/storagedriver/)。
 
-![dokerfile](https://tva1.sinaimg.cn/large/008i3skNly1gt2peemzakj312w0u0jv1.jpg)
+![dokerfile](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt2peemzakj312w0u0jv1.jpg)
 
 #### 2、 了解构建上下文
 

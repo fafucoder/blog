@@ -17,7 +17,7 @@ ps 命令支持的语法风格
 2. **BSD风格**: 选项可以组合在一起，但是选项前不能有“-”连字符
 3. **GNU风格**: 选项前有两个“-”连字符
 
-![example](https://tva1.sinaimg.cn/large/008eGmZEly1gp1xlxnfb4j31be0u078m.jpg)
+![example](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp1xlxnfb4j31be0u078m.jpg)
 
 ### 参数
 
@@ -55,7 +55,7 @@ ps 命令支持的语法风格
 
 format格式较多，可通过man ps查看，主要的参数有`pid, ppid, pgid, cmd(command,agrs), pcpu, pmem, tty `等
 
-![ps -o](https://tva1.sinaimg.cn/large/008eGmZEly1gp1zdwx9ukj31830u0n6o.jpg)
+![ps -o](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp1zdwx9ukj31830u0n6o.jpg)
 
 #### 显示进程树
 
@@ -63,7 +63,7 @@ format格式较多，可通过man ps查看，主要的参数有`pid, ppid, pgid,
 ps -ejH 或者 ps axjf
 ```
 
-![显示进程数](https://tva1.sinaimg.cn/large/008eGmZEly1gp1zjd7r6vj31q40u0dp6.jpg)
+![显示进程数](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp1zjd7r6vj31q40u0dp6.jpg)
 
 #### 显示线程
 
@@ -72,7 +72,7 @@ ps -aux | grep container
 px -L pid
 ```
 
-![显示线程](https://tva1.sinaimg.cn/large/008eGmZEly1gp1zllvtllj31pm0nuag7.jpg)
+![显示线程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp1zllvtllj31pm0nuag7.jpg)
 
 #### 格式化输出
 
@@ -80,7 +80,7 @@ px -L pid
 ps -eo pid,ppid,pgid,tty,cmd
 ```
 
-![格式化输出](https://tva1.sinaimg.cn/large/008eGmZEly1gp1zoqjad4j31om0tgjwx.jpg)
+![格式化输出](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp1zoqjad4j31om0tgjwx.jpg)
 
 #### 实时输出
 
@@ -88,7 +88,7 @@ ps -eo pid,ppid,pgid,tty,cmd
 watch -n 1 'ps -aux --sort -pcpu,-pmem | head -20' 
 ```
 
-![实时输出](https://tva1.sinaimg.cn/large/008eGmZEly1gp1zx2eqygj31x00pi0zs.jpg)
+![实时输出](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp1zx2eqygj31x00pi0zs.jpg)
 
 ### pstree
 
@@ -106,7 +106,7 @@ pstree命令以树状图显示进程间的关系（display a tree of processes�
 pstree -p
 ```
 
-![pstree -p](https://tva1.sinaimg.cn/large/008eGmZEly1gp205oxnd6j30v60u0aii.jpg)
+![pstree -p](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp205oxnd6j30v60u0aii.jpg)
 
 ##### 显示指定进程的进程树
 
@@ -114,7 +114,7 @@ pstree -p
 pstree -p 1234
 ```
 
-![pstree -p](https://tva1.sinaimg.cn/large/008eGmZEly1gp206k758dj30us04et9q.jpg)
+![pstree -p](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp206k758dj30us04et9q.jpg)
 
 ##### 显示参数
 
@@ -122,7 +122,7 @@ pstree -p 1234
 pstree -ap 1234
 ```
 
-![pstree -a](https://tva1.sinaimg.cn/large/008eGmZEly1gp208117z1j31060amdh6.jpg)
+![pstree -a](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp208117z1j31060amdh6.jpg)
 
 ### 参考文档
 

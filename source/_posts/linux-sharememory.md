@@ -11,7 +11,7 @@ categories:
 
 每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到，所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为**进程间通信（IPC，InterProcess Communication）**
 
-![进程间通信](https://tva1.sinaimg.cn/large/008i3skNgy1gw3i6es2oqj30z80esq37.jpg)
+![进程间通信](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNgy1gw3i6es2oqj30z80esq37.jpg)
 
 常见的进程间通信的方式有如下：
 
@@ -25,7 +25,7 @@ categories:
 
 共享内存就是允许两个或多个进程共享一定的存储区。就如同 malloc() 函数向不同进程返回了指向同一个物理内存区域的指针。当一个进程改变了这块地址中的内容的时候，其它进程都会察觉到这个更改。因为数据不需要在客户机和服务器端之间复制，数据直接写到内存，不用若干次数据拷贝，所以这是最快的一种IPC(进程间通信)。
 
-![共享内存](https://tva1.sinaimg.cn/large/008i3skNly1gw3ij1hmmgj31sy0q0jt5.jpg)
+![共享内存](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw3ij1hmmgj31sy0q0jt5.jpg)
 
 共享内存是IPC通信当中**传输速度最快的通信方式没有之一**，但是共享内存并未提供同步机制，也就是说，在一个服务进程结束对共享内存的写操作之前，并没有自动机制可以阻止另一个进程（客户进程）开始对它进行读取。 因此常用会通过**信号量**来实现对共享内存同步访问控制。
 

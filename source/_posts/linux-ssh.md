@@ -13,13 +13,13 @@ categories:
 
 所谓正向代理就是无法直接访问目标服务，只能借助中间机器来访问目标服务。如下图所示：hostA无法直接访问目标服务(例如在内网环境，无法直接访问外部服务)，但是能够访问hostB且hostB能够访问目标服务，因此hostA去访问hostB，然后由hostB去请求目标服务。
 
-![正向代理](https://tva1.sinaimg.cn/large/008eGmZEly1gp4kdcrt5fj31a60juq8m.jpg)
+![正向代理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp4kdcrt5fj31a60juq8m.jpg)
 
 ##### 反向代理
 
 反向代理跟正向代理相反，正向代理解决的是怎么出去问题，反向代理解决的是怎么让外部访问你的服务问题，例如hostA有个服务需要对外暴露，但是外部网络无法直接访问,此时hostB能访问到hostA，外部网络能访问hostB，因此外部网络通过访问hostB,hostB再把数据代理到HostA
 
-![反向代理](https://tva1.sinaimg.cn/large/008eGmZEly1gp4kt6oa33j31a60g4af8.jpg)
+![反向代理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp4kt6oa33j31a60g4af8.jpg)
 
 
 

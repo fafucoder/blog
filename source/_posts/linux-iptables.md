@@ -10,16 +10,16 @@ categories:
 ### 一、iptables相关概念
 iptables的底层实现是netfilter，整个流程图如下图所示。
 
-![netfilter流程图](https://tva1.sinaimg.cn/large/0081Kckwly1gkbtrb6agvj317g0u0wlb.jpg)
+![netfilter流程图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkbtrb6agvj317g0u0wlb.jpg)
 
 
 当网卡上收到一个包送达协议栈时，最先经过的netfilter钩子是PREROUTING，如果确实有用户埋了这个钩子函数，那么内核将在这里对数据包进行目的地址转换（DNAT）。不管在PREROUTING有没有做过DNAT，内核都会通过查本地路由表决定这个数据包是发送给本地进程还是发送给其他机器。如果是发送给其他机器（或其他network namespace），就相当于把本地当作路由器，就会经过netfilter的FORWARD钩子，用户可以在此处设置包过滤钩子函数，例如iptables的reject函数。所有马上要发到协议栈外的包都会经过POSTROUTING钩子，用户可以在这里埋下源地址转换（SNAT）或源地址伪装（Masquerade，简称Masq）的钩子函数。如果经过上面的路由决策，内核决定把包发给本地进程，就会经过INPUT钩子。本地进程收到数据包后，回程报文会先经过OUTPUT钩子，然后经过一次路由决策（例如，决定从机器的哪块网卡出去，下一跳地址是多少等），最后出协议栈的网络包同样会经过POSTROUTING钩子。
 
-![数据流向](https://tva1.sinaimg.cn/large/0081Kckwly1gkbtxqi74mj319u0s440y.jpg)
+![数据流向](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkbtxqi74mj319u0s440y.jpg)
 
 ### 二、iptables三板斧 table, rule, chain
 iptables的工作流程如下图所示，
-![iptables工作流程](https://tva1.sinaimg.cn/large/0081Kckwly1gkbty6c5a9j30vh0u0dq6.jpg)
+![iptables工作流程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkbty6c5a9j30vh0u0dq6.jpg)
 
 #### 五张链
 - INPUT: 处理输入本地进程的数据包
@@ -56,10 +56,10 @@ iptables的工作流程如下图所示，
 
 3. 不是每个链上都能挂表，关系如下图
 
-   ![iptables链表关系](https://tva1.sinaimg.cn/large/0081Kckwly1gkbtylky4ej32la0s011q.jpg)
+   ![iptables链表关系](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkbtylky4ej32la0s011q.jpg)
 
 4. iptables的每条链下面的规则处理顺序是从上到下逐条遍历的，除非中途碰到DROP，REJECT，RETURN这些内置动作。如果iptables规则前面是自定义链，则意味着这条规则的动作是JUMP，即跳到这条自定义链遍历其下的所有规则，然后跳回来遍历原来那条链后面的规则
-![iptables遍历规则](https://tva1.sinaimg.cn/large/0081Kckwly1gkbtz6uvfcj30u00vajxx.jpg)
+![iptables遍历规则](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkbtz6uvfcj30u00vajxx.jpg)
 
 5. 查询iptables时，默认是filter表
 
@@ -68,7 +68,7 @@ iptables的工作流程如下图所示，
 2. DROP动作只是简单的直接丢弃数据，并不反馈任何回应。需要Client等待超时。
 
 #### 数据经过的流程图
-![iptables数据经过流程图](https://tva1.sinaimg.cn/large/0081Kckwly1gkbtznc2uaj319r0u0aj0.jpg)
+![iptables数据经过流程图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkbtznc2uaj319r0u0aj0.jpg)
 
 ### 三、iptables常见命令
 
@@ -179,7 +179,7 @@ ip rule add from 193.233.7.83 nat 192.203.80.144 table 1 prio 320
 
 32767：匹配任何条件，查询路由表default(ID 253)，该表是一个空表，它是后续处理保留。对于前面的策略没有匹配到的数据包，系统使用这个策略进行处理，这个规则也可以删除。
 
-![default ip rule](https://tva1.sinaimg.cn/large/008i3skNly1gxdfnfni2rj313w03w0ta.jpg)
+![default ip rule](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxdfnfni2rj313w03w0ta.jpg)
 
 #### ip route路由表
 
@@ -213,7 +213,7 @@ linux 系统中，可以自定义从 1－252个路由表，其中，linux系统�
 
 在Netfilter中，通过路由选择决定把包发送给本地进程还是经过Forward链转发到其他接口上。
 
-![netfilter flow](https://tva1.sinaimg.cn/large/008i3skNly1gxdfbbvxvjj30o21bsaep.jpg)
+![netfilter flow](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxdfbbvxvjj30o21bsaep.jpg)
 
 上图中**routing**就是使用`ip rule，ip route`设置的规则，**其中ip route配置的路由表服务于ip rule配置的规则。**
 

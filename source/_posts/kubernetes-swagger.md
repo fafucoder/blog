@@ -19,7 +19,7 @@ kubectl proxy --port=8081
 
 配置kubectl proxy即可，通过localhost:8081就可以查看api的定义，要获取到openapi.json只需要访问`http://localhost:8081/openapi/v2` 保存为json就行， 获取通过curl `curl localhost:8081/openapi/v2 > swagger.json`
 
-![openapi](https://tva1.sinaimg.cn/large/0081Kckwly1gl65smm4izj312208kdh3.jpg)
+![openapi](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gl65smm4izj312208kdh3.jpg)
 
 ### 运行Swagger UI
 

@@ -8,7 +8,7 @@ categories:
 ---
 
 ### 图片
-![vfs](https://tva1.sinaimg.cn/large/008i3skNly1gts5qs2lggj30u00wnq4v.jpg)
+![vfs](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gts5qs2lggj30u00wnq4v.jpg)
 
 ### 参考文档
 - https://spongecaptain.cool/SimpleClearFileIO/1.%20page%20cache.html

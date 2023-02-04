@@ -24,7 +24,7 @@ categories:
 3. 最后，将修改后的对象通过 update 请求提交给 K8s；
 4. 此时，kube-apiserver 会校验用户 update 请求提交对象中的 resourceVersion 一定要和当前 K8s 中这个对象最新的 resourceVersion 一致，才能接受本次 update。否则，K8s 会拒绝请求，并告诉用户发生了版本冲突（Conflict）。
 
-![k8s update](https://tva1.sinaimg.cn/large/008i3skNly1gupnvaobq5j60yw0u0gp102.jpg)
+![k8s update](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gupnvaobq5j60yw0u0gp102.jpg)
 
 上图展示了多个用户同时 update 某一个资源对象时会发生的事情。而如果如果发生了 Conflict 冲突，对于 User A 而言应该做的就是做一次重试，再次获取到最新版本的对象，修改后重新提交 update, 因此：
 

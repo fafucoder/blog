@@ -11,7 +11,7 @@ categories
 
 删除namespace,但是一直处于terminating状态，无法被删除
 
-![pod terminating](https://tva1.sinaimg.cn/large/008i3skNly1gw869bt9jgj30tw096q4d.jpg)
+![pod terminating](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw869bt9jgj30tw096q4d.jpg)
 
 ### 原因分析
 

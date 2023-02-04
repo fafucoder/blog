@@ -97,7 +97,7 @@ hello
 
 通过pstree 查看进程树 `sshd(28352)---bash(28375)---bash(4146)-+-grep(4434)`
 
-![pstree](https://tva1.sinaimg.cn/large/008i3skNgy1gslihlpatvj31gm0s2jyw.jpg)
+![pstree](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNgy1gslihlpatvj31gm0s2jyw.jpg)
 
 原理: Bash进程(28375)运行在当前namespace中，它将fork一个新进程来运行unshare程序，unshare程序加载完成后，将创建一个新的uts namespace，unshare进程自身将加入到这个uts namespace中，unshare进程内部再exec加载/bin/bash，于是unshare进程被替换为/bin/bash进程，/bin/bash进程也将运行在uts namespace中
 
@@ -174,7 +174,7 @@ pstree -p | grep grep
 
 运行截图如下所示， unshare进程会在创建新的namespace后会被改namespace中的第一个进程给替换掉。
 
-![进程关系](https://tva1.sinaimg.cn/large/008i3skNly1gtu7oa7m1hj613s0500tb02.jpg)
+![进程关系](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtu7oa7m1hj613s0500tb02.jpg)
 
 创建新的pid namespace方式：
 
@@ -187,7 +187,7 @@ pstree -p | grep grep
 
 使用--fork的操作的结果是(如下图): unshare进程被保留，且保留在原来的pid namespace中，而不是加入到新的pid namespace中。
 
-![pid](https://tva1.sinaimg.cn/large/008i3skNly1gtu8axwk5vj61so08iwh202.jpg)
+![pid](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtu8axwk5vj61so08iwh202.jpg)
 
 #### pid namespace 嵌套
 
@@ -280,13 +280,13 @@ network namespace用来隔离网络环境，在network namespace中，网络设�
 
 unshare命名就是unshare系统调用的实现，下面将通过unshare命令演示namespace的隔离技术
 
-![unshare 命令](https://tva1.sinaimg.cn/large/008i3skNgy1gslhd4myd7j31g00o40wh.jpg)
+![unshare 命令](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNgy1gslhd4myd7j31g00o40wh.jpg)
 
 ### lsns 命令
 
 lsns命令列举出当前已经创建的namespace
 
-![lsns](https://tva1.sinaimg.cn/large/008i3skNgy1gslhmuhvacj31k60tojv7.jpg)
+![lsns](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNgy1gslhmuhvacj31k60tojv7.jpg)
 
 ### 参考文档
 

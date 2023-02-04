@@ -22,7 +22,7 @@ LVS是Linux Virtual Server的简称， 也就是 Linux 虚拟服务器，工作�
 
 LVS的底层是利用NETIFILTER的钩子能力：
 
-![ipvs工作原理](https://tva1.sinaimg.cn/large/008i3skNly1gxv02bh3vzj30ow0c5dgv.jpg)
+![ipvs工作原理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxv02bh3vzj30ow0c5dgv.jpg)
 
 1. 当用户向负载均衡调度器（Director Server）发起请求，调度器将请求发往至内核空间
 2. PREROUTING 链首先会接收到用户请求，判断目标 IP 确定是本机 IP，将数据包发往 INPUT 链
@@ -71,7 +71,7 @@ LVS的底层是利用NETIFILTER的钩子能力：
 5. Real Server 比对发现目标为自己的 IP，开始构建响应报文发回给 Director Server。 此时报文的源 IP 为 RIP，目标 IP 为 CIP
 6. Director Server 在响应客户端前，此时会将源 IP 地址修改为自己的 VIP 地址，然后响应给客户端。 此时报文的源 IP 为 VIP，目标 IP 为 CIP
 
-![LVS NAT模式](https://tva1.sinaimg.cn/large/008i3skNly1gxv0a244zyj30ou0dtmys.jpg)
+![LVS NAT模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxv0a244zyj30ou0dtmys.jpg)
 
 ##### LVS NAT模式特点
 
@@ -149,7 +149,7 @@ DR（Direct Routing 直接路由模式）模式时 LVS 调度器只接收客户�
 5. RS 发现请求报文的 MAC 地址是自己的 MAC 地址，就接收此报文。处理完成之后，将响应报文通过 lo 接口传送给 eth0 网卡然后向外发出。 此时的源 IP 地址为 VIP，目标 IP 为 CIP。
 6. 响应报文最终送达至客户端。
 
-![LVS DR模式](https://tva1.sinaimg.cn/large/008i3skNly1gxvmcgh1xwj30oy0dwq57.jpg)
+![LVS DR模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxvmcgh1xwj30oy0dwq57.jpg)
 
 ##### LVS DR模式特点
 
@@ -268,7 +268,7 @@ curl 192.168.56.200
 5. RS 接收到报文后发现是自己的 IP 地址，就将报文接收下来，拆除掉最外层的 IP 后，会发现里面还有一层 IP 首部，而且目标是自己的 lo 接口 VIP，那么此时 RS 开始处理此请求，处理完成之后，通过 lo 接口送给 eth0 网卡，然后向外传递。 此时的源 IP 地址为 VIP，目标 IP 为 CIP。
 6. 响应报文最终送达至客户端。
 
-![LVS TUN模式](https://tva1.sinaimg.cn/large/008i3skNly1gxvobeirpcj30p00e340q.jpg)
+![LVS TUN模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxvobeirpcj30p00e340q.jpg)
 
 ##### LVS TUN模式特点
 
@@ -420,7 +420,7 @@ cd ~/lvs-fullnat-synproxy/tools/quagga
 5. Real Server 比对发现目标为自己的 IP，开始构建响应报文发回给 Director Server。 此时报文的源 IP 为 RIP，目标 IP 为 DIP
 6. Director Server 在响应客户端前，此时会将源 IP 地址修改为自己的 VIP 地址，然后响应给客户端。 此时报文的源 IP 为 VIP，目标 IP 为 CIP
 
-![LVS FULLNAT模式](https://tva1.sinaimg.cn/large/008i3skNly1gxw0gf5xdlj30lr0ck0tc.jpg)
+![LVS FULLNAT模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxw0gf5xdlj30lr0ck0tc.jpg)
 
 ##### LVS FULLNAT模式实践
 

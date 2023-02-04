@@ -81,9 +81,9 @@ Macvlan 允许你在主机的一个网络接口上配置多个虚拟的网络接
 
 macvlan的工作方式如下：
 
-![macvlan](https://tva1.sinaimg.cn/large/008eGmZEly1gnalist17hj311k0himyy.jpg)
+![macvlan](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnalist17hj311k0himyy.jpg)
 
-![macvlan工作原理](https://tva1.sinaimg.cn/large/008eGmZEly1gnalkw01hjj30u00um4hp.jpg)
+![macvlan工作原理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnalkw01hjj30u00um4hp.jpg)
 
 在macvlan中，实体网卡称为父接口(parent interface), 创建出来的虚拟网卡称为子接口(sub interface)，其中子接口无法与父接口通讯 (带有子接口 的 VM 或容器无法与 host 直接通讯, 这是因为在macvlan模式设计的时候为了安全而禁止了宿主机和容器直接通信)，如果vm或者容器需要与host通讯，就必须额外建立一个 `sub interface`给 host 用。
 
@@ -93,15 +93,15 @@ macvlan支持三种模式，bridge、vepa、private，在创建的时候设置**
 
 Bridge模式：属于同一个parent接口的macvlan接口之间挂到同一个bridge上，可以二层互通（macvlan接口都无法与parent 接口互通）。
 
-![bridge模式](https://tva1.sinaimg.cn/large/008eGmZEly1gnalvbza8pj30ke0damz6.jpg)
+![bridge模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnalvbza8pj30ke0damz6.jpg)
 
 VPEA模式：所有接口的流量都需要到外部switch才能够到达其他接口。
 
-![vpea mode](https://tva1.sinaimg.cn/large/008eGmZEly1gnalvz30r9j30ki0e8ace.jpg)
+![vpea mode](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnalvz30r9j30ki0e8ace.jpg)
 
 Private模式：接口只接受发送给自己MAC地址的报文。
 
-![private mode](https://tva1.sinaimg.cn/large/008eGmZEly1gnalwp2p00j30ke0dc0ul.jpg)
+![private mode](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnalwp2p00j30ke0dc0ul.jpg)
 
 #### 创建macvlan
 
@@ -203,11 +203,11 @@ Ipvlan 是 linux kernel 比较新的特性，linux kernel 3.19 开始支持 ipvl
 
 L2模式：ipvlan L2 模式和 macvlan bridge 模式工作原理很相似，父接口作为交换机来转发子接口的数据。同一个网络的子接口可以通过父接口来转发数据，而如果想发送到其他网络，报文则会通过父接口的路由转发出去。
 
-![L2 模式](https://tva1.sinaimg.cn/large/008eGmZEly1gnbb07ese2j312m0lm0z2.jpg)
+![L2 模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnbb07ese2j312m0lm0z2.jpg)
 
 L3模式：  ipvlan 有点像路由器的功能，它在各个虚拟网络和主机网络之间进行不同网络报文的路由转发工作。只要父接口相同，即使虚拟机/容器不在同一个网络，也可以互相 ping 通对方，因为 ipvlan 会在中间做报文的转发工作。
 
-![L3 模式](https://tva1.sinaimg.cn/large/008eGmZEly1gnbb0wbvecj312q0kowkm.jpg)
+![L3 模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnbb0wbvecj312q0kowkm.jpg)
 
 ##### 创建ipvlan
 
@@ -303,17 +303,17 @@ ip link del ipvlan3@eth0
 
 MACVTAP 是对 MACVLAN的改进，把 MACVLAN 与 TAP 设备的特点综合一下，使用 MACVLAN 的方式收发数据包，但是收到的包不交给 network stack 处理，而是生成一个 /dev/tapX 文件，交给这个文件。由于 MACVLAN 是工作在 MAC 层的，所以 MACVTAP 也只能工作在 MAC 层。
 
-![macvtap](https://tva1.sinaimg.cn/large/008eGmZEly1gnbackzjkej311m0do75k.jpg)
+![macvtap](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnbackzjkej311m0do75k.jpg)
 
 #### tun
 
 Tun是Linux系统里的虚拟网络设备, TUN设备模拟网络层设备(network layer)，处理三层报文，IP报文等，用于将报文注入到网络协议栈
 
-![tun](https://tva1.sinaimg.cn/large/008eGmZEly1gnbahpub4gj30ww0eqq42.jpg)
+![tun](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnbahpub4gj30ww0eqq42.jpg)
 
 应用程序(app)可以从物理网卡上读写报文，经过处理后通过TUN回送，或者从TUN读取报文处理后经物理网卡送出。
 
-![tun](https://tva1.sinaimg.cn/large/008eGmZEly1gnbaiuaxxij311g0bqta2.jpg)
+![tun](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnbaiuaxxij311g0bqta2.jpg)
 
 #### dummy
 

@@ -9,7 +9,7 @@ categories:
 
 ### Unix/Linux的体系架构
 
-![linux体系架构](https://tva1.sinaimg.cn/large/008i3skNly1gtqst04vm6j60u00u2dhf02.jpg)
+![linux体系架构](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtqst04vm6j60u00u2dhf02.jpg)
 
 Linux操作系统的体系架构分为用户态和内核态（或者用户空间和内核）。内核从本质上看是一种软件——控制计算机的硬件资源，并提供上层应用程序运行的环境。用户态即上层应用程序的活动空间，应用程序的执行必须依托于内核提供的资源，包括CPU资源、存储资源、I/O资源等。为了使上层应用能够访问到这些资源，内核必须为上层应用提供访问的接口：即系统调用
 
@@ -19,12 +19,12 @@ Shell是一个特殊的应用程序，俗称命令行，本质上是一个命令
 
 ### 运行级别
 
-![cpu运行级别](https://tva1.sinaimg.cn/large/008i3skNly1gtqsmldj1dj60v40kawfw02.jpg)
+![cpu运行级别](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtqsmldj1dj60v40kawfw02.jpg)
 
 linux的运行级别如上所示， Linux使用了Ring3级别运行用户态，Ring0作为 内核态，没有使用Ring1和Ring2。Ring3状态不能访问Ring0的地址空间，包括代码和数据。
 
 用户态通过系统调用切换成内核态，cpu通过跳转到系统调用对应的内核代码位置执行， 完成后再由内核态切回用户态
-![系统调用](https://tva1.sinaimg.cn/large/008i3skNly1gtqslui0rgj60z60qcacj02.jpg)
+![系统调用](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtqslui0rgj60z60qcacj02.jpg)
 
 系统内核 向下控制硬件资源，向内管理操作系统资源：包括进程的调度和管理、内存的管理、文件系统的管理、设备驱动程序的管理以及网络资源的管理，向上则向应用程序提供系统调用的接口。
 
@@ -37,7 +37,7 @@ linux的运行级别如上所示， Linux使用了Ring3级别运行用户态，R
 #### 系统调用
 因为操作系统的资源是有限的，如果访问资源的操作过多，必然会消耗过多的资源，而且如果不对这些操作加以区分，很可能造成资源访问的冲突。所以，为了减少有限资源的访问和使用冲突，Unix/Linux的设计哲学之一就是：对不同的操作赋予不同的执行等级，就是所谓特权的概念。简单说就是有多大能力做多大的事，与系统相关的一些特别关键的操作必须由最高特权的程序来完成。Intel的X86架构的CPU提供了0到3四个特权级，数字越小，特权越高，Linux操作系统中主要采用了0和3两个特权级，分别对应的就是内核态和用户态。运行于用户态的进程可以执行的操作和访问的资源都会受到极大的限制，而运行在内核态的进程则可以执行任何操作并且在资源的使用上没有限制。很多程序开始时运行于用户态，但在执行的过程中，一些操作需要在内核权限下才能执行，这就涉及到一个从用户态切换到内核态的过程。比如C函数库中的内存分配函数malloc()，它具体是使用sbrk()系统调用来分配内存，当malloc调用sbrk()的时候就涉及一次从用户态到内核态的切换，类似的函数还有printf()，调用的是wirte()系统调用来输出字符串，等等。
 
-![系统调用](https://tva1.sinaimg.cn/large/008i3skNly1gtqsokfmqgj60mi0h8aaj02.jpg)
+![系统调用](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtqsokfmqgj60mi0h8aaj02.jpg)
 
 #### 异常事件
 当CPU正在执行运行在用户态的程序时，突然发生某些预先不可知的异常事件，这个时候就会触发从当前用户态执行的进程转向内核态执行相关的异常事件，典型的如缺页异常
@@ -117,7 +117,7 @@ netlink 这种灵活的方式，使得它可以用于内核与多种用户进程
 
 在电脑开机之前，内存就是一块原始的物理内存。什么也没有。开机加电，系统启动后，就对物理内存进行了划分。当然，这是系统的规定，物理内存条上并没有划分好的地址和空间范围。这些划分都是操作系统在逻辑上的划分。不同版本的操作系统划分的结果都是不一样的。例如在32位操作系统中，一般将最高的1G字节划分为内核空间，供内核使用，而将较低的3G字节划分为用户空间，供各个进程使用。
 
-![用户空间和内核空间](https://tva1.sinaimg.cn/large/008i3skNly1gtqsq74kt1j60uw0fygmf02.jpg)
+![用户空间和内核空间](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtqsq74kt1j60uw0fygmf02.jpg)
 
 其中: 
 - 内核空间中存放的是内核代码和数据，而进程的用户空间中存放的是用户程序的代码和数据。

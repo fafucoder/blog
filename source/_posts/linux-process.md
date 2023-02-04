@@ -13,7 +13,7 @@ categories:
 
 进程是操作系统对一个正在运行的程序的一种抽象，进程是资源分配的最小单位。为什么会有 ”进程“ 呢？**说白了还是为了合理压榨 CPU 的性能和分配运行的时间片**，不能 “闲着“。
 
-![进程](https://tva1.sinaimg.cn/large/008i3skNly1gw2wy8jjr6j31120iyq3f.jpg)
+![进程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2wy8jjr6j31120iyq3f.jpg)
 
 ##### 进程的控制结构
 
@@ -166,7 +166,7 @@ struct task_struct {
 
 PCB通过链表的方式进行组织，把具有相同状态的进程链在一起，组成各种队列, 例如将处于就绪状态的进程链在一块，形成就绪队列，将所有因等待某事件而处于等待队列的进程链在一块形成阻塞队列。
 
-![pcb链表](https://tva1.sinaimg.cn/large/008i3skNly1gw2xnlh053j31260q2756.jpg)
+![pcb链表](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2xnlh053j31260q2756.jpg)
 
 ##### 进程的状态
 
@@ -176,7 +176,7 @@ PCB通过链表的方式进行组织，把具有相同状态的进程链在一�
 - 就绪态(Ready): 可运行，但因为其他进程正在运行而暂停停止
 - 阻塞状态(Blocked)：该进程等待某个事件（比如IO读取）停止运行，这时，即使给它CPU控制权，它也无法运行
 
-![进程状态](https://tva1.sinaimg.cn/large/008i3skNly1gw2xshd5c3j311a0iadge.jpg)
+![进程状态](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2xshd5c3j311a0iadge.jpg)
 
 如上所示：
 
@@ -191,7 +191,7 @@ PCB通过链表的方式进行组织，把具有相同状态的进程链在一�
 - 结束态（Exit）：进程正在从系统中消失时的状态
 - 阻塞状态（Blocked）：该进程等待某个事件（比如IO读取）停止运行，这时，即使给它CPU控制权，它也无法运行
 
-![进程五态](https://tva1.sinaimg.cn/large/008i3skNly1gw2yr36kntj31800jcdgs.jpg)
+![进程五态](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2yr36kntj31800jcdgs.jpg)
 
 ##### CPU的上下文切换
 
@@ -210,7 +210,7 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 
 首先进程是由内核管理与调度的，所以进程上下文切换发生在内核态，进程上下文切换的内容包含用户空间资源（虚拟内存、栈、全局变量等）与内核空间资源（内核堆栈、寄存器等）。在做上下文切换的时候，会把前一个 进程 的上下文保存到它的 PCB中，然后加载当前 进程 的 PCB上下文到 CPU中，使得 进程 继续执行。
 
-![进程上下文切换](https://tva1.sinaimg.cn/large/008i3skNly1gw2ya3nu9dj310e0d2mxj.jpg)
+![进程上下文切换](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2ya3nu9dj310e0d2mxj.jpg)
 
 进程上下文切换的场景：
 
@@ -231,7 +231,7 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 
 一个进程可以由多个称为线程的执行单元组成。每个线程都运行在进程的上下文中，共享着同样的代码和全局数据。多个进程，就可以有更多的线程。**多线程比多进程之间更容易共享数据，在上下文切换中线程一般比进程更高效**。每个线程都有独立一套的寄存器和栈，这样可以确保线程的控制流是相对独立的。
 
-![线程](https://tva1.sinaimg.cn/large/008i3skNly1gw2yq46zecj315g0p0dh5.jpg)
+![线程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2yq46zecj315g0p0dh5.jpg)
 
 引入线程带来的好处有以下几点
 
@@ -247,7 +247,7 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 1. 不同进程的线程，切换的过程就跟进程上下文切换一样
 2. 两个线程是属于同一个进程，因为虚拟内存是共享的，所以在切换时，虚拟内存这些资源就保持不动，只需要切换线程的私有数据、寄存器等不共享的数据
 
-![线程上下文](https://tva1.sinaimg.cn/large/008i3skNly1gw2yp0fsrmj311s0fggmb.jpg)
+![线程上下文](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw2yp0fsrmj311s0fggmb.jpg)
 
 #### 线程模型
 
@@ -257,7 +257,7 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 
 因为内核线程是由内核空间管理，所以它的 结构线程控制块（Thread Control Block, TCB） 在内核空间，操作系统对 T C B 是可见的。内核线程与KSE是1对1关系(1:1)。大部分编程语言的线程库(如linux的pthread，Java的java.lang.Thread，C++11的std::thread等等)都是对操作系统的线程（内核级线程）的一层封装，创建出来的每个线程与一个不同的KSE静态关联，因此其调度完全由OS调度器来做。这种方式实现简单，直接借助OS提供的线程能力，并且不同用户线程之间一般也不会相互影响。但其创建，销毁以及多个线程之间的上下文切换等操作都是直接由OS层面亲自来做，在需要使用大量线程的场景下对OS的性能影响会很大。
 
-![内核线程](https://tva1.sinaimg.cn/large/008i3skNly1gw36lb65p2j315o0lwq44.jpg)
+![内核线程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw36lb65p2j315o0lwq44.jpg)
 
 ##### 用户级线程模型
 
@@ -266,13 +266,13 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 用户线程与KSE是多对1关系(M:1)，这种线程的创建，销毁以及多个线程之间的协调等操作都是由用户自己实现的线程库来负责，对OS内核透明，一个进程中所有创建的线程都与同一个KSE在运行时动态关联。现在有许多语言实现的 协程 基本上都属于这种方式。这种实现方式相比内核级线程可以做的很轻量级，对系统资源的消耗会小很多，因此可以创建的数量与上下文切换所花费的代价也会小得多。但该模型有个致命的缺点，如果我们在某个用户线程上调用阻塞式系统调用(如用阻塞方式read网络IO)，那么一旦KSE因阻塞被内核调度出CPU的话，剩下的所有对应的用户线程全都会变为阻塞状态（整个进程挂起）。
 所以这些语言的协程库会把自己一些阻塞的操作重新封装为完全的非阻塞形式，然后在以前要阻塞的点上，主动让出自己，并通过某种方式通知或唤醒其他待执行的用户线程在该KSE上运行，从而避免了内核调度器由于KSE阻塞而做上下文切换，这样整个进程也不会被阻塞了。
 
-![用户线程](https://tva1.sinaimg.cn/large/008i3skNly1gw36lqx5xej316k0qu760.jpg)
+![用户线程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw36lqx5xej316k0qu760.jpg)
 
 ##### 混合型线程模型
 
 用户线程与KSE是多对多关系(M:N), 这种实现综合了前两种模型的优点，为一个进程中创建多个KSE，并且线程可以与不同的KSE在运行时进行动态关联，当某个KSE由于其上工作的线程的阻塞操作被内核调度出CPU时，当前与其关联的其余用户线程可以重新与其他KSE建立关联关系。当然这种动态关联机制的实现很复杂，也需要用户自己去实现，这算是它的一个缺点吧。Go语言中的并发就是使用的这种实现方式，Go为了实现该模型自己实现了一个运行时调度器来负责Go中的”线程”与KSE的动态关联。此模型有时也被称为 两级线程模型，即用户调度器实现用户线程到KSE的“调度”，内核调度器实现KSE到CPU上的调度。
 
-![混合级线程模型](https://tva1.sinaimg.cn/large/008i3skNly1gw36nrsfktj316q0rsgnr.jpg)
+![混合级线程模型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw36nrsfktj316q0rsgnr.jpg)
 
 #### 协程
 
@@ -314,7 +314,7 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 3. 内核加载
 4. init 初始化(内核启动第一个**用户空间应用程序**，即 systemd 进程， 通过dmesg能查看)
 
-![dmesg](https://tva1.sinaimg.cn/large/008eGmZEly1goanfk29j1j328m0tcqbm.jpg)
+![dmesg](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goanfk29j1j328m0tcqbm.jpg)
 
 #### systemd简介
 
@@ -332,13 +332,13 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 
 通过pstree 能够查看进程数状态，用户空间的进程都挂在 PID 为 1 的 systemd 进程下。(似乎systemd进程无法被杀死，kill -9 1似乎无效！)
 
-![pstree 进程数](https://tva1.sinaimg.cn/large/008eGmZEly1goan63vhgqj313s0pygp3.jpg)
+![pstree 进程数](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goan63vhgqj313s0pygp3.jpg)
 
 #### systemd 体系架构
 
-![systemd体系架构](https://tva1.sinaimg.cn/large/008eGmZEly1goanaecdizj31g40qc1kx.jpg)
+![systemd体系架构](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goanaecdizj31g40qc1kx.jpg)
 
-![systemd交互](https://tva1.sinaimg.cn/large/008eGmZEly1goannznnthj31bn0u07wh.jpg)
+![systemd交互](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goannznnthj31bn0u07wh.jpg)
 
 - 最底层：systemd 内核层面依赖 cgroup、autofs、kdbus
 
@@ -358,15 +358,15 @@ CPU把一个进程切换到另一个进程运行的过程，称为进程上下�
 
   4. systemd-analyze 分析系统启动效能
 
-  ![systemd命令大全](https://tva1.sinaimg.cn/large/008eGmZEly1goanl9xhdsj320c08etap.jpg)
+  ![systemd命令大全](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goanl9xhdsj320c08etap.jpg)
 
 #### systemd软连接
 
 当我们使用 reboot 、poweroff 、shutdown 等命令的时候，其实并不是执行该命令本身，背后是调用的 systemctl 命令。systemctl 命令会将 reboot 这些命令作为 $1 参数传递进去。所以执行 reboot 和 systemctl reboot 本质上是一样的。
 
-![systemd软连接](https://tva1.sinaimg.cn/large/008eGmZEly1goanp7lgg9j319q07o75f.jpg)
+![systemd软连接](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goanp7lgg9j319q07o75f.jpg)
 
-![systemd system commands](https://tva1.sinaimg.cn/large/008eGmZEly1goansqy13wj317y0ewdib.jpg)
+![systemd system commands](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goansqy13wj317y0ewdib.jpg)
 
 ### 参考文档
 

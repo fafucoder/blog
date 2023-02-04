@@ -11,7 +11,7 @@ categories:
 
 在命令top中可以方便的查看系统的cpu和内存信息(如下图所示), 然后你可能不清楚每一个字段代表的含义，现在就一块揭秘top命令中每个字段的含义
 
-![top command](https://tva1.sinaimg.cn/large/008i3skNly1gut64f02osj61h40octfj02.jpg)
+![top command](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gut64f02osj61h40octfj02.jpg)
 
 `us`：user time，表示 CPU 执行用户进程的时间，包括 nice 时间。通常都是希望用户空间CPU越高越好。
 
@@ -29,7 +29,7 @@ categories:
 
 `st`：steal time，被强制等待（involuntary wait）虚拟 CPU 的时间，此时 Hypervisor 在为另一个虚拟处理器服务
 
-![top cpu command](https://tva1.sinaimg.cn/large/008i3skNly1gut6kntlhpj61hc0u0gqf02.jpg)
+![top cpu command](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gut6kntlhpj61hc0u0gqf02.jpg)
 
 #### cpu 平均负载Load Average
 
@@ -49,7 +49,7 @@ categories:
 >
 > 因此，如果发现系统的load average很高，而CPU还是处于空闲状态，说明有很多进程处于阻塞状态，这时候得检查下代码写的是否有问题啦~(通过 ps 命令可以查阅D状态进程的信息)
 
-![load average](https://tva1.sinaimg.cn/large/008i3skNly1gut7nhnp8kj61hc0u0ac602.jpg)
+![load average](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gut7nhnp8kj61hc0u0ac602.jpg)
 
 ### top命令原理
 

@@ -12,13 +12,13 @@ categories:
 
 在使用Go语言的过程中，无论是实现web应用程序，还是控制台输入输出，又或者是网络操作，不可避免的会遇到IO操作，使用到io.Reader和io.Writer接口。
 
-![io](https://tva1.sinaimg.cn/large/008eGmZEly1gnv6vcq9iej315m078jvu.jpg)
+![io](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv6vcq9iej315m078jvu.jpg)
 
 ### io.Reader
 
 `io.Reader` 表示一个读取器，它将数据从某个资源读取到传输缓冲区。在缓冲区中，数据可以被流式传输和使用。
 
-![io reader](https://tva1.sinaimg.cn/large/008eGmZEly1gnv6wqpi95j31720a2n1s.jpg)
+![io reader](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv6wqpi95j31720a2n1s.jpg)
 
 io.Reader接口定义如下：
 
@@ -39,7 +39,7 @@ type Reader interface {
 
 `io.Writer` 表示一个编写器，它从缓冲区读取数据，并将数据写入目标资源。
 
-![io writer](https://tva1.sinaimg.cn/large/008eGmZEly1gnv73ri3h0j315o0ai435.jpg)
+![io writer](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv73ri3h0j315o0ai435.jpg)
 
 io.Writer接口定义如下：
 
@@ -65,7 +65,7 @@ type Writer interface {
 
 - bufio.Reader/Writer: 抽象成带缓冲的流读取（比如按行读写）
 
-![接口继承关系](https://tva1.sinaimg.cn/large/008eGmZEly1gnv6fu1e37j312k0l4gsz.jpg)
+![接口继承关系](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv6fu1e37j312k0l4gsz.jpg)
 
 
 

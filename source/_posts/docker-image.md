@@ -17,19 +17,19 @@ Docker 是一个构建，发布和运行应用程序的开放平台。Docker 以
 
 > 关于什么是Hypervisor,  [维基百科](https://zh.wikipedia.org/wiki/Hypervisor)是这样说的：Hypervisor，又称虚拟机监控器（英语：virtual machine monitor，缩写为 VMM），是用来创建与运行[虚拟机](https://zh.wikipedia.org/wiki/虛擬機器)的软件、固件或硬件。
 
-![docker vs 虚拟化](https://tva1.sinaimg.cn/large/008i3skNly1gt084pww6ij30zq0fg0u7.jpg)
+![docker vs 虚拟化](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt084pww6ij30zq0fg0u7.jpg)
 
 ### Docker 架构与核心概念
 
 Docker 使用 client-server 架构， Docker 客户端将命令发送给 Docker 守护进程，后者负责构建，运行和分发 Docker 容器。 Docker 客户端和守护程序使用 REST API，通过 UNIX 套接字或网络接口进行通信。
 
-![docker 架构](https://tva1.sinaimg.cn/large/008i3skNly1gt09h6g14oj31380ka40r.jpg)
+![docker 架构](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt09h6g14oj31380ka40r.jpg)
 
 ### docker常见命令
 
 Docker 提供了大量命令用于管理镜像、容器和服务，命令的统一使用格式为：`docker [OPTIONS] COMMAND`
 
-![docker command](https://tva1.sinaimg.cn/large/008i3skNly1gsy8qkirb0j30zw0tiwh9.jpg)
+![docker command](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsy8qkirb0j30zw0tiwh9.jpg)
 
 #### 1. 基础命令
 
@@ -62,7 +62,7 @@ Docker 提供了大量命令用于管理镜像、容器和服务，命令的统�
 
 下面这张图是docker 容器的状态流转图，方便助记:
 
-![docker 命令流转图](https://tva1.sinaimg.cn/large/008i3skNly1gsy8vzdj26j31dw0pc40n.jpg)
+![docker 命令流转图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsy8vzdj26j31dw0pc40n.jpg)
 
 ## 镜像是怎样炼成的
 
@@ -70,7 +70,7 @@ Docker 提供了大量命令用于管理镜像、容器和服务，命令的统�
 
 OCI 即Open Container Initiative, linux基金会与2015年6月成立的组织，旨在围绕容器格式和运行时制定一个开放的工业化标准。目前 OCI 主要有三个规范：运行时规范 [runtime-spec](https://github.com/opencontainers/runtime-spec) ，镜像规范 [image-spec](https://www.github.com/opencontainers/image-spec) 以及不常见的镜像仓库规范 [distribution-spec](https://github.com/opencontainers/distribution-spec) 。
 
-![oci spec](https://tva1.sinaimg.cn/large/008i3skNly1gsx2adhgauj30y80783yq.jpg)
+![oci spec](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsx2adhgauj30y80783yq.jpg)
 
 #### Image Spec
 
@@ -266,11 +266,11 @@ OCI 规范中的镜像规范(image-spec) 决定了我们的镜像按照什么标
 | diff_ids     | 镜像每一层的 id ，是对本地镜像中 layer 的 tar 包的 sha256 哈希值 |
 | layer digest | 镜像在 registry 存储中的 id ，是对远程 layer的 tar 包的 sha256 哈希值 |
 
-![image id](https://tva1.sinaimg.cn/large/008i3skNly1gsx192u19nj30r80x440j.jpg)
+![image id](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsx192u19nj30r80x440j.jpg)
 
 镜像的 image config 中的 `rootfs` 字段记录了每一层 layer 的 id，而镜像的 layer id 则是 layer tar 包的 sha256 值，如果镜像的 layer 改变，则这个 layer id 会改变，而记录它的 image config 内容也会改变，image config 内容变了，image config 文件的 sha256 值也就会改变，这样就可以由 image id 和 image digest 唯一标识一个镜像，达到防治篡改的安全目的。
 
-![diff_ids](https://tva1.sinaimg.cn/large/008i3skNly1gsx1es0afuj31620ocgs4.jpg)
+![diff_ids](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsx1es0afuj31620ocgs4.jpg)
 
 #### Runtime Spec
 
@@ -295,7 +295,7 @@ runtime文件： 规定了state文件包含的内容，以及容器从创建到�
 
 > 市面上常见的容器运行时有runc, rkt, lxc, containerd等。
 
-![runtime](https://tva1.sinaimg.cn/large/008i3skNgy1gsx2sg6azij316c0iewf3.jpg)
+![runtime](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNgy1gsx2sg6azij316c0iewf3.jpg)
 
 ### 关于Rootfs与Bootfs
 
@@ -305,16 +305,16 @@ runtime文件： 规定了state文件包含的内容，以及容器从创建到�
 
 Bootfs 包含BootLoader(引导加载程序)和kernel(内核)。回忆下操作系统的启动过程，当按下电脑的开机键之后，电脑首先进行加电自检(检查硬件是否有问题), 接着就是GRUB引导，然后是内核加载，内核加载完成后进行init初始化(内核启动第一个用户空间程序)，bootfs的作用就是把引导程序和把/boot文件系统加载进内核的过程，当内核都会被加载进内存后，此时 bootfs 会被卸载掉从而释放出所占用的内存。
 
-![bootfs](https://tva1.sinaimg.cn/large/008i3skNly1gsy83q4f2aj30w006s0ss.jpg)
+![bootfs](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsy83q4f2aj30w006s0ss.jpg)
 
 #### Rootfs
 
 rootfs就是root文件系统，包含的就是典型的Linux系统中的/dev, /proc, /bin, /etc等标准目录和文件。
 
-![rootfs](https://tva1.sinaimg.cn/large/008i3skNly1gsy86pccjbj31fk0260su.jpg)
+![rootfs](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsy86pccjbj31fk0260su.jpg)
 
 Docker镜像是由文件系统叠加而成。最低端是bootfs，并使用宿主机的bootfs（docker中操作系统启动几秒钟，原因就是，通过docker镜像启动的操作系统，底层使用的是docker宿主机的bootfs不需要重新加载bootfs), 第二层是root文件系统rootfs 称为base image(基础镜像)。然后可以再往上叠加其它镜像文件，每一层就是一个layer(每一层都是只读的)。 当从一个镜像启动容器时，docker会使用联合文件系统把多个不同位置的目录(layer)联合挂载（union mount）到同一个目录下，然后会在最顶层加载一个读写文件系统作为容器。(联合文件系统下一个章节会说明)
-![加载过程](https://tva1.sinaimg.cn/large/008i3skNly1gt2peemzakj312w0u0jv1.jpg)
+![加载过程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt2peemzakj312w0u0jv1.jpg)
 
 ### Dockerfile
 
@@ -437,11 +437,11 @@ CMD [ "node" ]
 
 5. 接着启动一个临时的容器并在 chroot 中启动一个 bash，运行 `RUN` 语句中的命令
 
-![lsns](https://tva1.sinaimg.cn/large/008i3skNly1gsz7qvscwmj31qq0ggtei.jpg)
+![lsns](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gsz7qvscwmj31qq0ggtei.jpg)
 
 (使用docker ps 查看临时的镜像):
 
-![docker ps](https://tva1.sinaimg.cn/large/008i3skNly1gszacahe66j31gs03cdgi.jpg)
+![docker ps](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gszacahe66j31gs03cdgi.jpg)
 
 6. 一条 `RUN` 命令结束后，会把上层目录压缩，形成新镜像中的新的一层；
 
@@ -801,7 +801,7 @@ docker push localhost:5000/busybox:latest
 
 (有点看不懂，且看下面的层级结构图):
 
-![目录结构](https://tva1.sinaimg.cn/large/008i3skNly1gt1jxsria5j31lv0u0jwe.jpg)
+![目录结构](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt1jxsria5j31lv0u0jwe.jpg)
 
 #### blobs 目录
 
@@ -850,7 +850,7 @@ sha256:dca71257cd2e72840a21f0323234bb2e33fea6d949fa0f21c5102146f583486b
 
 理解 docker pull 一个镜像的流程最好的办法是查看 OCI registry 规范中的这段文档 [pulling-an-image](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#pulling-an-image), 下面流程图是镜像传输的流程:
 
-![docker pull](https://tva1.sinaimg.cn/large/008i3skNly1gt1mm3241qj30wa0sqdj2.jpg)
+![docker pull](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt1mm3241qj30wa0sqdj2.jpg)
 
 ocker pull 就和我们使用 git clone 一样效果，将远程的镜像仓库拉取到本地来给容器运行时使用，结合上图大致的流程如下：
 
@@ -889,7 +889,7 @@ doker push 的流程恰好和 docker pull 拉取镜像到本地的流程相反�
 >- config.json: 该文件包含了容器运行的配置信息，该文件必须存在 bundle 的根目录，且名字必须为 config.json
 >- 容器的根目录，可以由 config.json 中的 root.path 指定
 
-![oci bundle](https://tva1.sinaimg.cn/large/008i3skNly1gt0ant3ao0j61750u00ts02.jpg)
+![oci bundle](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt0ant3ao0j61750u00ts02.jpg)
 
 当我们启动一个容器之后使用 tree 命令来分析一下 overlay2目录 就会发现，较之前的目录，容器启动之后 overlay2 目录下多了一个 `merged` 的文件夹，该文件夹就是容器内看到的。docker 通过 overlayfs (联合文件系统)联合挂载的技术将镜像的多层 layer 挂载为一层，这层的内容就是容器里所看到的，也就是 merged 文件夹。
 
@@ -905,7 +905,7 @@ UnionFS 其实是一种为 Linux 操作系统设计的用于把多个文件系�
 
 AUFS 即 Advanced UnionFS 其实就是 UnionFS 的升级版, 它能够将将单个 Linux 主机上的多个目录分层并将它们呈现为单个目录。这些目录在 AUFS 术语中称为*分支*，在 Docker 术语中称为*层*，关于AUFS如何工作的在 [docker 官方文档 ](https://docs.docker.com/storage/storagedriver/aufs-driver/) 里有说明
 
-![aufs](https://tva1.sinaimg.cn/large/008i3skNly1gt0b8ajmpzj617k0lsdiq02.jpg)
+![aufs](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt0b8ajmpzj617k0lsdiq02.jpg)
 
 #### OverlayFS
 
@@ -915,7 +915,7 @@ OverlayFS 由低层和高层的目录组成，下层目录称之为`lowerdir`, �
 
 下图显示了 Docker 镜像和 Docker 容器是如何分层的。图像层是`lowerdir`，容器层是`upperdir`。`merged` 为镜像和容器中所有图层的合并视图。关于AUFS如何工作的在 [docker 官方文档 ](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) 里有说明
 
-![overlay](https://tva1.sinaimg.cn/large/008i3skNly1gt0bmp76u7j315i0asmz3.jpg)
+![overlay](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt0bmp76u7j315i0asmz3.jpg)
 
 当我们使用`docker inspect `命令的时候可以看到镜像(容器)的的层信息
 

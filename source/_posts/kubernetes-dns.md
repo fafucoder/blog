@@ -23,7 +23,7 @@ categories:
 
 ### DNS查询过程
 
-![DNS查询](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghpj97njjzj30ze0ki12v.jpg)
+![DNS查询](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1ghpj97njjzj30ze0ki12v.jpg)
 
 以查询`www.baidu.com`为例子:
 
@@ -61,7 +61,7 @@ categories:
 - RT 路由穿透记录;
 - X25 域名对应的X.25地址记录;
 
-![DNS记录类型](https://tva1.sinaimg.cn/large/008i3skNly1gxr2jopyinj31l60u0gog.jpg)
+![DNS记录类型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gxr2jopyinj31l60u0gog.jpg)
 
 > 注： 主机记录就是域名前缀，例如`www.baidu.com`中的www就是域名前缀，比较特殊的主机记录有：
 > 
@@ -296,7 +296,7 @@ dnsConfig:
 
 Pod中dns配置主要有dnsConfig跟dnsPolicy, 其中dnsPolicy主要dns网络策略， dnsConfig主要配置dns的resolv.conf配置，详情可以参考[官方api](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#podspec-v1-core)
 
-![DNS配置](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghpl88nr9sj323608yn0i.jpg)
+![DNS配置](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1ghpl88nr9sj323608yn0i.jpg)
 
 #### dnsConfig
 

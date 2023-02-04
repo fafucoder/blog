@@ -170,11 +170,11 @@ main是实现了某种特定网络功能的插件; meta本身并不会提供具�
 >- dhcp：从已经运行的 DHCP 服务器中获取 ip 地址
 
 ### kubelet如何调用CNI
-![kubelet调用CNI模型](https://tva1.sinaimg.cn/large/008i3skNly1gwi5tc0cwtj30ts0ggjrs.jpg)
+![kubelet调用CNI模型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwi5tc0cwtj30ts0ggjrs.jpg)
 
 在容器运行时(CRI)，会调用CNI插件为sanbox容器配置网络
 
-![kubelet调用CNI流程图](https://tva1.sinaimg.cn/large/008i3skNly1gwi5j7vzo6j30xg0jkjsf.jpg)
+![kubelet调用CNI流程图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwi5j7vzo6j30xg0jkjsf.jpg)
 
 ### 参考文档
 - https://cloud.tencent.com/developer/article/1579809?s=original-sharing   //Extend Kubernetes - CNI

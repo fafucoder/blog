@@ -34,10 +34,10 @@ OVN部署由以下几个组件组成：
 
 > hypervisor和网关一起被称为传输节点或chassis
 
-![ovn各组件](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlrywpijtj31fi0tqtf7.jpg)
+![ovn各组件](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjlrywpijtj31fi0tqtf7.jpg)
 
 ovn架构如下所示：
-![ovn架构](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlqyxhjdxj312b0u07nj.jpg)
+![ovn架构](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjlqyxhjdxj312b0u07nj.jpg)
 - Openstack/CMS plugin 是 CMS 和 OVN 的接口，将CMS 的配置转化成 OVN 的格式写到 Northbound DB 。
 - Northbound DB 存储逻辑数据，与传统网络设备概念一致，比如 logical switch，logical router，ACL，logical port。
 - ovn-northd 类似于一个集中式控制器，把Northbound DB 里面的数据翻译后写到 Southbound DB 。
@@ -54,18 +54,18 @@ ovn中的信息流如下：
 #### OVN-North DB
 NB存放的是我们定义的逻辑交换机、逻辑路由器之类的数据，我们可以通过ovn提供的命令行（ovn-nbctl）完成添加、删除、修改、查询等操作；当然可以写代码通过OVSDB协议完成类似动作。OVN的NB是面向“上层应用”的或者叫“云管平台（Cloud Management System，CMS）”所以叫“北向接口”。
 
-![ovn north db](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjls26uzcnj31eg0pater.jpg)
+![ovn north db](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjls26uzcnj31eg0pater.jpg)
 
 #### OVN-Sourth DB
 SB进程比较特殊它同时接受两边的“写入”，首先是运行在ovn-host上的ovn-controller启动之后会去主动连接到ovn-central节点上的SB进程，把自己的IP地址（Chassis），本机的OVS状态（Datapath_Binding）写入到SB数据库中（所以叫南向接口）。ovn-controller还“监听”（etcd、zookeeper类似的功能）SB数据库中流表的变化（Flow）去更新本地的OVS数据库，这叫“流表下发”。
 
 SB中的流表是由运行在ovn-central节点上的ovn-northd进程修改的，ovn-northd会“监听”NB的改变，把逻辑交换机、路由器的定义转换成流表（Flow）写入到SB数据库。
 
-![ovn sourth db](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjls4214vwj31e80ogq8y.jpg)
+![ovn sourth db](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjls4214vwj31e80ogq8y.jpg)
 
 ### ovs架构
 OVS整体架构中，用户空间主要组件有数据库服务ovsdb-server和守护进程ovs-vswitchd。内核空间中有datapath内核模块。最上面的Controller表示OpenFlow控制器，控制器与OVS是通过OpenFlow协议进行连接。
-![ovs整体架构](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlstyacbtj31ay0f2q5p.jpg)
+![ovs整体架构](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjlstyacbtj31ay0f2q5p.jpg)
 
 #### ovsdb-server
 ovsdb-server 是ovs轻量级的数据库服务，用于存储整个 OvS 的配置信息，包括接口，交换内容，VLAN，虚拟交换机的创建，网卡的添加等信息与操作记录。都被 ovsdb 保存到一个 conf.db 文件（JSON 格式）里面，通过 db.sock 提供服务。OvS 主进程 ovs-vswitchd 根据数据库中的配置信息工作。
@@ -93,7 +93,7 @@ ovs-vswitchd 本质是一个守护进程，是 OvS 的核心部件。ovs-vswitch
 在OVS中，ovs-vswitchd从OpenFlow控制器获取流表规则，然后把从datapath中收到的数据包在流表中进行匹配，找到匹配的flows并把所需应用的actions返回给datapath，同时作为处理的一部分，ovs-vswitchd会在datapath中设置一条datapath flows用于后续相同类型的数据包可以直接在内核中执行动作，此datapath flows相当于OpenFlow flows的缓存。对于datapath来说，其并不知道用户空间OpenFlow的存在
 
 #### 工作原理
-![ovs工作原理](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlt5f3oxhj316k0okdpu.jpg)
+![ovs工作原理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjlt5f3oxhj316k0okdpu.jpg)
 
 1. 内核态的 Datapath 监听接口设备流入的数据包。
 2. 如果 Datapath 在内核态流表缓存没有找到相应的匹配流表项则将数据包传入（upcall）到用户态的 ovs-vswitchd 守护进程处理。
@@ -108,17 +108,17 @@ ovs-vswitchd 本质是一个守护进程，是 OvS 的核心部件。ovs-vswitch
 - Fast Path：Datapatch 加载到内核后，会在网卡上注册一个钩子函数，每当有网络包到达网卡时，这个函数就会被调用，将网络包开始层层拆包（MAC 层，IP 层，TCP 层等），然后与流表项匹配，如果找到匹配的流表项则根据既定策略来处理网络包（e.g. 修改 MAC，修改 IP，修改 TCP 端口，从哪个网卡发出去等等），再将网络包从网卡发出。这个处理过程全在内核完成，所以非常快，称之为 Fast Path。
 - Slow Path：内核态并没有被分配太多内存，所以内核态能够保存的流表项很少，往往有新的流表项到来后，老的流表项就被丢弃。如果在内核态找不到流表项，则需要到用户态去查询，网络包会通过 netlink（一种内核态与用户态交互的机制）发送给 ovs-vswitchd，ovs-vswitchd 有一个监听线程，当发现有从内核态发过来的网络包，就进入自己的处理流程，然后再次将网络包重新注入到 Datapath。显然，在用户态处理是相对较慢的，故称值为 Slow Path。
 
-![datapath](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlt8dpposj30o00icqbu.jpg)
+![datapath](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjlt8dpposj30o00icqbu.jpg)
 
 在用户态的 ovs-vswtichd 不需要吝啬内存，它包含了所有流表项，这些流表项可能是 OpenFlow 控制器通过 OpenFlow 协议下发的，也可能是 OvS 命令行工具 ovs-ofctl 设定的。ovs-vswtichd 会根据网络包的信息层层匹配，直到找到一款流表项进行处理。如果实在找不到，则一般会采用默认流表项，比如丢弃这个包。
 
 当最终匹配到了一个流表项之后，则会根据 “局部性原理（局部数据在一段时间都会被频繁访问，是缓存设计的基础原理）” 再通过 netlink 协议，将这条策略下发到内核态，当这条策略下发给内核时，如果内核的内存空间不足，则会开始淘汰部分老策略。这样保证下一个相同类型的网络包能够直接从内核匹配到，以此加快执行效率。由于近因效应，接下来的网络包应该大概率能够匹配这条策略的。例如：传输一个文件，同类型的网络包会源源不断的到来。
 
-![openflow](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjlt9rr3w9j30l00lawmv.jpg)
+![openflow](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjlt9rr3w9j30l00lawmv.jpg)
 
 ### 常见命令
 OpenVswitch 有许多命令，分别有不同的作用，大致如下：
-![OpenvSwitch命令组件](https://tva1.sinaimg.cn/large/007S8ZIlly1gjloh0399ej314q0l8tp0.jpg)
+![OpenvSwitch命令组件](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlly1gjloh0399ej314q0l8tp0.jpg)
 
 - `ovs-vsctl` 用于控制ovs db
 - `ovs-ofctl` 用于管理OpenFlow switch中的流表flow

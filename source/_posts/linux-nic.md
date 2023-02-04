@@ -15,7 +15,7 @@ categories:
 4. 经过 TCP/IP 协议逐层处理。
 5. 应用程序通过 read() 从 socket buffer 读取数据。
 
-![网卡收包流程](https://tva1.sinaimg.cn/large/008i3skNly1gwi3ashxjrj30ha1523zx.jpg)
+![网卡收包流程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwi3ashxjrj30ha1523zx.jpg)
 
 ### 网卡收到的数据包转移到主机内存（NIC 与驱动交互）
 
@@ -28,7 +28,7 @@ NIC(网卡)在接收到数据包之后，首先需要将数据同步到内核中
 5. 网卡收到新的数据包；
 6. 网卡将新数据包通过 DMA 直接写到 sk_buffer 中。
 
-![Nic与驱动交互](https://tva1.sinaimg.cn/large/008i3skNly1gwi3cy7kw7j31320m0tat.jpg)
+![Nic与驱动交互](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwi3cy7kw7j31320m0tat.jpg)
 
 当驱动处理速度跟不上网卡收包速度时，驱动来不及分配缓冲区，NIC 接收到的数据包无法及时写到 sk_buffer，就会产生堆积，当 NIC 内部缓冲区写满后，就会丢弃部分数据，引起丢包。这部分丢包为 rx_fifo_errors，在 /proc/net/dev 中体现为 fifo 字段增长，在 ifconfig 中体现为 overruns 指标增长。
 

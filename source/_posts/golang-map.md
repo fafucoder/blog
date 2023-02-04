@@ -60,17 +60,17 @@ type bmap struct {
 
 bmap是存放k-v的地方，key跟value放在一块，目的是节省内存空间，结构如下：
 
-![bmap](https://tva1.sinaimg.cn/large/008eGmZEly1gnabiesaodj30u0100jwc.jpg)
+![bmap](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnabiesaodj30u0100jwc.jpg)
 
 map整体数据结构如下：
 
-![hmap](https://tva1.sinaimg.cn/large/008eGmZEly1gnabmgyx20j31de0tc0yz.jpg)
+![hmap](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnabmgyx20j31de0tc0yz.jpg)
 
 ### map key定位
 
 ​	对map的添加更改主要涉及到key的定位过程，key经过哈希计算后得到哈希值，共 64 个 bit 位（64位机，32位机就不讨论了，现在主流都是64位机），计算它到底要落在哪个桶时，只会用到最后 B 个 bit 位。如果 B = 5，那么桶的数量，也就是 buckets 数组的长度是 2^5 = 32。如下图，首先计算出待查找 key 的哈希，使用低 5 位 `00110`，找到对应的 6 号 bucket，使用高 8 位 `10010111`，对应十进制 151，在 6 号 bucket 中寻找 tophash 值（HOB hash）为 151 的 key，找到了 2 号槽位，这样整个查找过程就结束了。如果在 bucket 中没找到，并且 overflow 不为空，还要继续去 overflow bucket 中寻找，直到找到或是所有的 key 槽位都找遍了，包括所有的 overflow bucket。
 
-![key定位](https://tva1.sinaimg.cn/large/008eGmZEly1gnabsbilkkj30u0126n1l.jpg)
+![key定位](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnabsbilkkj30u0126n1l.jpg)
 
 ### map存值
 
@@ -85,7 +85,7 @@ map整体数据结构如下：
 
 扩容分为等量扩容和 2 倍容量扩容。扩容后，原来一个 bucket 中的 key 一分为二，会被重新分配到两个桶中。扩容过程是渐进的，主要是防止一次扩容需要搬迁的 key 数量过多，引发性能问题。触发扩容的时机是增加了新元素，bucket 搬迁的时机则发生在赋值、删除期间，每次最多搬迁两个 bucket。
 
-![map扩容](https://tva1.sinaimg.cn/large/008eGmZEly1gnac2fzfd1j317g0hcjup.jpg)
+![map扩容](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnac2fzfd1j317g0hcjup.jpg)
 
 在遍历 map 时，并不是固定地从 0 号 bucket 开始遍历，每次都是从一个随机值序号的 bucket 开始遍历，并且是从这个 bucket 的一个随机序号的 cell 开始遍历。这样，即使是一个写死的 map，仅仅只是遍历它，也不太可能会返回一个固定序列的 key/value 对。
 

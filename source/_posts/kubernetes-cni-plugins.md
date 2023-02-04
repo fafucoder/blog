@@ -54,7 +54,7 @@ UDP是最早的实现方式，但是由于其性能原因，现已经被废弃�
 5. Flannel进程收到IP包后，将这个包封装在UDP中，就根据其目的地址将其转发给Node02（通过每个宿主机上监听的8285端口），这时候的源地址是Node01的地址，目的地址是Node02的地址；
 6. Node02收到包后，就会直接将其转发给flannel0设备，然后进行解包，匹配本地路由规则转发给docker0网桥，然后docker0网桥就扮演二层交换机的功能，将包转发到最终的目的地；
 
-![udp模式](https://tva1.sinaimg.cn/large/008i3skNly1gw23bwzmruj31i70u0tc1.jpg)
+![udp模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw23bwzmruj31i70u0tc1.jpg)
 
 > 注：
 >  1、flannel0是一个TUN设备，它的作用是在操作系统和应用程序之间传递IP包；
@@ -64,7 +64,7 @@ UDP是最早的实现方式，但是由于其性能原因，现已经被废弃�
 
 UDP之所以被废弃是主要是由于其仅在发包的过程中就在用户态和内核态进行来回的数据交换，这样的性能代价是很高的.
 
-![udp模式缺陷](https://tva1.sinaimg.cn/large/008i3skNly1gw23h7ejwij31910u0wg3.jpg)
+![udp模式缺陷](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw23h7ejwij31910u0wg3.jpg)
 
 #### vxlan 模式
 
@@ -74,7 +74,7 @@ VXLAN：Virtual Extensible LAN（虚拟可扩展局域网），是Linux内核本
 
 为了能够在二层网络中打通隧道，VXLAN会在宿主机上设置一个特殊的网络设备作为隧道的两端，这个隧道就叫VTEP（Virtual Tunnel End Point 虚拟隧道端点）。而VTEP的作用跟上面的flanneld进程非常相似，只不过它进行封装和解封的对象是二层的数据帧，而且这个工作的执行流程全部在内核中完成。
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gw23vi1k3jj314q0mcabk.jpg)
+![](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw23vi1k3jj314q0mcabk.jpg)
 
 我们可以看到每台Node上都有一个flannel.1的网卡，它就是VXLAN所需要的VTEP设备，它既有IP地址，也有MAC地址。 现在我们nginx01要访问nginx02，其流程如下：
 
@@ -91,7 +91,7 @@ VXLAN：Virtual Extensible LAN（虚拟可扩展局域网），是Linux内核本
 
 前面的两种模式都是二层网络的解决方案，对于三层网络，Flannel提供host-gw解决方案。
 
-![host-gw模式](https://tva1.sinaimg.cn/large/008i3skNly1gw23xvdpxoj314u0mojt9.jpg)
+![host-gw模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw23xvdpxoj314u0mojt9.jpg)
 
 如上所示，如果我nginx01要访问nginx02，流程如下：
 
@@ -109,13 +109,13 @@ VXLAN：Virtual Extensible LAN（虚拟可扩展局域网），是Linux内核本
 
 Calico是Kubernetes生态系统中另一种流行的网络选择。虽然Flannel被公认为是最简单的选择，但Calico以其性能、灵活性而闻名。Calico的功能更为全面，不仅提供主机和pod之间的网络连接，还涉及[网络安全](https://cloud.tencent.com/product/ns?from=10680)和管理。在现有的calico插件中，也提供的三种模式，分别是BGP模式，RR模式和IPIP模式。下面主要说明BGP模式和IPIP模式。
 
-![calico](https://tva1.sinaimg.cn/large/008i3skNly1gw24xtymjmj314q0nqwg1.jpg)
+![calico](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw24xtymjmj314q0nqwg1.jpg)
 
 #### IPIP模式
 
 Calico 的ipip模式和flannel的vxlan差不多，也是基于二层数据的封装和解封；也会创建一个虚拟网卡 **tunl0**。在前面提到过，Flannel host-gw 模式最主要的限制，就是要求集群宿主机之间是二层连通的。而这个限制对于 Calico 来说，也同样存在。
 
-![ipip模式](https://tva1.sinaimg.cn/large/008i3skNly1gw253xcpa9j311y0ny75q.jpg)
+![ipip模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw253xcpa9j311y0ny75q.jpg)
 
 如上所示, Pod 1 访问 Pod 2大致流程如下：
 
@@ -127,7 +127,7 @@ Calico 的ipip模式和flannel的vxlan差不多，也是基于二层数据的封
 
 #### BGP模式
 
-![bgp模式](https://tva1.sinaimg.cn/large/008i3skNly1gw26386mtij30zo0lkdh5.jpg)
+![bgp模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gw26386mtij30zo0lkdh5.jpg)
 
 如上所示，Pod 1 访问 Pod 2大致流程如下：
 

@@ -60,13 +60,13 @@ worker have done
 
 下图展示了为每个 job 创建一个 goroutine 的情况（换句话说，goroutine 的数量是不受控制的）。此种情况虽然生成了很多的 goroutine，但是每个 CPU 核上同一时间只能执行一个 goroutine；当 job 很多且生成了相应数目的 goroutine 后，会出现很多等待执行的 goroutine，从而造成资源上的浪费。
 
-![goroutine并发不控制](https://tva1.sinaimg.cn/large/008i3skNly1gwa9ewaz1uj31360hijso.jpg)
+![goroutine并发不控制](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwa9ewaz1uj31360hijso.jpg)
 
 ##### 并发控制概述
 
 给每个 job 生成一个 goroutine 的方式显得粗暴了很多，那么可以通过什么样的方式控制 goroutine 的数目呢？其实上面的代码通过一个 for-range 循环完成了两件事情：①为每个 job 创建 goroutine；②把任务相关的标识传给相应的 goroutine 执行。为了控制 goroutine 的数目，完全可以把上面的两个过程拆分开：a）先通过一个 for-range 循环创建指定数目的 goroutine，b）然后通过 channel/buffered channel 给每个 goroutine 传递任务相关的信息（这里的channel是否缓冲无所谓，主要用到的是 channel 的线程安全特性）。如下图所示。
 
-![goroutine并发控制](https://tva1.sinaimg.cn/large/008i3skNly1gwaa7xeiyrj313q0i2wgn.jpg)
+![goroutine并发控制](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwaa7xeiyrj313q0i2wgn.jpg)
 
 ##### goroutine并发控制方案一
 

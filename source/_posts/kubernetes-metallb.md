@@ -18,7 +18,7 @@ MetalLB 会在 Kubernetes 内运行，监控服务对象的变化，一旦监测
 MetalLB 将 IP 分配给某个服务后，它需要对外宣告此 IP 地址，并让外部主机可以路由到此 IP。MetalLB 支持两种声明模式：Layer 2（ ARP / NDP ）模式或者 BGP 模式。
 
 #### Layer2 模式
-![Layer2模式](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjmutv3mxgj312i0ng46m.jpg)
+![Layer2模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjmutv3mxgj312i0ng46m.jpg)
 
 Layer2 模式下，每个 Service 会有集群中的一个 Node 来负责。服务的入口流量全部经由单个节点，然后该节点的 Kube-Proxy 会把流量再转发给服务的 Pods。也就是说，该模式下 MetalLB 并没有真正提供负载均衡器。尽管如此，MetalLB 提供了故障转移功能，如果持有 IP 的节点出现故障，则默认 10 秒后即发生故障转移，IP 会被分配给其它健康的节点。
 
@@ -28,7 +28,7 @@ Layer2 模式的优缺点：
 3. 由于 Layer 2 模式需要 ARP/NDP 客户端配合，当故障转移发生时，MetalLB 会发送 ARP 包来宣告 MAC 地址和 IP 映射关系的变化，地址分配略为繁琐。
 
 #### BGP模式
-![BGP模式](https://tva1.sinaimg.cn/large/007S8ZIlly1gjmuxncponj314q0nsk0k.jpg)
+![BGP模式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlly1gjmuxncponj314q0nsk0k.jpg)
 
 当在第三层工作时，集群中所有机器都和你控制的最接近的路由器建立 BGP 会话，此会话让路由器能学习到如何转发针对 K8S 服务 IP 的数据包。
 
@@ -46,7 +46,7 @@ BGP 模式问题的缓和措施：
 3. 客户端添加透明重试逻辑，当发现连接 TCP 层错误时自动重试。
 
 ### 运行流程
-![运行流程](https://tva1.sinaimg.cn/large/007S8ZIlgy1gjmt9fchy8j31fz0u0dq7.jpg)
+![运行流程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/007S8ZIlgy1gjmt9fchy8j31fz0u0dq7.jpg)
 
 在metallb中，controller跟speaker通过list-watch service, configmap跟api-service交互，当创建一个loadbalancer的service的时候，controller获取到svc，检查configMap是否有config配置，接着为svc分配一个地址，最后更新svc的status(更新svc.Status.LoadBalancer.Ingress), 此时svc已经获取到了一个external ip地址。
 

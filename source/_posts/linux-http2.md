@@ -23,7 +23,7 @@ HTTP是一个应用层协议，由请求和响应构成，是一个标准的客�
 
  无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传。
 
-![HTTP协议](https://tva1.sinaimg.cn/large/0081Kckwly1gk9uxd1u58j30uy0manky.jpg)
+![HTTP协议](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9uxd1u58j30uy0manky.jpg)
 
 ### HTTP工作过程
 
@@ -73,13 +73,13 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
 3. 引入雪碧图、将小图内联等
 
-   ![pipeline](https://tva1.sinaimg.cn/large/0081Kckwly1gk9ycgutnoj318m0jy19z.jpg)
+   ![pipeline](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9ycgutnoj318m0jy19z.jpg)
 
 - 请求头开销大
 
   由于报文Header一般会携带"User Agent""Cookie""Accept""Server"等许多固定的头字段（如下图），多达几百字节甚至上千字节,但Body却经常只有几十字节. Header 内容大在一定程度上增加了传输的成本.
 
-  ![请求头](https://tva1.sinaimg.cn/large/0081Kckwly1gk9yfe08slj314m0cojyr.jpg)
+  ![请求头](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9yfe08slj314m0cojyr.jpg)
 
 - 安全因素
 
@@ -97,7 +97,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
 针对http1.x存在的问题，http2针对的解决方案如下：
 
-![http2解决的问题](https://tva1.sinaimg.cn/large/0081Kckwly1gka0ebhh3jj30n80r840t.jpg)
+![http2解决的问题](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0ebhh3jj30n80r840t.jpg)
 
 - 二进制传输
 
@@ -111,7 +111,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   3. Frame:：数据传输的最小单位。每个 Frame 都属于一个特定的 stream 或者整个连接。一个 message 可能有多个 frame 组成。Frame 是 HTTP/2 里面最小的数据传输单位，一个 Frame 定义如下:
 
-     ![Frame定义](https://tva1.sinaimg.cn/large/0081Kckwly1gka00fnop6j30wi09g751.jpg)
+     ![Frame定义](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka00fnop6j30wi09g751.jpg)
 
      Length：也就是 Frame 的长度，默认最大长度是 16KB，如果要发送更大的 Frame，需要显式的设置 max frame size。
 
@@ -135,7 +135,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   5. Stream 用一个唯一 ID 来标识。如果是 client 创建的 stream，ID 就是奇数，如果是 server 创建的，ID 就是偶数。
 
-  ![http二进制传输](https://tva1.sinaimg.cn/large/0081Kckwly1gka0833alwj310o0rajuy.jpg)
+  ![http二进制传输](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0833alwj310o0rajuy.jpg)
 
   
 
@@ -143,7 +143,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   HTTP/2 中，同域名下所有通信都在单个连接上完成，该连接可以承载任意数量的双向数据流。每个数据流都以消息的形式发送，而消息又由一个或多个帧组成。多个帧之间可以乱序发送，根据帧首部的流标识可以重新组装。
 
-  ![二进制传输](https://tva1.sinaimg.cn/large/0081Kckwly1gka0avvkx0j30w40qgjxs.jpg)
+  ![二进制传输](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0avvkx0j30w40qgjxs.jpg)
 
   
 
@@ -157,7 +157,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   2. 首部表在 HTTP/2 的连接存续期内始终存在，由客户端和服务器共同渐进地更新;
 
-  3. 每个新的首部键－值对要么被追加到当前表的末尾，要么替换表中之前的值![请求头压缩](https://tva1.sinaimg.cn/large/0081Kckwly1gk9zw59f1mj312o0nknaq.jpg)
+  3. 每个新的首部键－值对要么被追加到当前表的末尾，要么替换表中之前的值![请求头压缩](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9zw59f1mj312o0nknaq.jpg)
 
 - 多路复用(请求和响应复用)
 
@@ -169,7 +169,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   多路复用中，支持流的优先级（Stream dependencies），允许客户端告诉server哪些内容是更优先级的资源，可以优先传输。
 
-  ![多路复用](https://tva1.sinaimg.cn/large/0081Kckwly1gk9zpmtqkwj31500kcn44.jpg)
+  ![多路复用](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9zpmtqkwj31500kcn44.jpg)
 
 - 服务器端推送
 
@@ -179,7 +179,7 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   主动推送遵守同源策略, 服务器不能随便将第三方资源推送给客户端，而必须是经过双方确认才行。
 
-  ![服务器端推送](https://tva1.sinaimg.cn/large/0081Kckwly1gk9z83ptiij31580f2gsm.jpg)
+  ![服务器端推送](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9z83ptiij31580f2gsm.jpg)
 
 - 提高安全性
 
@@ -187,27 +187,27 @@ HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S�
 
   由于HTTPS已经是大势所趋，而且主流的浏览器Chrome、Firefox等都公开宣布只支持加密的HTTP/2，所以“事实上”的HTTP/2是加密的。也就是说，互联网上通常所能见到的HTTP/2都是使用"https”协议名，跑在TLS上面。HTTP/2协议定义了两个字符串标识符：“h2"表示加密的HTTP/2，“h2c”表示明文的HTTP/2。
 
-  ![http安全性](https://tva1.sinaimg.cn/large/0081Kckwly1gk9z4p8vgqj30x80ek43h.jpg)
+  ![http安全性](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gk9z4p8vgqj30x80ek43h.jpg)
 
 #### HTTP2存在的问题
 
 1. http1.x和http2都是基于tcp, tcp作为安全的可靠的传输协议，建立连接的延时还是有点高。主要是TCP 以及 TCP+TLS建立连接的延时。
 
-   ![tcp协议](https://tva1.sinaimg.cn/large/0081Kckwly1gka0gjm5txj30zq0oymzy.jpg)
+   ![tcp协议](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0gjm5txj30zq0oymzy.jpg)
 
 2. 无法解决tcp的队头堵塞问题，http2通过多路复用解决http层的对头堵塞，tcp的失败重传的问题还是无解的
 
-   ![队头堵塞](https://tva1.sinaimg.cn/large/0081Kckwly1gka0hybz4hj311i0ckgpb.jpg)
+   ![队头堵塞](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0hybz4hj311i0ckgpb.jpg)
 
 ### HTTP3.0 原理
 
 因为TCP 存在的时间实在太长，已经充斥在各种设备中，并且这个协议是由操作系统实现的，更新起来不大现实。
 
-![改造tcp](https://tva1.sinaimg.cn/large/0081Kckwly1gka0opr442j30u80km0vy.jpg)
+![改造tcp](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0opr442j30u80km0vy.jpg)
 
 基于这个原因，**Google 就更起炉灶搞了一个基于 UDP 协议的 QUIC 协议，并且使用在了 HTTP/3 上**，HTTP/3 之前名为 HTTP-over-QUIC，从这个名字中我们也可以发现，HTTP/3 最大的改造就是使用了 QUIC。QUIC（Quick UDP Internet Connections，快速 UDP 网络连接） 基于 UDP, 正是看中了 UDP 的速度与效率。同时 QUIC 也整合了 TCP、TLS 和 HTTP/2 的优点，并加以优化。
 
-![QUIC](https://tva1.sinaimg.cn/large/0081Kckwly1gka0qi7018j313g0dyted.jpg)
+![QUIC](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka0qi7018j313g0dyted.jpg)
 
 QUIC的次要目标包括减少连接和传输延迟，在每个方向进行带宽估计以避免拥塞。它还将拥塞控制算法移动到用户空间，而不是内核空间，此外使用前向纠错（FEC）进行扩展，以在出现错误时进一步提高性能。
 
@@ -217,7 +217,7 @@ QUIC的次要目标包括减少连接和传输延迟，在每个方向进行带�
 
   HTTP/2 的连接需要 3 RTT，如果考虑会话复用，即把第一次握手算出来的对称密钥缓存起来，那么也需要 2 RTT，更进一步的，如果 TLS 升级到 1.3，那么 HTTP/2 连接需要 2 RTT，考虑会话复用则需要 1 RTT。而 HTTP/3 首次连接只需要 1 RTT，后面的连接更是只需 0 RTT。
 
-  ![快速握手](https://tva1.sinaimg.cn/large/0081Kckwly1gka1dgmgifj30ys0iqdmc.jpg)
+  ![快速握手](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka1dgmgifj30ys0iqdmc.jpg)
 
   使用QUIC协议的客户端和服务端要使用1RTT进行**密钥交换**，使用的交换算法是DH(Diffie-Hellman)**迪菲-赫尔曼算法**。
 
@@ -241,9 +241,9 @@ QUIC的次要目标包括减少连接和传输延迟，在每个方向进行带�
 
   9. 之后的客户端和服务端数据交互都使用密钥M来完成，密钥K只使用1次。
 
-     ![交互过程](https://tva1.sinaimg.cn/large/0081Kckwly1gka1n5fcntj30yk0isn16.jpg)
+     ![交互过程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka1n5fcntj30yk0isn16.jpg)
 
-     ![交互过程](https://tva1.sinaimg.cn/large/0081Kckwly1gka1o5mhntj30vn0u0wlp.jpg)
+     ![交互过程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka1o5mhntj30vn0u0wlp.jpg)
 
   
 
@@ -259,7 +259,7 @@ QUIC的次要目标包括减少连接和传输延迟，在每个方向进行带�
 
      QUIC使用config的有效期，后续又生成了新密钥，使用其进行加解密，当时完成交互时则销毁，从而实现了前向安全。
 
-     ![向前安全](https://tva1.sinaimg.cn/large/0081Kckwly1gka1vsoi56j310a0ogjxn.jpg)
+     ![向前安全](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka1vsoi56j310a0ogjxn.jpg)
 
   2. 向前纠错
 
@@ -269,7 +269,7 @@ QUIC的次要目标包括减少连接和传输延迟，在每个方向进行带�
 
      QUIC每发送一组数据就对这组数据进行**异或运算**，并将结果作为一个FEC包发送出去，接收方收到这一组数据后根据数据包和FEC包即可进行校验和纠错。一段数据被切分为 10 个包后，依次对每个包进行异或运算，运算结果会作为 FEC 包与数据包一起被传输，如果不幸在传输过程中有一个数据包丢失，那么就可以根据剩余 9 个包以及 FEC 包推算出丢失的那个包的数据，这样就大大增加了协议的容错性。
 
-     ![向前纠错](https://tva1.sinaimg.cn/large/0081Kckwly1gka1ybqivbj30yw0j6ad5.jpg)
+     ![向前纠错](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka1ybqivbj30yw0j6ad5.jpg)
 
 - 多路复用，解决tcp中存在的队头堵塞问题
 
@@ -279,7 +279,7 @@ QUIC的次要目标包括减少连接和传输延迟，在每个方向进行带�
 
   QUIC协议是基于UDP协议实现的，在一条链接上可以有**多个流**，流与流之间是**互不影响**的，当一个流出现丢包影响范围非常小，从而解决队头阻塞问题。
 
-  ![队头堵塞](https://tva1.sinaimg.cn/large/0081Kckwly1gka233ve3wj30zi0jomzv.jpg)
+  ![队头堵塞](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gka233ve3wj30zi0jomzv.jpg)
 
 - 实现类似TCP的流量控制(...这部分内容多，看参考)
 

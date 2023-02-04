@@ -11,7 +11,7 @@ categories:
 etcd厂商提供了命令行客户端 etcdctl，可以使用客户端直接跟etcd交互
 
 etcdctl使用方法:
-![etcdctl 命令](https://tva1.sinaimg.cn/large/0081Kckwly1glno5yzncaj312h0u0hdt.jpg)
+![etcdctl 命令](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1glno5yzncaj312h0u0hdt.jpg)
 
 ### kubernetes etcd pod中执行命令
 在kubernetes中执行etcdctl命令需要知道endpoint地址以及证书
@@ -19,11 +19,11 @@ etcdctl使用方法:
 #### 查看endpoint地址
 
 可以通过kube-apiserver与etcd交互获取endpoint地址，通过 `ps -ef | grep kube-apiserver `能够获取到kube-apiserver的启动参数
-![endpoint地址](https://tva1.sinaimg.cn/large/0081Kckwly1glnobnpvozj31la0fc79m.jpg)
+![endpoint地址](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1glnobnpvozj31la0fc79m.jpg)
 
 #### 获取证书
 etcd证书一般在`/etc/kubernetes/pki`目录下，或者在 `/etc/ssl/etcd/ssl`目录下
-![etcd证书](https://tva1.sinaimg.cn/large/0081Kckwly1glnojh7e8sj31gy03e0t6.jpg)
+![etcd证书](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1glnojh7e8sj31gy03e0t6.jpg)
 
 ### etcd命令操作
 

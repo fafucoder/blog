@@ -23,7 +23,7 @@ goroutine跟线程的区别可以从`内存消耗、创建与销毀、切换`三
 
 在 Go 语言中，每一个 goroutine 是一个独立的执行单元，相较于每个 OS 线程固定分配 2M 内存的模式，goroutine 的栈采取了**动态扩容**方式， 初始时仅为**2KB**，随着任务执行按需增长，最大可达 1GB（64 位机器最大是 1G，32 位机器最大是 256M），且完全由 golang 自己的调度器 Go Scheduler 来调度。此外，GC 还会周期性地将不再使用的内存回收，收缩栈空间。 因此，Go 程序可以同时并发成千上万个 goroutine 是得益于它强劲的调度器和高效的内存模型。
 
-![G-P-M模型](https://tva1.sinaimg.cn/large/008i3skNly1gwagya06l0j312o0swmyq.jpg)
+![G-P-M模型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwagya06l0j312o0swmyq.jpg)
 
 将 goroutines 调度到线程上执行，仅仅是 runtime 层面的一个概念，在操作系统之上的层面，在golang中有三个基础的结构体来实现 goroutines 的调度。g，m，p， 俗称GPM模型：
 
@@ -36,7 +36,7 @@ goroutine跟线程的区别可以从`内存消耗、创建与销毀、切换`三
 
 除了GPM外，还有两个比较重要的组件： 全局可运行队列（GRQ）和本地可运行队列（LRQ）。 LRQ 存储本地（也就是具体的 P）的可运行 goroutine，GRQ 存储全局的可运行 goroutine，这些 goroutine 还没有分配到具体的 P。
 
-![LRQ](https://tva1.sinaimg.cn/large/008i3skNly1gwah8kn88jj30y40g0dhm.jpg)
+![LRQ](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwah8kn88jj30y40g0dhm.jpg)
 
 #### 调度过程
 
@@ -44,7 +44,7 @@ goroutine跟线程的区别可以从`内存消耗、创建与销毀、切换`三
 2. 为了运行 goroutine，M 需要持有（绑定）一个 P，接着 M 会启动一个 OS 线程，循环从 P 的本地队列里取出一个 goroutine 并执行。
 3. 执行调度算法：当 M 执行完了当前 P 的 Local 队列里的所有 G 后，P 也不会就这么在那划水啥都不干，它会先尝试从 Global 队列寻找 G 来执行，如果 Global 队列为空，它会随机挑选另外一个 P，从它的队列里中拿走一半的 G 到自己的队列中执行。
 
-![G-P-M调度模型](https://tva1.sinaimg.cn/large/008i3skNly1gwah30rd4dj312u0mm40a.jpg)
+![G-P-M调度模型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwah30rd4dj312u0mm40a.jpg)
 
 #### 调度时机
 
@@ -61,17 +61,17 @@ goroutine跟线程的区别可以从`内存消耗、创建与销毀、切换`三
 
 - 对于同步的情况，M 会被阻塞，进而从 P 上调度下来，P 可不养闲人，G 仍然依附于 M。之后，一个新的 M 会被调用到 P 上，接着执行 P 的 LRQ 里嗷嗷待哺的 G 们。一旦系统调用完成，G 还会加入到 P 的 LRQ 里，M 则会被“雪藏”，待到需要时再“放”出来。
 
-  ![异步调用](https://tva1.sinaimg.cn/large/008i3skNly1gwah99rsymj30ya0i8goh.jpg)
+  ![异步调用](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwah99rsymj30ya0i8goh.jpg)
 
   
 
 - 对于异步的情况，M 不会被阻塞，G 的异步请求会被“代理人” network poller 接手，G 也会被绑定到 network poller，等到系统调用结束，G 才会重新回到 P 上。M 由于没被阻塞，它因此可以继续执行 LRQ 里的其他 G。
 
-  ![异步](https://tva1.sinaimg.cn/large/008i3skNly1gwahbnuyfdj30xy0ho0vb.jpg)
+  ![异步](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwahbnuyfdj30xy0ho0vb.jpg)
 
 ### goroutine状态流转
 
-![状态流转](https://tva1.sinaimg.cn/large/008i3skNly1gwahdhtlrhj30yq0jmjuc.jpg)
+![状态流转](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwahdhtlrhj30yq0jmjuc.jpg)
 
 ### GPM结构
 

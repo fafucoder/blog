@@ -81,22 +81,22 @@ categories:
 
 只要返回值是 0，就代表程序执行成功了～
 
-![$?](https://tva1.sinaimg.cn/large/008eGmZEly1gnv90q36bgj30nc064wfp.jpg)
+![$?](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv90q36bgj30nc064wfp.jpg)
 
 ### & && | || 区别
 `cmd1 操作符 cmd2 操作符 cmd3` 把这一整体称为一个命令
 
 `&`：除了最后一个cmd，前面的cmd均已后台方式静默执行，执行结果显示在终端上，个别的cmd错误不影响整个命令的执行，全部的cmd同时执行
-![&](https://tva1.sinaimg.cn/large/008eGmZEly1gnv8ul89vaj30vi09e0vc.jpg)
+![&](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv8ul89vaj30vi09e0vc.jpg)
 
 `&&`：从左到右顺序执行cmd，个别cmd错误不产生影响
-![&&](https://tva1.sinaimg.cn/large/008eGmZEly1gnv8vf2h6yj30tu03ywfl.jpg)
+![&&](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv8vf2h6yj30tu03ywfl.jpg)
 
 `|`：各个cmd同时在前台被执行，但是除最后的cmd之外，其余的执行结果不会被显示在终端上
-![|](https://tva1.sinaimg.cn/large/008eGmZEly1gnv8wgp2fcj30ka0420tr.jpg)
+![|](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv8wgp2fcj30ka0420tr.jpg)
 
 `||`：从左到右顺序执行cmd，只有左侧的cmd执行出错，右边的cmd才会被执行，同时一旦有cmd被成功执行，整个命令就会结束，返回终端
-![||](https://tva1.sinaimg.cn/large/008eGmZEly1gnv8xabb6bj30qc04075c.jpg)
+![||](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gnv8xabb6bj30qc04075c.jpg)
 
 ### 参考网址
 - https://blog.csdn.net/w746805370/article/details/51044352  //linux shell编程中特殊字符

@@ -260,7 +260,7 @@ type waitq struct {
 
 例如，创建一个容量为 6 的，元素为 int 型的 channel 数据结构如下 ：
 
-![channel](https://tva1.sinaimg.cn/large/008i3skNly1gwaf4ufem0j312k0p6abi.jpg)
+![channel](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwaf4ufem0j312k0p6abi.jpg)
 
 #### 创建channel
 
@@ -610,23 +610,23 @@ func chanbuf(c *hchan, i uint) unsafe.Pointer {
 
 我们继续之前的例子。前面说到第 14 行，创建了一个非缓冲型的 channel，接着，第 15、16 行分别创建了一个 goroutine，各自执行了一个接收操作。通过前面的源码分析，我们知道，这两个 goroutine （后面称为 G1 和 G2 好了）都会被阻塞在接收操作。G1 和 G2 会挂在 channel 的 recq 队列中，形成一个双向循环链表。因此此时chan的状态如下：
 
-![chan status](https://tva1.sinaimg.cn/large/008i3skNly1gwaflcunbaj31100mw0tn.jpg)
+![chan status](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwaflcunbaj31100mw0tn.jpg)
 
 G1 和 G2 被挂起了，状态是 `WAITING`, goroutine 是用户态的协程，由 Go runtime 进行管理，作为对比，内核线程由 OS 进行管理。Goroutine 更轻量，因此我们可以轻松创建数万 goroutine。一个内核线程可以管理多个 goroutine，当其中一个 goroutine 阻塞时，内核线程可以调度其他的 goroutine 来运行，内核线程本身不会阻塞。这就是通常我们说的 `M:N` 模型：
 
-![m:n模型](https://tva1.sinaimg.cn/large/008i3skNly1gwafpo96f1j30um0b6aap.jpg)
+![m:n模型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwafpo96f1j30um0b6aap.jpg)
 
 `M:N` 模型通常由三部分构成：M、P、G。M 是内核线程，负责运行 goroutine；P 是 context，保存 goroutine 运行所需要的上下文，它还维护了可运行（runnable）的 goroutine 列表；G 则是待运行的 goroutine。M 和 P 是 G 运行的基础。
 
-![GPM模型](https://tva1.sinaimg.cn/large/008i3skNly1gwafrgfhy6j30s00qumxs.jpg)
+![GPM模型](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwafrgfhy6j30s00qumxs.jpg)
 
 继续回到例子。假设我们只有一个 M，当 G1（`go goroutineA(ch)`） 运行到 `val := <- a` 时，它由本来的 running 状态变成了 waiting 状态（调用了 gopark 之后的结果）：
 
-![G1 running](https://tva1.sinaimg.cn/large/008i3skNly1gwafs7d0ktj30uc0u0aas.jpg)
+![G1 running](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwafs7d0ktj30uc0u0aas.jpg)
 
 G1 脱离与 M 的关系，但调度器可不会让 M 闲着，所以会接着调度另一个 goroutine 来运行：
 
-![G1 waiting](https://tva1.sinaimg.cn/large/008i3skNly1gwafsxw0s1j30uy0p6aas.jpg)
+![G1 waiting](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwafsxw0s1j30uy0p6aas.jpg)
 
 G2 也是同样的遭遇。现在 G1 和 G2 都被挂起了，等待着一个 sender 往 channel 里发送数据，才能得到解救。
 
@@ -825,7 +825,7 @@ func sendDirect(t *_type, sg *sudog, src unsafe.Pointer) {
 
 然后，sender 把发送元素拷贝到 sudog 的 elem 地址处，最后会调用 goready 将 G1 唤醒，状态变为 runnable。
 
-![goroutine send](https://tva1.sinaimg.cn/large/008i3skNly1gwag0jy14yj310g0l8754.jpg)
+![goroutine send](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwag0jy14yj310g0l8754.jpg)
 
 ### channel触发panic的三种情况
 

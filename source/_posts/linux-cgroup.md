@@ -25,7 +25,7 @@ cgroups功能的实现依赖于三个核心概念：子系统、控制组、层�
 - **任务（task）**:  进程(`process`)在cgroups中称为task，`taskid`就是`pid`。
 - **libcgroups**：一个开源软件，提供了一组支持cgroups的应用程序和库，方便用户配置和使用cgroups。目前许多发行版都附带这个软件。
 
-![cgroup组件](https://tva1.sinaimg.cn/large/008i3skNly1gts1dsuihnj60yc0f2dgn02.jpg)
+![cgroup组件](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gts1dsuihnj60yc0f2dgn02.jpg)
 
 #### linux 支持的子系统
 
@@ -44,7 +44,7 @@ cgroups功能的实现依赖于三个核心概念：子系统、控制组、层�
 - `pids` 限制任务的数量
 - `ns` 可以使不同`cgroups`下面的进程使用不同的`namespace`. 每个`subsystem`会关联到定义的`cgroup`上,并对这个`cgoup`中的进程做相应的限制和控制.
 
-![cgroups](https://tva1.sinaimg.cn/large/008i3skNly1gts4tgglopj61au0hotai02.jpg)
+![cgroups](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gts4tgglopj61au0hotai02.jpg)
 
 ### 挂载cgroup 文件系统
 
@@ -137,7 +137,7 @@ CPU子系统有两个目录, cpuset和cpu,cpuacct, 其中cpu,cpuacct用于设置
 
 - `cpuset.mems`: 指​​​定​​​允​​​许​​​这​​​个​​​ cgroup 中​​​任​​​务​​​可​​​访​​​问​​​的​​​内​​​存​​​节​​​点​​​。​​​这​​​是​​​一​​​个​​​用​​​逗​​​号​​​分​​​开​​​的​​​列​​​表​​​，格​​​式​​​为​​​ ASCII，使​​​用​​​小​​​横​​​线​​​（"-"）代​​​表​​​范​​​围​​​。​​​如下代​​​表​​​内​​​存​​​节​​​点​​​ 0、​​​1、​​​2 和​​​ 16。
 
-![cpu子系统](https://tva1.sinaimg.cn/large/008i3skNly1gtsuo2k4u5j615k0u07ag02.jpg)
+![cpu子系统](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtsuo2k4u5j615k0u07ag02.jpg)
 
 1. **创建CPU Cgroup** 
 
@@ -207,11 +207,11 @@ top -p pid(刚才的$$的数字)
 
 通过top命令可以看到刚才的shell 进程cpu已经达到了100%，说明cgroup起作用了.
 
-![cgroup](https://tva1.sinaimg.cn/large/008i3skNly1gtsvbodpddj61io0nmdk102.jpg)
+![cgroup](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtsvbodpddj61io0nmdk102.jpg)
 
 让我们更近一步，设置bash进程可以使用的cpu为0.5core, 通过`echo 500000 > cpu.cfs_quota_us` 然后继续观察，发现cpu到达50%后就上不去了。验证完 cgroup 限制 cpu，我们使用相似的方法来验证 cgroup 对内存的限制。
 
-![cgroup](https://tva1.sinaimg.cn/large/008i3skNly1gtsvdt0t6lj61ju0osdjx02.jpg)
+![cgroup](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gtsvdt0t6lj61ju0osdjx02.jpg)
 
 #### Memory 子系统
 

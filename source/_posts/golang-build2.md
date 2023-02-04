@@ -13,7 +13,7 @@ categories:
 
 使用 `go build -mod=vendor` 来构建项目，因为在 `go modules` 模式下 `go build` 是屏蔽 vendor 机制的，所以需要特定参数重新开启 vendor 机制, 这样子断点调试的时候，就能够在vendor文件夹下断点了。如果golang的版本大于等于1.14, 则默认使用-mod=vendor
 
-![go mod](https://tva1.sinaimg.cn/large/0081Kckwly1gl66qxf5wzj31fa0dwq7d.jpg)
+![go mod](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gl66qxf5wzj31fa0dwq7d.jpg)
 
 #### go build tag
 

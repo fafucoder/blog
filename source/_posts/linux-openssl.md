@@ -27,13 +27,13 @@ openssl 命令主要包括以下几个模块：
 - ca:      CA管理(例如对证书进行签名)
 - ........
 
-![openssl 命令模块](https://tva1.sinaimg.cn/large/008eGmZEly1goe0dqpfj9j31790u0n53.jpg)
+![openssl 命令模块](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goe0dqpfj9j31790u0n53.jpg)
 
 #### openssl s_client 模块
 
 s_client为一个SSL/TLS客户端程序，与s_server对应，它不仅能与s_server进行通信，也能与任何使用ssl协议的其他服务程序进行通信。
 
-![openssl s_client](https://tva1.sinaimg.cn/large/008eGmZEly1gorqrlbdctj30u010a7hq.jpg)
+![openssl s_client](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gorqrlbdctj30u010a7hq.jpg)
 
 使用s_client 获取百度的公钥:
 
@@ -160,7 +160,7 @@ SSL-Session:
 
 openssl verify 用于验证证书是否合法，还可以用于验证子证书是否是父证书签的.
 
-![openssl verify](https://tva1.sinaimg.cn/large/008eGmZEly1gorr0rglykj31uw0bkdip.jpg)
+![openssl verify](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gorr0rglykj31uw0bkdip.jpg)
 
 验证子证书是否由父证书签发的:
 
@@ -177,7 +177,7 @@ harbor.crt: OK
 
 openssl genrsa用于生成私钥(只生成私钥)
 
-![openssl genrsa](https://tva1.sinaimg.cn/large/008eGmZEly1gorr4i3cuaj317e0h2tcz.jpg)
+![openssl genrsa](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gorr4i3cuaj317e0h2tcz.jpg)
 
 -out filename: 将生成的私钥保存至filename文件,若未指定输出文件,则为标准输出。
 -des:生成的密钥使用des方式进行加密。
@@ -215,7 +215,7 @@ openssl rsa -in rootCA.key -noout -text
 
 req大致有3个功能：生成证书请求文件、验证证书请求文件和创建根CA。
 
-![openssl req](https://tva1.sinaimg.cn/large/008eGmZEly1gorsowumboj31460u0k2v.jpg)
+![openssl req](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gorsowumboj31460u0k2v.jpg)
 
 ```shell
 # 查看csr的信息
@@ -240,7 +240,7 @@ openssl req -newkey rsa:2038 -keyout harbor.key -out harbor.csr
 
 x509 模块主要的功能有 签署证书请求文件、生成自签名证书、转换证书格式等。
 
-![openssl x509](https://tva1.sinaimg.cn/large/008eGmZEly1gort5xzo7tj30yu0u019a.jpg)
+![openssl x509](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gort5xzo7tj30yu0u019a.jpg)
 
 ```shell
 # 查看公钥信息
@@ -260,7 +260,7 @@ openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in sub.csr -out sub.crt -day
 
 ca命令能够签发证书请求文件生成证书
 
-![openssl ca](https://tva1.sinaimg.cn/large/008eGmZEly1gortfb0gl3j311u0u013u.jpg)
+![openssl ca](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gortfb0gl3j311u0u013u.jpg)
 
 ```shell
 openssl ca -config openssl.cnf -days 365 -create_serial -in harbor.csr -out harbor.crt  -extensions ca_ext -extensions req_ext -notext
@@ -295,7 +295,7 @@ openssl x509 -in sub.crt -noout -text
 
 SAN(Subject Alternative Name) 是 SSL 标准 x509 中定义的一个扩展。使用了 SAN 字段的 SSL 证书，可以扩展此证书支持的域名，使得一个证书可以支持多个不同域名的解析。(下面是百度证书中的SAN信息)
 
-![百度SAN](https://tva1.sinaimg.cn/large/008eGmZEly1goqrfszbjkj31f30u07qz.jpg)
+![百度SAN](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goqrfszbjkj31f30u07qz.jpg)
 
 #### 如何创建带SAN的自签证书
 
@@ -386,7 +386,7 @@ SAN(Subject Alternative Name) 是 SSL 标准 x509 中定义的一个扩展。使
    openssl req -newkey rsa:2048 -nodes -out harbor.csr -keyout harbor.key -config openssl.cnf
    ```
 
-![csr](https://tva1.sinaimg.cn/large/008eGmZEly1goqs6p3em4j31de0h8goq.jpg)
+![csr](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goqs6p3em4j31de0h8goq.jpg)
 
 验证CSR中是否包含文件
 
@@ -394,7 +394,7 @@ SAN(Subject Alternative Name) 是 SSL 标准 x509 中定义的一个扩展。使
 openssl req -in harbor.csr -noout -text
 ```
 
-![验证csr](https://tva1.sinaimg.cn/large/008eGmZEly1goqs8wu6t8j30zf0u07ik.jpg)
+![验证csr](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1goqs8wu6t8j30zf0u07ik.jpg)
 
 6. 生成公钥
 
@@ -408,7 +408,7 @@ openssl ca -config openssl.cnf -days 365 -create_serial -in harbor.csr -out harb
 openssl x509 -in harbor.crt -noout -text
 ```
 
-![验证公钥](https://tva1.sinaimg.cn/large/008eGmZEly1gorpma0xcvj30uk0u0wub.jpg)
+![验证公钥](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gorpma0xcvj30uk0u0wub.jpg)
 
 ### 参考文档
 

@@ -11,7 +11,7 @@ categories:
 
 Linux 网卡收包流程如下：
 
-![网卡收包流程](https://tva1.sinaimg.cn/large/0081Kckwly1gkubvmck6bj30lc160gsi.jpg)
+![网卡收包流程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkubvmck6bj30lc160gsi.jpg)
 
 1. 网卡收到数据包
 2. 将数据包从网卡硬件缓存移动到服务器内存中(DMA方式，不经过CPU)
@@ -54,7 +54,7 @@ dropped 与 overruns 的区别：
 
 当网卡的缓存区（ring buffer）设置的太小。网络数据包到达（生产）的速率快于内核处理（消费）的速率时， Ring Buffer 很快会被填满，新来的数据包将被丢弃。
 
-![ring buffer](https://tva1.sinaimg.cn/large/0081Kckwly1gkuiokk2uzj30p00iwtdo.jpg)
+![ring buffer](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/0081Kckwly1gkuiokk2uzj30p00iwtdo.jpg)
 
 通过 `ethtool` 或 `/proc/net/dev` 可以查看因Ring Buffer满而丢弃的包统计
 

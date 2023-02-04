@@ -19,7 +19,7 @@ https://www.openlogic.com/blog/granting-user-access-your-kubernetes-cluster
 
 ### Secret
 
-![RABC关系图](https://tva1.sinaimg.cn/large/008i3skNly1gqb7hga16sj317t0u0nc1.jpg)
+![RABC关系图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gqb7hga16sj317t0u0nc1.jpg)
 
 ### 参考文档
 

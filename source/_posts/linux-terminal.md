@@ -12,7 +12,7 @@ categories:
 1. linux打开一个终端运行一个程序，在程序运行未结束的时候如果关掉终端的话，那么该程序也会跟着退出。
 2. 如果终端运行的程序堵塞了，则整个终端窗口将无法再执行其他程序。
 
-![进程](https://tva1.sinaimg.cn/large/008eGmZEly1gp243alnjxj31e008q111.jpg)
+![进程](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp243alnjxj31e008q111.jpg)
 
 为了使进程不堵塞整个终端，可使用如下命令使进程在后台运行:
 
@@ -20,7 +20,7 @@ categories:
 nohup <command> &
 ```
 
-![nohup](https://tva1.sinaimg.cn/large/008eGmZEly1gp24hwww9wj30zm01sdgi.jpg)
+![nohup](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp24hwww9wj30zm01sdgi.jpg)
 
 其中： 
 
@@ -42,7 +42,7 @@ nohup <command> &
 
 当我们在终端中敲下一条命令，然后按下回车的时候，Shell会开启一个新进程来执行这条命令。如果这条命令是由管道连接起来的多个命令组成的话，Shell便会开启多个进程来执行这一组任务。无论是单独的一条命令，还是由管道连接的多条命令，都会被放入到一个新的**进程组(任务)**中。只包含一条命令的时候，就会创建一个由一个进程组成的进程组。进程组中的每个进程都具有相同的进程组标识符(进程组ID)，这个进程组标识符其实就是进程组中某个进程(即进程组组长)的进程ID。**一个进程组也被称为「作业」**
 
-![进程组](https://tva1.sinaimg.cn/large/008eGmZEly1gp25p3hlajj30wy04yt9d.jpg)
+![进程组](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp25p3hlajj30wy04yt9d.jpg)
 
 如上截图所示：
 
@@ -66,11 +66,11 @@ nohup <command> &
 
 **使用会话最多的是支持任务控制的shell,由shell创建的所有进程组及shell自身隶属与同一个会话，shell自身就是该会话的会话首进程**。
 
-![session id](https://tva1.sinaimg.cn/large/008eGmZEly1gp269e4zjcj30ya052t9h.jpg)
+![session id](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp269e4zjcj30ya052t9h.jpg)
 
 在任意时刻，会话中总有一个前台进程组(前台任务)，可以从终端读取输入，向终端发送输出。如果用户输入Ctrl+C或者Ctrl+Z,就可以分别让任务终止或挂起。同时，一个会话还可以拥有任意多个后台进程组，后台进程组可以用’&’结尾的命令行创建。
 
-![会话](https://tva1.sinaimg.cn/large/008eGmZEly1gp263d7z3bj31v00nqgsy.jpg)
+![会话](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp263d7z3bj31v00nqgsy.jpg)
 
  如图，该会话中有三个进程组。通常是由shell的管道将几个进程编成一组的。上图有可能是由下列形式的shell命令形成的:
 
@@ -101,7 +101,7 @@ $ proc3 | proc4 | proc5
 - 无论何时键入终端的中断键或退出键，都会将中断信号或退出信号发送至前台进程组的所有进程。
 - 如果终端检测到调制解调器（或网络）断开，则挂断信号（SIGHUP）发送至控制进程（会话首进程），如果**会话首进程退出,则将挂断信号（SIGHUP）发送至前台进程组的所有进程**。
 
-![控制终端](https://tva1.sinaimg.cn/large/008eGmZEly1gp26l1y3u1j31gn0u0tmu.jpg)
+![控制终端](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp26l1y3u1j31gn0u0tmu.jpg)
 
 ### 相关命令
 
@@ -109,19 +109,19 @@ $ proc3 | proc4 | proc5
 
 查看当前所有的后台进程
 
-![jobs](https://tva1.sinaimg.cn/large/008eGmZEly1gp272ozs1uj30sa038wet.jpg)
+![jobs](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp272ozs1uj30sa038wet.jpg)
 
 #### fg
 
 将后台运行的命令调至前台继续运行, fg 命令格式为`fg %作业号` 其中 `％ `可以省略，但若将`% 工作号`全部省略，则此命令会将带有 + 号的工作恢复到前台。另外，使用此命令的过程中， % 可有可无。
 
-![fg](https://tva1.sinaimg.cn/large/008eGmZEly1gp277qt4mfj313m0n2tcf.jpg)
+![fg](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp277qt4mfj313m0n2tcf.jpg)
 
 ##### bg
 
 将一个在后台暂停的命令变成继续执行状态
 
-![bg](https://tva1.sinaimg.cn/large/008eGmZEly1gp279l6n8qj30w809w75s.jpg)
+![bg](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp279l6n8qj30w809w75s.jpg)
 
 ##### ctrl + z
 可以将一个正在前台执行的命令放到后台，并且暂停
@@ -130,13 +130,13 @@ $ proc3 | proc4 | proc5
 
 tty命令看看当前bash关联到了哪个tty
 
-![tty](https://tva1.sinaimg.cn/large/008eGmZEly1gp27c81h2mj30sq022q30.jpg)
+![tty](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp27c81h2mj30sq022q30.jpg)
 
 ##### lsof
 
 lsof 用于查看你进程打开的文件，打开文件的相关进程，进程打开的端口(TCP、UDP)等，在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。
 
-![lsof](https://tva1.sinaimg.cn/large/008eGmZEly1gp27f1dw3gj310q08o76r.jpg)
+![lsof](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp27f1dw3gj310q08o76r.jpg)
 
 ###### 参数
 
@@ -161,7 +161,7 @@ lsof 用于查看你进程打开的文件，打开文件的相关进程，进程
 lsof /bin/bash
 ```
 
-![lsof /bin/bash](https://tva1.sinaimg.cn/large/008eGmZEly1gp27n2nuv8j30wq054jsv.jpg)
+![lsof /bin/bash](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp27n2nuv8j30wq054jsv.jpg)
 
 ###### 查看哪个进程打开指定端口
 
@@ -169,7 +169,7 @@ lsof /bin/bash
 lsof -i :22
 ```
 
-![losf -i :22](https://tva1.sinaimg.cn/large/008eGmZEly1gp27p127ffj319i06kdig.jpg)
+![losf -i :22](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp27p127ffj319i06kdig.jpg)
 
 ###### 查看指定进程打开的文件信息
 
@@ -177,7 +177,7 @@ lsof -i :22
 lsof -p 1257
 ```
 
-![lsof -p 1257](https://tva1.sinaimg.cn/large/008eGmZEly1gp27r9r1wej30uj0u07s9.jpg)
+![lsof -p 1257](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gp27r9r1wej30uj0u07s9.jpg)
 
 ### 参考文档
 

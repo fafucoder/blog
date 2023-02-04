@@ -22,15 +22,15 @@ categories:
 
 ​	当APIAggregator接收到请求之后，如果发现对应的是一个service的请求，则会直接转发到对应的服务上否则委托给apiserver进行处理，apiserver中根据当前URL来选择对应的REST接口处理，如果未能找到对应的处理，则会交由CRD server处理， CRD server检测是否已经注册对应的CRD资源，如果注册就处理
 
-![api aggregation](https://tva1.sinaimg.cn/large/008eGmZEly1gn86kq5rumj319y0c4my6.jpg)
+![api aggregation](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gn86kq5rumj319y0c4my6.jpg)
 
 ​	当在集群中创建了对应的CRD资源的时候，k8s通过内部的controller来感知对应的CRD资源信息，然后为其创建对应的REST处理接口，这样后续接收到对应的资源就可以进行处理
 
-![crd server](https://tva1.sinaimg.cn/large/008eGmZEly1gn86o0k0kqj314q0bwdh7.jpg)
+![crd server](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gn86o0k0kqj314q0bwdh7.jpg)
 
 ​	APIAggreagtor中会通过informer 监听后端Service的变化，如果发现有新的服务，就会创建对应的代理转发，从而实现对应的服务注册
 
-![api service](https://tva1.sinaimg.cn/large/008eGmZEly1gn86p5w6erj315g0b6t9x.jpg)
+![api service](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gn86p5w6erj315g0b6t9x.jpg)
 
 ### 注册自定义service资源
 
@@ -56,11 +56,11 @@ spec:
 
 ### 注意点
 
-1. service监听的端口必须是https,否则认证通过不了。(通过`kubectl get apiservice`能看到是否通过认证)![http报错](https://tva1.sinaimg.cn/large/008eGmZEly1gn85pg2d84j316u070788.jpg)
+1. service监听的端口必须是https,否则认证通过不了。(通过`kubectl get apiservice`能看到是否通过认证)![http报错](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gn85pg2d84j316u070788.jpg)
 
 2. 请求的根路径需要应答请求，否则会报404错误（`kubectl get apiservice v1alpha3.demo.com.cn  -o yaml` 能拷看到状态）
 
-   ![404状态](https://tva1.sinaimg.cn/large/008eGmZEly1gn85u1y817j316406atc7.jpg)
+   ![404状态](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008eGmZEly1gn85u1y817j316406atc7.jpg)
    
 3. 请求的根路径的应答结果需要包含`kind`, `apiVersion`, `groupVersion`, `resources`：
 
