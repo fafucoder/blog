@@ -7,6 +7,10 @@ categories:
 - golang
 ---
 
+### 概述
+
+### 常见的垃圾回收算法
+
 ### 参考文档
 
 - [golang垃圾回收gc](https://www.cnblogs.com/33debug/p/12106823.html)   // 推荐阅读此大佬的所有go文章，写得针不戳

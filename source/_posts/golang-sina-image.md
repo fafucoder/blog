@@ -192,8 +192,4 @@ func replaceSinaImageUrl(file *mdFile) {
 		fmt.Printf("failed write file, err=%v", err)
 	}
 }
-
 ```
-
-
-
