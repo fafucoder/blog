@@ -9,7 +9,7 @@ categories:
 
 ### container概念
 
-一句话解释，就是`一组受到资源限制，彼此间相互隔离的进程`。实现起来也并不复杂，隔离所用到的技术都是由linux内核本身提供的（所以说目前绝大部分的容器都是必须要跑在linux里面的）。其中namespace用来做访问隔离（每个容器进程都有自己独立的进程空间，看不到其他进程），cgroups用来做资源限制（cpu、内存、存储、网络的使用限制）。总的来说容器就是一种基于操作系统能力的隔离技术，这和基于hypervisor的虚拟化技术（能完整模拟出虚拟硬件和客户机操作系统）复杂度不可同日而语。
+啥是container，一句话解释，就是`一组受到资源限制，彼此间相互隔离的进程`。实现起来也并不复杂，隔离所用到的技术都是由linux内核本身提供的（所以说目前绝大部分的容器都是必须要跑在linux里面的）。其中namespace用来做访问隔离（每个容器进程都有自己独立的进程空间，看不到其他进程），cgroups用来做资源限制（cpu、内存、存储、网络的使用限制）。总的来说容器就是一种基于操作系统能力的隔离技术，这和基于hypervisor的虚拟化技术（能完整模拟出虚拟硬件和客户机操作系统）复杂度不可同日而语。
 
 ![docker container](https://upload-images.jianshu.io/upload_images/14871146-b3bbac53379514ac.png)
 
@@ -21,9 +21,9 @@ categories:
 
 containerd是容器技术标准化之后的产物，为了能够兼容 OCI 标准，将容器运行时及其管理功能从 Docker Daemon 剥离。从理论上来说，即使不运行 dockerd，也能够直接通过 containerd 来管理容器。
 
-containerd向上为Docker Daemon提供了gRPC接口，使得Docker Daemon屏蔽下面的结构变化。向下通过containerd-shim结合runC，使得引擎可以独立升级，避免之前Docker Daemon升级会导致所有容器不可用的问题。
+containerd向上为Docker Daemon提供了gRPC接口，使得Docker Daemon屏蔽下面的结构变化。向下通过containerd-shim结合runc，使得引擎可以独立升级，避免之前Docker Daemon升级会导致所有容器不可用的问题。
 
-containerd-shim称之为垫片，每启动一个容器都会起一个新的docker-shim的一个进程， 他直接通过指定的三个参数：容器id，boundle目录， 运行是二进制（默认为runc）来调用runc的api创建一个容器（比如创建容器：最后拼装的命令如下：runc create 。。。。。）
+containerd-shim称之为垫片，每启动一个容器都会起一个新的docker-shim的一个进程， 他直接通过指定的三个参数：容器ID、bundle 目录， 运行时二进制（默认为runc）来调用runc的api创建一个容器（比如创建容器：最后拼装的命令如下：runc create 。。。。。）
 
 runC是从Docker的libcontainer中迁移而来的，实现了容器启停、资源隔离等功能
 
@@ -32,7 +32,7 @@ runC是从Docker的libcontainer中迁移而来的，实现了容器启停、资�
 ### 总结
 分离后的docker运行原理如下所示：
 
-![docker结构图](https://upload-images.jianshu.io/upload_images/8911567-a2909ee9253d3e1a.png)
+![docker结构图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202302281553940.png)
 
 ### 参考手册
 - https://www.jianshu.com/p/52c0f12b0294        //docker，containerd，runc，docker-shim
