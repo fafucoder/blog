@@ -13,4 +13,3 @@ categories:
 - https://cloud.tencent.com/developer/article/1375877 //腾讯云
 - https://github.com/kubernetes/kubernetes/tree/master/build/pause  // pause 源码解析
 - https://o-my-chenjian.com/2017/10/17/The-Pause-Container-Of-Kubernetes/
-
