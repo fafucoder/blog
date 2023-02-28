@@ -90,4 +90,6 @@ NAPI 主要是让 NIC 的 driver 能注册一个 poll 函数，之后 NAPI 的 s
 - https://ylgrgyq.github.io/2017/07/23/linux-receive-packet-1/
 - https://plantegg.github.io/2019/05/24/%E7%BD%91%E7%BB%9C%E5%8C%85%E7%9A%84%E6%B5%81%E8%BD%AC/
 - https://elixir.bootlin.com/linux/v4.4/source/drivers/net/ethernet/intel/igb/igb_main.c#L6361
+- https://ylgrgyq.github.io/2017/07/24/linux-receive-packet-2/
+- https://ylgrgyq.github.io/2017/08/01/linux-receive-packet-3/
 

@@ -57,8 +57,6 @@ categories:
 
 ### 容器中如何查看cpu信息
 
-
-
 ### 参考文档
 
 - https://github.com/silenceshell/topic  // 容器中正确展示top信息

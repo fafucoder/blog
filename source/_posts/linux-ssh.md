@@ -1,5 +1,5 @@
 ---
-title: ssh命令知多少
+title: linux ssh命令知多少
 date: 2020-08-04 20:49:26
 tags:
 - linux
