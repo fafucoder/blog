@@ -852,7 +852,7 @@ sha256:dca71257cd2e72840a21f0323234bb2e33fea6d949fa0f21c5102146f583486b
 
 ![docker pull](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gt1mm3241qj30wa0sqdj2.jpg)
 
-ocker pull 就和我们使用 git clone 一样效果，将远程的镜像仓库拉取到本地来给容器运行时使用，结合上图大致的流程如下：
+docker pull 就和我们使用 git clone 一样效果，将远程的镜像仓库拉取到本地来给容器运行时使用，结合上图大致的流程如下：
 
 - 第一步应该是使用`~/.docker/config.json` 中的 auth 认证信息在 registry 那里进行鉴权授权，拿到一个 token，后面的所有的 HTTP 请求中都要包含着该 token 才能有权限进行操作
 - dockerd 守护进程解析 docker 客户端参数，接着向 registry 请求 manifest 文件
@@ -869,7 +869,7 @@ ocker pull 就和我们使用 git clone 一样效果，将远程的镜像仓库�
 
 ### docker push
 
-doker push 的流程恰好和 docker pull 拉取镜像到本地的流程相反。docker pull 一个镜像的时候往往需要先获取镜像 的 manifest 文件，然后根据这个文件中的 layer 信息取相应的 layer。doker push 一个镜像，需要先将镜像的各个 layer 推送到 registry ，当所有的镜像 layer 上传完毕之后最后再 push Image manifest 到 registry。大体的流程如下:
+docker push 的流程恰好和 docker pull 拉取镜像到本地的流程相反。docker pull 一个镜像的时候往往需要先获取镜像 的 manifest 文件，然后根据这个文件中的 layer 信息取相应的 layer。doker push 一个镜像，需要先将镜像的各个 layer 推送到 registry ，当所有的镜像 layer 上传完毕之后最后再 push Image manifest 到 registry。大体的流程如下:
 
 - 第一步和 pull 一个镜像一样也是进行鉴权授权，拿到一个 token
 - 向 registry 发送 `POST /v2/<name>/blobs/uploads/`请求，registry 返回一个上传镜像 layer 时要应到的 URL

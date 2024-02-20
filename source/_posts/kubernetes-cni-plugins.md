@@ -79,7 +79,7 @@ VXLAN：Virtual Extensible LAN（虚拟可扩展局域网），是Linux内核本
 我们可以看到每台Node上都有一个flannel.1的网卡，它就是VXLAN所需要的VTEP设备，它既有IP地址，也有MAC地址。 现在我们nginx01要访问nginx02，其流程如下：
 
 1. nginx01发送请求包会被转发到docker0；
-2. 然后会通过路由转发到本机的flannel,1；
+2. 然后会通过路由转发到本机的flannel.1；
 3. flannel.1收到包后通过ARP记录找到目的MAC地址，并将其加原始包上，封装成二层数据帧（将源MAC地址和目的MAC地址封装在它们对应的IP头外部）；
 4. Linux内核把这个数据帧封装成普通的可传输的数据帧，通过宿主机的eth0进行传输（也就是在原有的数据帧上面加一个VXLAN头VNI，它是识别某个数据帧是不是归自己处理的的重要标识，而在flannel中，VNI的默认值就是1，这是由于宿主机上的VTEP设备名称叫flannel.1，这里的1就是VNI的值）；
 5. 然后Linux内核会把这个数据帧封装到UDP包里发出去；

@@ -81,7 +81,7 @@ files是一个文件指针数组。一般来说，一个进程会从files[0]读�
 
 socket这个词可以表示很多概念，在TCP/IP协议中“IP地址 + TCP或UDP端口号”唯一标识网络通讯中的一个进程，“IP + 端口号”就称为socket。在TCP协议中，建立连接的两个进程各自有一个socket来标识，那么两个socket组成的socket pair就唯一标识一个连接。
 
-在Unix/Linux系统下，一个socket句柄，可以看做是一个文件，在socket上收发数据，相当于对一个文件进行读写，所以一个socket句柄，通常也用表示文件句柄的fd来表示。在linux中，一个socket fd 可能如下表示：
+在Unix/Linux系统下，一个socket句柄，可以看做是一个文件，在socket上收发数据，相当于对一个文件进行读写，所以一个socket句柄，通常也用文件句柄的fd来表示。在linux中，一个socket fd 可能如下表示：
 
 ```livescript
 root@ubuntu:~# ll /proc/1583/fd  
@@ -92,11 +92,33 @@ lrwx------ 1 root root 64 Jul 19 12:37 8 -> socket:[18893]
 
 这里我们看到 fd 7、8 都是一个 socket fd，名字为 socket:[18892]、socket:[18893], 名字中的socket 标识这是一个 socket 类型的 fd， 数字[18892] 表示这个是一个 inode 号，能够唯一标识本机的一条网络连接。
 
-套接字由 socket() 系统调用创建，但是套接字其实可分为两种类型，监听套接字和普通套接字。而监听套接字是由 listen() 把 socket fd 转化而成。listenfd称为监听套接字（listening socket）描述符，它的生命周期与服务器的生命周期一致且一般一个服务器保有一个listenfd。connfd是已连接套接字（connected socket）描述符，一个连接对应一个connfd，当连接关闭时connfd也会被关闭。值得一提的是connfd是在完成TCP三次握手后被创建。(总结起来就是listenfd是内核维护的，connfd是应用程序自己维护的)
+套接字由 socket() 系统调用创建，但是套接字其实可分为两种类型，监听套接字和普通套接字。
+
+对于监听套接字，不走数据流，只管理连接的建立。`accept` 将从全连接队列获取一个创建好的 socket（ 3 次握手完成），对于监听套接字的可读事件就是全连接队列非空。对于监听套接字，我们只在乎可读事件。
+
+普通套接字就是走数据流的，也就是网络 IO，针对普通套接字我们关注可读可写事件。
+
+监听套接字是由 listen() 把 socket fd 转化而成。listenfd称为监听套接字（listening socket）描述符，它的生命周期与服务器的生命周期一致且一般一个服务器保有一个listenfd。connfd是已连接套接字（connected socket）描述符，一个连接对应一个connfd，当连接关闭时connfd也会被关闭。值得一提的是connfd是在完成TCP三次握手后被创建。(总结起来就是listenfd是内核维护的，connfd是应用程序自己维护的)
 
 ![socket](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/008i3skNly1gwp608bb6pj30u00uh0ub.jpg)
 
-### 进程堵塞 概念
+### 全连接和半连接队列
+
+上面提到过全连接队列和半连接队列，什么是全连接队列，什么是半连接队列呢，在说这个概念之前，我们先说TCP的三次握手如下：
+
+1. client 发送 SYN 到server 发起握手；
+2. server 收到 SYN后回复SYN+ACK给client；
+3. client 收到SYN+ACK后，回复server一个ACK表示收到了server的SYN+ACK，这时表示连接建立完成。
+
+![TCP三次握手](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202401172017128.png)
+
+全连接队列和半连接队列其实就是三次握手中连接的状态流转半连接队列，也称 SYN 队列；全连接队列，也称 accept 队列）
+
+服务端收到客户端发起的 SYN 请求后，**内核会把该连接存储到半连接队列**，并向客户端响应 SYN+ACK，接着客户端会返回 ACK，服务端收到第三次握手的 ACK 后，**内核会把连接从半连接队列移除，然后创建新的完全的连接，并将其添加到 accept 队列，等待进程调用 accept 函数时把连接取出来。**
+
+![全连接队列与半连接队列](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202401172045208.png)
+
+### 进程堵塞概念
 
 ### 多路复用解决的问题
 
