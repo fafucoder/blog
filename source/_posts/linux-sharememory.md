@@ -36,10 +36,6 @@ categories:
 3. 挂接操作———>shmat()函数
 4. 分离操作———>shmdt()函数 
 
-### 内存零拷贝
-
-
-
 ### 参考文档
 
 - https://mp.weixin.qq.com/s/GMCi0tA-syEliTYzjrv6Mw     // 分布式实验室

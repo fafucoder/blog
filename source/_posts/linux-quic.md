@@ -13,7 +13,56 @@ quic草案的阅读总是晦涩难懂的，如果没有多读几遍，压根就�
 
 ### QUIC之基础概念
 
+#### connection
 
+连接用途在客户端和服务器之间建立连接。和tcp不同的是(tcp是通过连接四元组[client ip、client port、server ip、server port]来确定一个连接)，quic是通过连接id(connectionId)来标识一个连接。
+
+#### stream
+
+stream是一个抽象的概念，它表达了一个有序传输的字节流，而这些字节其实就是由Stream Frame(一系列的帧)排在一起构成。在一个quic connection上，可以同时传输多条流。
+
+流可以是单向的或双向的，单向流只能往一个方向传输数据，双向流允许双端向对端发送数据。
+
+在连接中，通过StreamID来标志一个流，通过流ID的最小有效位标志流的发起者，流ID的次小有效位标志流的类型。
+
+![stream](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190017727.png)
+
+流帧封装应用层发送的数据。终端使用流帧的流ID及偏移字段整理数据并将流数据以一个有序字节流传递给应用层，终端可以从一条流的同一个偏移位置多次接收数据，如果数据已经被接收过，则直接丢弃此数据。
+
+#### 流状态
+
+流有两种状态，分为发送流和接收流
+
+在流的发送部分，应用层协议可以：
+
+- 写数据，只有当流量控制给数据写出留足空间，才能成功写入；
+- 结束流（清理并关闭），发送一个设置FIN位为1的流帧；
+- 重置流（中止并关闭），当流未处在终止状态时发送一个RESET_STREAM帧。
+
+![流发送状态](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190019877.png)
+
+在流的接收部分，应用层协议可以:
+
+- 读数据
+- 中止读取流数据并请求关闭流，该操作可能需要发送STOP_SENDING帧
+
+![流接收状态](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190020930.png)
+
+#### Frame帧
+
+在对QUIC数据包进行解密且去除掉header后，packet的荷载里都是frame（至少包括1个）。
+
+如果packet的荷载里，不包括ACK, PADDING, CONNECTION_CLOSE这种三种类型的帧，那么这个packet则被定义为ack确认帧，意味着对端必须对这种packet生成相应的ack通知发送方，以确保数据没有丢失。
+
+packet的荷载里frames的类型在多达30种类型，每种类型都有自己的应用场景，如ACK Frame用于可靠传输（Recovery)，Crypto用于安全传输（TLS握手），Stream Frame用于业务数据传递，MAX_DATA/DATA_BLOCKED用于流控，PING Frame可以用于mtu探测，具体参考(https://autumnquiche.github.io/RFC9000_Chinese_Translation/#19_Frame_Types_and_Formats)
+
+#### QUIC数据包
+
+一个UDP报文包含一个或者多个数据包，QUIC定义了两类数据包头，长包头和短包头。区分长包头还是短包头主要是根据第一个字节的最高位来区分。
+
+除了1-RTT属于短包头外，其余的数据包都属于长包头(initial包，0-RTT包，handshake包,重试数据包都属于长包头)，长包头被用于在1-RTT密钥建立前发送的数据包。一旦有了1-RTT密钥，发送方就会改用短包头发送数据包
+
+![数据包](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190023285.png)
 
 ### QUIC之地址校验
 
@@ -29,7 +78,7 @@ QUIC 针对放大攻击的主要防御措施是验证端点是否能够在其声
 
 重试数据包（Retry packet）中提供的令牌只能立即使用，不能用于后续连接的地址验证。而 NEW_TOKEN 帧生成的令牌可以在一个时间范围内使用，这个令牌应该有一个过期时间，可以是显式的过期时间，也可以是可用于动态计算过期时间的时间戳（timestamp）。服务端可以存储过期时间，也可以在令牌中以加密的形式包含它。
 
-![image-20230213235255656](/Users/dawn/Library/Application Support/typora-user-images/image-20230213235255656.png)
+![建连](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190024609.png)
 
 **需要注意的是：**
 
@@ -83,7 +132,7 @@ QUIC标准化的过程中，发布了多个版本的草案，市面上的QUIC协
 - 服务端识别到 0-RTT 数据包（之前有成功连接过），可以选择不发送版本协商包，以减少额外的 1-RTT 版本协商延迟。
 - 服务端响应发送的初始（Initial）数据包或版本协商数据包可能丢失，客户端可以继续发送新的数据包、直到它成功接收到服务端响应，或者放弃连接尝试。
 
-![image-20230213235419054](/Users/dawn/Library/Application Support/typora-user-images/image-20230213235419054.png)
+![数据包格式](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190025235.png)
 
 #### 处理版本协商包
 
@@ -102,7 +151,7 @@ QUIC 版本使用 32 位无符号数字标识，版本号 0x00000000 被保留�
 
 #### 版本协商包格式
 
-![image-20230213235514550](/Users/dawn/Library/Application Support/typora-user-images/image-20230213235514550.png)
+![quic版本](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190025535.png)
 
 注意事项：
 
@@ -135,13 +184,13 @@ Packet Number 为整型变量，其值在 0 到 2^62-1 之间，它也用于生�
 
 #### 连接之建立过程
 
-![image-20230213235705155](/Users/dawn/Library/Application Support/typora-user-images/image-20230213235705155.png)
+![连接建立](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190026147.png)
 
 #### 传输参数定义
 
 在连接建立期间，双端会对各自的传输参数作出验证声明，传输参数通过在quic_transport_parameters字段中定义，传输参数包括最大超时时间(max_idle_timeout)， 无状态重置令牌(stateless_reset_token), 最大udp有效载荷（max_udp_payload_size），初始最大数据量(initial_max_data)等,具体参数参考(https://autumnquiche.github.io/RFC9000_Chinese_Translation/#18_Transport_Parameter_Encoding)
 
-![image-20230213235810360](/Users/dawn/Library/Application Support/typora-user-images/image-20230213235810360.png)
+![传输参数定义](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190026076.png)
 
 同一个传输参数在特定的传输扩展中不能声明多次，一旦握手完成，由对端声明的传输参数就生效了
 
@@ -157,11 +206,63 @@ Packet Number 为整型变量，其值在 0 到 2^62-1 之间，它也用于生�
 
 在首次收到从服务端发来的初始数据包或重试数据包后，客户端将服务的提供的源连接ID作为后续发送数据包的目标连接ID，包括任何0-RTT包。这意味着客户端可能需要在连接建立阶段将目标连接ID字段的值变更两次：一次是响应服务端发来的重试数据包，一次是响应服务端发来的初始数据包
 
-
+![协商连接ID](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190027319.png)
 
 ### QUIC之连接迁移
 
+TCP的连接标识是通过“源ip+源端口+目标ip+目标端口+协议”唯一五元组构成，当其中的任何一个变量改变，都会造成tcp的重新建连。而quic也有唯一标识，他是通过一个64位的Connection ID表示，当用户在WIFI和移动网络发生网络切换时，用户的IP和Port可能会发生改变，但是quic的Connection ID不会发生改变，因此无需重新建立连接，这种用户无感知的网络切换，叫做连接迁移。
+
+ 探测帧（**probing frames**）：PATH_CHALLENGE、PATH_RESPONSE、NEW_CONNECTION_ID、PADDING，发起的包是探测包（**probing packet**）
+
+非探测帧（**non-probing frames**）：除探测帧之外的是非探测帧，发起的包是非探测包（**non-probing packet**）
+
+#### 探测新路径
+
+在发起连接之前，客户端会发起探测帧，校验新地址到对端是否可达，也就是路径验证，校验不通过表示该条路径不通，但不会关闭连接。
+
+#### 发起连接迁移
+
+客户端发起非探测帧数据包给对端，从而实现连接迁移。新路径没有老路径的发送速率，所以新路径会重置拥塞控制和RTT相关配置。
+
+#### 响应连接
+
+当对端收到非探测帧数据包时，意味着连接迁移成功。
+
 ### QUIC之连接关闭
+
+共有三种方法终止一个已建立的quic连接：
+
+1. 空闲超时
+2. 立即关闭
+3. 无状态重置
+
+#### 空闲超时
+
+每个终端会在传输参数中指定的最大空闲超时时间(max_idle_timeout)，如果某个连接持续空闲时间超过了两个终端宣告的max_idle_timeout中较小值，那么这个连接就会被静默关闭，并且它的状态会被丢弃。
+
+![空闲超时](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190030296.png)
+
+当终端收到并且处理了一个来自对端的数据包时，终端需要重置它的空闲计时器。当正要发送ACK触发包时，如果自上一次接收并处理数据包后还没有发送过任何ACK触发包，那么终端也会重启它的空闲计时器。
+
+![空闲超时](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190031587.png)
+
+如果终端正在等待响应数据但是没有或无法发送应用数据，那么终端可能需要发送ACK触发包以避免空闲超时。终端可以定期发送一个Ping帧，使得对端重置自己的空闲超时定时器。
+
+#### 立即关闭
+
+终端可以发送连接关闭帧(CONNECTION_CLOSE)来终止连接，连接关闭帧会使所有的流都被立即关闭，当终端发起立即关闭帧后进入关闭状态，当终端收到连接关闭帧后立即进入排空状态(排空状态许多方面都跟关闭状态一致，但是处于排空状态的终端必须不发送任何数据包。一旦连接处于排空状态，就没有必要再保留数据包保护密钥了)
+
+终端在收到连接关闭帧后在进入排空状态之前可以发送一个包含连接关闭帧的数据包。
+
+处于关闭状态的连接在收到连接关闭帧后可以转化为排空状态
+
+#### 无状态重置
+
+崩溃或中断可能造成对端持续向一个没有正常地维持连接的终端发送数据，终端可以在接收到一个它无法关联到某个活跃连接的数据包时发送无状态重置作为响应。
+
+无状态重置不适合用来表明在活跃连接中出现的错误。想要传达致命的连接错误这一消息的终端在有能力的情况下必须使用连接关闭帧。
+
+为了支持无状态重置，终端会签发一个无状态重置令牌，它是一个难以猜测的16字节长的值。如果对端后续收到了无状态重置，也就是一个以那个无状态重置令牌结尾的UDP数据报，那么对端将立即结束这条连接。
 
 ### QUIC之不可靠传输
 
@@ -174,7 +275,7 @@ QUIC传输协议[RFC9000]为传输可靠的应用数据流提供了一个安全�
 2. 端点在握手期间（如果使用0-RTT，则是上一次握手期间），在未收到具有非零值的 max_datagram_frame_size 传输参数之前，不得发送 DATAGRAM 帧， 端点不得发送大于对端通告的 max_datagram_frame_size 长度的 DATAGRAM 帧，如果未收到是否支持datagram帧的通道而收到datagram帧，那么需要以PROTOCOL_VIOLATION类型错误而终止。
 3. max_datagram_frame_size 传输参数可以是单向的，也就是可以单端使用。
 
-![image-20230213232140765](/Users/dawn/Library/Application Support/typora-user-images/image-20230213232140765.png)
+![不可靠传输](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190037357.png)
 
 #### Datagram帧的发送和接收处理
 
@@ -199,7 +300,9 @@ QUIC传输协议[RFC9000]为传输可靠的应用数据流提供了一个安全�
 1. 端点在握手期间需要使用传输参数(enable_multipath（实验使用0xbabf))来协商是否支持多路径，0表示禁用多路径。
 2. 如果任何一个端点，该参数不存在或设置为 0，则端点必须回退到QUIC模式
 
-![image-20230213233123457](/Users/dawn/Library/Application Support/typora-user-images/image-20230213233123457.png)
+![mp-quic](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190039195.png)
+
+![multipath](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190042582.png)
 
 #### 路径的启动和关闭
 
@@ -221,7 +324,7 @@ QUIC传输协议[RFC9000]为传输可靠的应用数据流提供了一个安全�
 
 9. 在路径验证过程中，端点可以通过不发送PATH_RESPONSE帧来拒绝对等方发起的新路径建立。
 
-![image-20230213233523206](/Users/dawn/Library/Application Support/typora-user-images/image-20230213233523206.png)
+![状态机](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190042194.png)
 
 #### 路径的状态管理
 
@@ -239,7 +342,7 @@ PATH_STATUS利用PATH_ID来标识它希望改变哪个路径的状态。另外�
 1. 这是个递增的序号，只有收到更高序号的PATH_STATUS才判定为有效
 2. 不同路径上的序号不互相干涉，也就是说如果收到path-1上的高序号，不会去影响path2的状态。
 
-![image-20230213233905630](/Users/dawn/Library/Application Support/typora-user-images/image-20230213233905630.png)
+![image-20230213233905630](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403190043914.png)
 
 #### 路径的拥塞控制
 
@@ -250,4 +353,15 @@ PATH_STATUS利用PATH_ID来标识它希望改变哪个路径的状态。另外�
 ### 参考文档
 
 - [RFC9000中译：QUIC传输协议](https://autumnquiche.github.io/RFC9000_Chinese_Translation)
-- [Multipath Extension for QUIC](https://www.ietf.org/archive/id/draft-ietf-quic-multipath-02.html)
+- [QUIC-TLS协议中文版（rfc9001）](https://autumnquiche.github.io/RFC9001_Chinese_Translation/#6_Key_Update)
+- [MP-QUIC协议草案](https://datatracker.ietf.org/doc/draft-ietf-quic-multipath/)
+- [多路径调度器草案](https://datatracker.ietf.org/doc/pdf/draft-bonaventure-iccrg-schedulers-02)
+- https://github.com/alibaba/xquic)
+- [深入 HTTP/3（一）｜从 QUIC 链接的建立与关闭看协议的演进](https://www.sofastack.tech/blog/deeper-into-http/3-evolution-of-the-protocol-from-the-creation-and-closing-of-quic-links/)
+- [深入 HTTP/3（2）｜不那么 Boring 的 SSL](https://segmentfault.com/a/1190000041890681)
+- [揭秘QUIC的性能与安全](https://segmentfault.com/a/1190000038852325)
+- [积跬步至千里：QUIC 协议在蚂蚁集团落地之综述](https://segmentfault.com/a/1190000040916771)
+- [提速 30%！腾讯TQUIC 网络传输协议](https://cloud.tencent.com/developer/article/1908451)
+- [淘宝多路径 quic 服务](https://mp.weixin.qq.com/s?__biz=MzI2NjIzNTcyNA==&mid=2247508340&idx=1&sn=ab28ba4d5033aad62ef4912ca978ea14&chksm=ea93db57dde452412c426b024b77ee9af73292f32f741308f243f52656fdc06d707dc9ec1408&mpshare=1&scene=1&srcid=0808E1BLOg7emAKOEllJ0aoj&sharer_sharetime=1659944636274&sharer_shareid=4610f9caf4ad583725d03d2e1814afc7&st=F4ECAAEE693B943F0ABBDE227020B17ED1D57ADB2D546FB41469E21E7D143BF2AF405C33E5104FEDA6CFF90669705D98C29B165EA337F4CA97F71641F51F1DA60EDAC285D689B9CE3066254A14F13EB5958F7E5E95DE6285E41B035F162306AB90AEB04EB01A2C779337FB3C6931BE8D25F27AB45B8C0A9B1DAB02EC2EC6CAC7A8EFF629835963597034EE4BA66F5AE026D885A81180A81D09A801DF8E39BDC3381012FCC6770A3B3C2AF7144BCECD3F1784624A9F5B4B3A3A046B98016160D9F2939056F0EEE5ECA3D3B1C7C3C9B9140EC0FDFFB6C10DDCB411ADADF1042619B61D0D486D96093B9FD0EEDE00E3F223&vid=1688851418270751&cst=D0B9120D9A603047FC5153C2EE5E94DD44B46E2FBE6238B25F6E69D78EAB52519A6D3B4233B4C5351FC7354C47D4AD2C&deviceid=aac8bf02-19c1-4b8b-9c33-fe2985ca7604&version=4.0.9.90603&platform=mac)
+- [TLS1.2 和 TLS1.3的简要区别](https://blog.csdn.net/weixin_43408952/article/details/124727681)
+- [https原理--ECDHE密钥协商算法](https://www.cnblogs.com/zipxzf/articles/14346467.html)
