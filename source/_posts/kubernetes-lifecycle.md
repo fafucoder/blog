@@ -20,6 +20,8 @@ kubernetes提供了一种pod优雅退出机制，使得pod在退出之前可以�
 5. 宽限期结束（grace period）之后，若存在任何一个运行的进程，pod 会收到 SIGKILL 信号。
 6. Kubelet 请求 API Server 将此 Pod 资源宽限期设置为0从而完成删除操作。
 
+> 这里注意：当POD被标记为Terminating状态时, preStop和宽限以同步的方式执行；若宽限期结束后，preStop 仍未执行结束，第二步会重新执行并额外获得一个2秒的小宽限期(最后的宽限期)，所以prestop的执行时间注意和terminationGracePeriodSeconds参数配合使用)
+
 ### 如何实现pod优雅退出
 
 1. pod可以配置pre_stop钩子（适用于业务进程不处理SIGTERM信号的情况）；
