@@ -282,13 +282,13 @@ func etcdKeepAlive(client *clientv3.Client) {
 
 etcd 是一个基于 Raft 共识算法实现的分布式键值存储服务，在项目结构上采用了模块化设计，其中最主要的三个部分是实现分布式共识的 Raft 模块、实现数据持久化的 WAL 模块和实现状态机存储的 MVCC 模块。
 
-![etcd组件](https://wingsxdu.com/posts/database/etcd/etcd-Architecture@2x.png)
+![etcd组件](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403200019132.png)
 
 #### Leader 选举
 
 Raft 是一种用来管理日志复制过程的算法，Raft 通过『领导选举机制』选举出一个 Leader，由它全权管理日志复制来实现一致性。一个 Raft 集群包含若干个服务器节点，每一个节点都有一个唯一标识 ID。Raft 算法论文规定了三种节点身份：Leader、Follower 和 Candidate，etcd 的实现中又添加了 PreCandidate 和 Learner 这两种身份。
 
-![etcd原理](https://wingsxdu.com/posts/database/etcd/Node-State-Change@2x.png)
+![etcd原理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403200020059.png)
 
 ##### leader选择过程
 

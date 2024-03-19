@@ -11,7 +11,7 @@ categories:
 
 Go 语言作为一个原生支持用户态进程（Goroutine）的语言，当提到并发编程、多线程编程时，往往都离不开锁这一概念。锁是一种并发编程中的同步原语（Synchronization Primitives），它能保证多个 Goroutine 在访问同一片内存时不会出现竞争条件（Race condition）等问题。go语言在Sync包中提供了用于同步的一些基本原语，包括常见的[`sync.Mutex`](https://draveness.me/golang/tree/sync.Mutex)、[`sync.RWMutex`](https://draveness.me/golang/tree/sync.RWMutex)、[`sync.WaitGroup`](https://draveness.me/golang/tree/sync.WaitGroup)、[`sync.Once`](https://draveness.me/golang/tree/sync.Once) 和 [`sync.Cond`](https://draveness.me/golang/tree/sync.Cond)：
 
-![golang-basic-sync-primitives](https://img.draveness.me/2020-01-23-15797104327981-golang-basic-sync-primitives.png)
+![golang-basic-sync-primitives](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403200018101.png)
 
 ### 前提知识
 
@@ -60,7 +60,7 @@ type Mutex struct {
 - `mutexStarving` — 当前的互斥锁进入饥饿状态；
 - `waitersCount` — 当前互斥锁上等待的 Goroutine 个数；
 
-![golang-mutex-state](https://img.draveness.me/2020-01-23-15797104328010-golang-mutex-state.png)
+![golang-mutex-state](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403200018662.png)
 
 互斥锁的加锁过程比较复杂，它涉及自旋、信号量以及调度等概念：
 

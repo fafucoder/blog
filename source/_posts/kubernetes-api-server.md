@@ -18,9 +18,9 @@ kubernetes API Server的功能：
 - 是资源配额控制的入口， 拥有完备的集群安全机制.
 
 ### API Server原理
-![api server原理](http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png)
+![api server原理](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403200012951.png)
 
-![api 功能图](https://feisky.gitbooks.io/kubernetes/components/assets/API-server-space.png)
+![api 功能图](https://fafucoder-1252756369.cos.ap-nanjing.myqcloud.com/202403200004053.png)
 
 - api: k8s的内置的资源类型
 - apis:  用户自定义的crd资源类型
